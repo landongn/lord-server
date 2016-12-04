@@ -1,0 +1,13 @@
+html, body {
+    background-color:#000;
+    color: #eee;
+}
+
+#log {
+    background-color:#111;
+    color: green;
+    font-family: 'Consolas';
+    position: absolute;
+    width: 100%;
+    height: 90%;
+}
