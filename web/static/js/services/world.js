@@ -8,7 +8,7 @@ export default class World {
 
     switch (payload.opcode) {
       case 'game.client.connect':
-        this.game.gui(payload);
+        this.game.gui.status(payload);
         return payload.message;
 
       default:
