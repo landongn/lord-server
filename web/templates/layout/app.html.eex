@@ -18,6 +18,7 @@
       </main>
 
     </div> <!-- /container -->
+    <script src="//cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

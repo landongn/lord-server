@@ -18,11 +18,8 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-import Game from 'web/static/js/engine/game';
-import Renderer from 'web/static/js/engine/renderer';
+import Game from './game';
 import Chatbox from 'web/static/js/ui/chat';
 
 const lord = new Game();
-const ren = new Renderer();
-const chat = new Chatbox(ren);
 

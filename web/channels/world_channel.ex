@@ -6,11 +6,16 @@ defmodule Server.WorldChannel do
 
   def join("world", _payload, socket) do
     msg = View.render_to_string(WorldView, "welcome_message.html", %{})
-    {:ok, %{message: msg}, socket}
+    {:ok, %{message: msg, opcode: "game.client.connect"}, socket}
   end
 
   def handle_in('motd', _, socket) do
     msg = View.render_to_string(WorldView, "motd.html", %{})
+    {:ok, %{message: msg, actions: []}, socket}
+  end
+
+  def handle_in('auth', payload, socket) do
+    msg = View.render_to_string(WorldView, "auth_challenge.html", %{})
     {:ok, %{message: msg, actions: []}, socket}
   end
 
