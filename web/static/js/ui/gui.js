@@ -29,6 +29,5 @@ export default class Gui {
 
   status(payload) {
 
-    console.log(payload);
   }
 }

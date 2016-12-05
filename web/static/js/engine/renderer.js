@@ -18,6 +18,11 @@ export default class Renderer {
         this.handleBufferCleanup();
     }
 
+    clear() {
+        console.log('clearing');
+        this.element.innerHTML = '';
+    }
+
     handleScroll() {
 
     }
