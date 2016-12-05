@@ -3,14 +3,6 @@ export default class Chatbox {
         this.element = document.getElementById('controller');
         this.visible = false;
         this.renderer = props.renderer || {};
-
-        window.addEventListener('keypress', this.keyPressed.bind(this));
-    }
-
-    keyPressed(event) {
-        if (event.keyCode === 13) {
-            this.toggleVisibility();
-        }
     }
 
     toggleVisibility() {

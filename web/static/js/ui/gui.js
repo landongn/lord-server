@@ -19,7 +19,6 @@ export default class Gui {
     });
 
     window.addEventListener( 'click', function (e) {
-      console.log('clicked');
       const coords = { x: e.pageX, y: e.pageY };
       burst
         .tune(coords)

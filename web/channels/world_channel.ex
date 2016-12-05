@@ -1,22 +1,30 @@
 defmodule Server.WorldChannel do
   use Server.Web, :channel
+  require Logger
 
   alias Phoenix.View
   alias Server.WorldView
 
-  def join("world", _payload, socket) do
+  def join("world:system", _payload, socket) do
     msg = View.render_to_string(WorldView, "welcome_message.html", %{})
     {:ok, %{message: msg, opcode: "game.client.connect"}, socket}
   end
 
-  def handle_in('motd', _, socket) do
+  def handle_in("motd", _, socket) do
     msg = View.render_to_string(WorldView, "motd.html", %{})
-    {:ok, %{message: msg, actions: []}, socket}
+    {:reply, {:ok, %{message: msg, opcode: "game.client.motd", actions: ["enter", "space"]}}, socket}
   end
 
-  def handle_in('auth', payload, socket) do
+  def handle_in("ident", _payload, socket) do
     msg = View.render_to_string(WorldView, "auth_challenge.html", %{})
-    {:ok, %{message: msg, actions: []}, socket}
+    push socket, "msg", %{message: msg, opcode: "game.client.ident-challenge", actions: ["e", "g"]}
+    {:reply, :ok, socket}
+  end
+
+  def handle_in("email-ident", _payload, socket) do
+    msg = View.render_to_string(WorldView, "auth-email.html", %{})
+    push socket, "msg", %{message: msg, opcode: "game.client.ident-email", actions: ['enter']}
+    {:noreply, socket}
   end
 
   # # Channels can be used in a request/response fashion

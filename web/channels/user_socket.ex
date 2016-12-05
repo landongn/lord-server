@@ -3,7 +3,7 @@ defmodule Server.UserSocket do
 
   ## Channels
   channel "zone", Server.ZoneChannel
-  channel "world", Server.WorldChannel
+  channel "world:system", Server.WorldChannel
   channel "messaging", Server.MessagingChannel
   channel "combat", Server.CombatChannel
 
