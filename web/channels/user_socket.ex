@@ -2,10 +2,10 @@ defmodule Server.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "zone:*", Server.ZoneChannel
-  channel "world:*", Server.WorldChannel
-  channel "messaging:*", Server.MessagingChannel
-  channel "combat:*", Server.CombatChannel
+  channel "zone", Server.ZoneChannel
+  channel "world", Server.WorldChannel
+  channel "messaging", Server.MessagingChannel
+  channel "combat", Server.CombatChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

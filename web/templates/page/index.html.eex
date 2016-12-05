@@ -1,3 +1,5 @@
-<div id="log">
+<ul id="log"></ul>
 
-</div>
+<section class="buffer">
+    <input type="text" id="controller" />
+</section>
