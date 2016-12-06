@@ -35,9 +35,9 @@ defmodule Server.WorldChannel do
     case Server.Repo.get_by Player, email: payload do
       record when record != nil ->
         msg = View.render_to_string(WorldView, "password.html", record)
-        push socket, "msg", %{message: msg, opcode: "game.client.ident.success"}
+        push socket, "msg", %{message: msg, opcode: "game.client.ident.validuser"}
 
-      nil -> 
+      nil ->
         msg = View.render_to_string(WorldView, "user-not-found.html", %{email: payload})
         push socket, "msg", %{message: msg, opcode: "game.client.ident.notfound"}
 
@@ -45,16 +45,26 @@ defmodule Server.WorldChannel do
     {:noreply, socket}
   end
 
-  def handle_in("password-identify", %{"password" => password, "email": email}, socket) do
-    
+  def handle_in("password-identify", %{"password" => password, "email" => email}, socket) do
+
     case Server.Repo.get_by Player, email: email do
       record when record != nil ->
         hash = Comeonin.Bcrypt.checkpw(password, record.password)
-        
-        Logger.info "#{inspect(hash)}"
+        push socket, "msg", %{message: View.render_to_string(WorldView, "welcome-back.html", %{name: record.name}), opcode: "game.client.ident.success"}
+      nil ->
+        changeset = Player.changeset(%Player{}, %{email: email, password: Comeonin.Bcrypt.hashpwsalt(password)})
+        case changeset.valid? do
+          true ->
+            case Server.Repo.insert(changeset) do
+              {:ok, _} ->
+                push socket, "msg", %{message: View.render_to_string(WorldView, "email-identify.html", %{email: email}), opcode: "game.client.ident.success"}
+              {:error, changeset} ->
+                push socket, "msg", %{opcode: "game.client.ident.error"}
+            end
+          false ->
+            push socket, "msg", %{opcode: "game.client.ident.bad-password", message: "That password wasn't accepted. Try harder."}
+        end
     end
-
-    
     {:noreply, socket}
   end
 

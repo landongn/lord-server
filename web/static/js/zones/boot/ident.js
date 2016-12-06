@@ -8,6 +8,8 @@ export default {
         this.id = id;
         this.emailAddress = null;
         this.password = null;
+        this.element = null;
+        this.passwordEl = null;
       }
 
       handle_in(payload) {
@@ -19,21 +21,29 @@ export default {
             break;
 
           case 'game.client.ident.success':
-            setTimeout(() => {
-              this.focusPasswordField();
-            }, 0);
+            Mousetrap.bind('r', (e) => {
+              if (this.validLogin) {
+                this.game.changeState('boot.ready');
+              }
+            });
             break;
 
           case 'game.client.ident.notfound':
             setTimeout(() => {
-              this.focusPasswordField();
-            }, 0);
+              this.focusPasswordField('password-register');
+            }, 100);
+            break;
+
+          case 'game.client.ident.validuser':
+            setTimeout(() => {
+              this.focusPasswordField('password-returning');
+            }, 100);
             break;
 
           case 'game.client.ident.password-fail':
             setTimeout(() => {
-              this.focusPasswordField();
-            }, 0);
+              this.focusPasswordField('password');
+            }, 100);
 
           default:
             break;
@@ -41,7 +51,7 @@ export default {
       }
 
       focusEmailField() {
-        this.element = document.querySelector('input.action-input-email-address');
+        this.element = document.querySelector('.action-input-email-address');
         this.element.focus();
         this.element.addEventListener('keypress', (e) => {
           if (e.keyCode === 13) {
@@ -50,10 +60,12 @@ export default {
         });
       }
 
-      focusPasswordField() {
-        this.passwordEl = document.querySelector('input.action-input-password');
+      focusPasswordField(selector) {
+        this.passwordEl = document.querySelector(`.action-input-${selector}`);
+        console.log('selector', selector);
         this.passwordEl.focus();
         this.passwordEl.addEventListener('keypress', (e) => {
+          console.log('enter', this.passwordEl);
           if (e.keyCode === 13) {
             this.checkPassword();
           }
@@ -67,25 +79,21 @@ export default {
 
       checkPassword() {
         this.password = this.passwordEl.value;
+        if (this.emailAddress.length && this.password.length) {
+          this.game.handle_out('password-identify', 'world', {
+            email: this.emailAddress,
+            password: this.password
+          });
+        }
       }
-      
-      load() {
-        Mousetrap.bind('enter', (e) => {
-          if (this.emailAddress) {
-            this.checkPassword();
-          }
 
-          if (this.password) {
-            this.handle_out('password-identify', 'world', {
-              email: this.emailAddress,
-              password: this.password
-            });
-          }
-        });
+      load() {
 
         Mousetrap.bind('e', (e) => {
           this.game.handle_out('email-ident', 'world');
         });
+
+
       }
 
     },

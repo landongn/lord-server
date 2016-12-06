@@ -13,10 +13,6 @@ export default class Game {
         this.input = new Input(this);
     }
 
-    requestInput(cls) {
-        this.input.requestInput(cls);
-    }
-
     handle_in(message) {
         const hasMessage = this.world.event(message);
         if (hasMessage) {

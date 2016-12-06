@@ -1,1 +1,6 @@
 <li>Welcome back, <%= @email %>! Ready to <span class="action">(P)</span>lay?</li>
+<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
+<li class="command">
+  Your Command? <span class="cursor">&#x2581;</span><span class="command-options">(E)</span>
+  <span class="menu">? for menu</span>
+</li>

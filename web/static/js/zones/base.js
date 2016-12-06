@@ -2,8 +2,11 @@ export default class State {
   constructor() {}
   resignResponder() {}
   focus() {}
-  load() {}
+  load() {
+
+  }
   unload() {
     Mousetrap.reset();
+    this.game.gui.resetTouches();
   }
 }

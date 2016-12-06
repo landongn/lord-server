@@ -1,5 +1,7 @@
 import ConnectState from 'web/static/js/zones/boot/connect';
 import IdentState from 'web/static/js/zones/boot/ident';
+import WelcomeState from 'web/static/js/zones/boot/welcome';
+import VillageLoiterState from 'web/static/js/zones/village/loiter';
 
 
 export default class World {
@@ -7,7 +9,9 @@ export default class World {
     this.game = game;
     this.zones = {
       [ConnectState.id]: new ConnectState.cls(game, ConnectState.id),
-      [IdentState.id]: new IdentState.cls(game, IdentState.id)
+      [IdentState.id]: new IdentState.cls(game, IdentState.id),
+      [WelcomeState.id]: new WelcomeState.cls(game, WelcomeState.id),
+      [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id)
     };
     this.zone = null;
 
@@ -20,8 +24,8 @@ export default class World {
         this.zone.unload();
       }
 
-      if (this.zones[zone.id]) {
-          this.zone = this.zones[zone.id];
+      if (this.zones[zone.id || zone]) {
+          this.zone = this.zones[zone.id || zone];
           this.zone.load();
       }
   }
@@ -52,9 +56,15 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
-      case 'game.client.ident.success':
+      case 'game.client.ident.validuser':
         this.zone && this.zone.handle_in(payload);
         return payload.message;
+
+      case 'game.client.ident.success':
+        this.changeState(WelcomeState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
 
       default:
         console.info('unhandled opcode: ', payload.opcode);

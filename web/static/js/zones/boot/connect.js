@@ -12,11 +12,12 @@ export default {
       handle_in(payload) {
         console.log('boot.connect, in: ', payload);
       }
-      
+
       load() {
         Mousetrap.bind('enter', (e) => {
           this.game.handle_out('ident', 'world');
         });
+        this.game.gui.handleTouchesFor(['enter']);
       }
 
     },

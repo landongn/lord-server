@@ -5,7 +5,7 @@ defmodule Server.Player do
     field :name, :string
     field :experience, :integer
     field :secret, :string
-    field :challenge, :string
+    field :password, :string
     field :email, :string
 
     timestamps()
@@ -16,9 +16,9 @@ defmodule Server.Player do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :experience, :secret, :challenge, :email])
-    |> validate_required([:email])
+    |> cast(params, [:name, :experience, :secret, :password, :email])
+    |> validate_required([:email, :password])
   end
 
-  
+
 end
