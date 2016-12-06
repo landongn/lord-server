@@ -46,8 +46,15 @@ defmodule Server.WorldChannel do
   end
 
   def handle_in("password-identify", %{"password" => password, "email": email}, socket) do
-    hash = Comeonin.Bcrypt.checkpw(password)
-    Logger.info "#{inspect(hash)}"
+    
+    case Server.Repo.get_by Player, email: email do
+      record when record != nil ->
+        hash = Comeonin.Bcrypt.checkpw(password, record.password)
+        
+        Logger.info "#{inspect(hash)}"
+    end
+
+    
     {:noreply, socket}
   end
 
