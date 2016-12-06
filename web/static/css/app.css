@@ -17,7 +17,7 @@ html, body {
     background-color:#000;
     color: #05c705;
     font-family: 'Classic Console';
-    font-size: 18px;
+    font-size: 22px;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -39,8 +39,8 @@ ul > li {
 
 section.buffer {
     position: fixed;
-    bottom: 0;
-    width: 100%;
+    top: 50%;
+    width: 50%;
     height: 30px;
     background: transparent;
 }
@@ -55,4 +55,14 @@ section.buffer input {
 
 #log ul li {
 
+}
+
+span.action-input input.action {
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: violet;
+}
+span.action {
+    color: violet;
 }

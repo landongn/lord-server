@@ -17,6 +17,8 @@ defmodule Server.Player do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :experience, :secret, :challenge, :email])
-    |> validate_required([:name, :experience, :secret, :challenge, :email])
+    |> validate_required([:email])
   end
+
+  
 end

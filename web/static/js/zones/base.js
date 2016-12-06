@@ -3,5 +3,7 @@ export default class State {
   resignResponder() {}
   focus() {}
   load() {}
-  unload() {}
+  unload() {
+    Mousetrap.reset();
+  }
 }

@@ -1,29 +1,53 @@
 defmodule Server.WorldChannel do
   use Server.Web, :channel
   require Logger
+  require Comeonin.Bcrypt
 
+  alias Server.Player
   alias Phoenix.View
   alias Server.WorldView
 
-  def join("world:system", _payload, socket) do
+  def join("world:system", _, socket) do
     msg = View.render_to_string(WorldView, "welcome_message.html", %{})
     {:ok, %{message: msg, opcode: "game.client.connect"}, socket}
   end
 
   def handle_in("motd", _, socket) do
     msg = View.render_to_string(WorldView, "motd.html", %{})
-    {:reply, {:ok, %{message: msg, opcode: "game.client.motd", actions: ["enter", "space"]}}, socket}
+    push socket, "msg", %{message: msg, opcode: "game.client.motd", actions: ["enter", "space"]}
+    {:noreply, socket}
   end
 
-  def handle_in("ident", _payload, socket) do
+  def handle_in("ident", _, socket) do
     msg = View.render_to_string(WorldView, "auth_challenge.html", %{})
     push socket, "msg", %{message: msg, opcode: "game.client.ident-challenge", actions: ["e", "g"]}
-    {:reply, :ok, socket}
+    {:noreply, socket}
   end
 
-  def handle_in("email-ident", _payload, socket) do
+  def handle_in("email-ident", _, socket) do
     msg = View.render_to_string(WorldView, "auth-email.html", %{})
-    push socket, "msg", %{message: msg, opcode: "game.client.ident-email", actions: ['enter']}
+    push socket, "msg", %{message: msg, opcode: "game.client.ident-email", actions: ["enter", "space"]}
+    {:noreply, socket}
+  end
+
+  def handle_in("email-identify", %{"email" => payload}, socket) do
+
+    case Server.Repo.get_by Player, email: payload do
+      record when record != nil ->
+        msg = View.render_to_string(WorldView, "password.html", record)
+        push socket, "msg", %{message: msg, opcode: "game.client.ident.success"}
+
+      nil -> 
+        msg = View.render_to_string(WorldView, "user-not-found.html", %{email: payload})
+        push socket, "msg", %{message: msg, opcode: "game.client.ident.notfound"}
+
+    end
+    {:noreply, socket}
+  end
+
+  def handle_in("password-identify", %{"password" => password, "email": email}, socket) do
+    hash = Comeonin.Bcrypt.checkpw(password)
+    Logger.info "#{inspect(hash)}"
     {:noreply, socket}
   end
 

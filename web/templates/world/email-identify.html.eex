@@ -1,0 +1,1 @@
+<li>Welcome back, <%= @email %>! Ready to <span class="action">(P)</span>lay?</li>

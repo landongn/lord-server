@@ -27,7 +27,6 @@ export default class Game {
     handle_out(opcode, channel = '', payload = false) {
         if (payload) {
             this.connection.channels[channel].push(opcode, payload);
-            console.log('pushed with payload: ', payload);
         } else {
             console.log('pushed opcode: ', opcode);
             this.connection.channels[channel].push(opcode);

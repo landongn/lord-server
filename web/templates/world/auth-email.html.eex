@@ -1,2 +1,5 @@
-<li>Got it. Enter your email in the text box by pressing <span class="action">(Enter)</span>.</li>
-<li>When you're finished, just press <span class="action">(Enter)</span> again.</li>
+<li>Your Email Address: 
+    <span class="action-input">
+        <input class="action action-input-email-address" type="text" name="email-address" />
+    </span>
+</li>

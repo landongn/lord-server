@@ -1,5 +1,1 @@
 <ul id="log"></ul>
-
-<section class="buffer">
-    <input type="text" id="controller" />
-</section>

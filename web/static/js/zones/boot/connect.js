@@ -6,26 +6,19 @@ export default {
         super();
         this.game = game;
         this.id = id;
-        this.actions = {};
+        this.hasIdent = false;
       }
 
       handle_in(payload) {
-
+        console.log('boot.connect, in: ', payload);
       }
-
+      
       load() {
-        this.game.requestInput(this);
+        Mousetrap.bind('enter', (e) => {
+          this.game.handle_out('ident', 'world');
+        });
       }
 
-      keypress(key, event) {
-        if (key === 'enter') {
-            this.game.handle_out('ident', 'world');
-        }
-
-        if (key === 'e') {
-            this.game.handle_out('email-ident', 'world');
-        }
-      }
     },
 
     id: 'boot.connect'
