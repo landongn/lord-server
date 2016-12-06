@@ -3,7 +3,7 @@ import {Socket} from 'phoenix';
 export default class Connection {
   constructor(game) {
     this.game = game;
-    this.socket = new Socket('/socket');
+    this.socket = new Socket('/socket', {params: {token: window.zlordtoken}});
     this.socket.connect();
     this.channels = {};
     this.channels['world'] = this.socket.channel('world:system', {});

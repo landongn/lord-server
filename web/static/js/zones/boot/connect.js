@@ -17,7 +17,7 @@ export default {
         Mousetrap.bind('enter', (e) => {
           this.game.handle_out('ident', 'world');
         });
-        this.game.gui.handleTouchesFor(['enter']);
+        // this.game.gui.handleTouchesFor(['enter']);
       }
 
     },

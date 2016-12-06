@@ -7,6 +7,7 @@ export default class Gui {
     this.touchenabled = false;
     this.logEl = document.getElementById('log');
     this.touchBarEl = document.getElementById('touchBar');
+    this.touchBarEl.style.visibility = 'hidden';
     this.targets = [];
   }
 
@@ -36,6 +37,14 @@ export default class Gui {
   reconfigureForTouch() {
     this.logEl.classList.add('touch');
     this.touchBarEl.classList.add('active');
+  }
+
+  resetTouches() {
+    const ts = this.targets;
+    for (var i = 0; i < ts.length; i++) {
+      ts[i].removeEventListener('touchstart');
+      ts[i].removeEventListener('touchend');
+    }
   }
 
   toggleChat() {

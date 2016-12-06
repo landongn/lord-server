@@ -35,7 +35,7 @@ defmodule Server.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_server_key",
+    key: "lord_session",
     signing_salt: "kZZgt158"
 
   plug Server.Router
