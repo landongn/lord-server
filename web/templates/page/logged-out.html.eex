@@ -1,0 +1,11 @@
+<%= form_for @changeset, page_path(@conn, :login), fn f -> %>
+  <label>
+    Email Address: <%= text_input f, :email %>
+  </label>
+
+  <label>
+    Password: <%= password_input f, :password %>
+  </label>
+
+  <%= submit "Log In" %>
+<% end %>

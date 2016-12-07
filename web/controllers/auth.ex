@@ -2,24 +2,24 @@ defmodule Server.Auth do
   import Plug.Conn
   import Phoenix.Controller
   alias Server.Router.Helpers
+  require Logger
 
   def init(opts) do
     Keyword.fetch!(opts, :repo)
   end
 
   def call(conn, repo) do
-    
     player_id = get_session(conn, :player_id)
-
+    Logger.info "player id: #{inspect player_id}"
     if player = player_id && repo.get(Server.Player, player_id) do
       put_current_player(conn, player)
     else
-      assign(conn, :current_player, nil)  
+      assign(conn, :current_player, nil)
     end
-    
   end
 
   def login(conn, player) do
+    Logger.info "logging in: #{inspect player.id}"
     conn
     |> assign(:current_player, player)
     |> put_session(:player_id, player.id)
@@ -27,11 +27,11 @@ defmodule Server.Auth do
   end
 
   defp put_current_player(conn, player) do
-    token = Phoenix.Token.sign(conn, "user socket", player.id)
+    token = Phoenix.Token.sign(conn, "player_id", player.id)
 
     conn
     |> assign(:current_player, player)
-    |> assign(:user_token, token)
+    |> assign(:player_token, token)
     
   end
 
