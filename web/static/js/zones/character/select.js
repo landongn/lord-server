@@ -1,7 +1,7 @@
 import State from 'web/static/js/zones/base';
 
 export default {
-  cls: class CharacterCreate extends State {
+  cls: class CharacterSelectState extends State {
     constructor(game, id) {
       super();
       this.game = game;

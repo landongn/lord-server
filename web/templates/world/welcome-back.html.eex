@@ -1,7 +1,7 @@
 <li></li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <li class="command">
-  Your Command? <span class="cursor">&#x2581;</span><span class="command-options">(Enter)</span>
+  Your Command? <span class="cursor blink">&#x2581;</span><span class="command-options">(Enter)</span>
   <span class="menu">? for menu</span>
 </li>
 

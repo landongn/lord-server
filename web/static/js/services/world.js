@@ -2,6 +2,7 @@ import ConnectState from 'web/static/js/zones/boot/connect';
 import IdentState from 'web/static/js/zones/boot/ident';
 import WelcomeState from 'web/static/js/zones/boot/welcome';
 import VillageLoiterState from 'web/static/js/zones/village/loiter';
+import CharacterSelectState from 'web/static/js/zones/character/select';
 
 
 export default class World {
@@ -11,7 +12,8 @@ export default class World {
       [ConnectState.id]: new ConnectState.cls(game, ConnectState.id),
       [IdentState.id]: new IdentState.cls(game, IdentState.id),
       [WelcomeState.id]: new WelcomeState.cls(game, WelcomeState.id),
-      [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id)
+      [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
+      [CharacterSelectState.id]: new CharacterSelectState.cls(game, CharacterSelectState.id)
     };
     this.zone = null;
 
@@ -49,7 +51,7 @@ export default class World {
         return payload.message;
 
       case 'game.client.ident.success':
-        this.changeState(WelcomeState);
+        this.changeState(CharacterSelectState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 

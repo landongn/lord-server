@@ -1,3 +1,3 @@
-<section class='auth'></section>
+<%# <section class='auth'></section> %>
 <ul id="log"></ul>
-<aside id="touchBar"></aside>
+<%# <aside id="touchBar"></aside> %>

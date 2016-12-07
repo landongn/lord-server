@@ -7,6 +7,6 @@ export default class State {
   }
   unload() {
     Mousetrap.reset();
-    this.game.gui.resetTouches();
+    // this.game.gui.resetTouches();
   }
 }
