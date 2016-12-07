@@ -1,9 +1,9 @@
-import {Socket} from 'phoenix';
 
-const WORLD = 'world:*'
 export default class Session {
-    constructor() {
-        this.socketFactory = new Socket("/socket");
-
+    constructor(user) {
+        this.id = user.id;
+        this.name = user.name || '';
+        this.email = user.email || '';
+        this.token = user.token || '';
     }
 }

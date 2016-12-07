@@ -1,8 +1,8 @@
 import ConnectState from 'web/static/js/zones/boot/connect';
 import IdentState from 'web/static/js/zones/boot/ident';
-import WelcomeState from 'web/static/js/zones/boot/welcome';
 import VillageLoiterState from 'web/static/js/zones/village/loiter';
 import CharacterSelectState from 'web/static/js/zones/character/select';
+
 
 
 export default class World {
@@ -11,12 +11,15 @@ export default class World {
     this.zones = {
       [ConnectState.id]: new ConnectState.cls(game, ConnectState.id),
       [IdentState.id]: new IdentState.cls(game, IdentState.id),
-      [WelcomeState.id]: new WelcomeState.cls(game, WelcomeState.id),
       [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
       [CharacterSelectState.id]: new CharacterSelectState.cls(game, CharacterSelectState.id)
     };
     this.zone = null;
 
+  }
+
+  update(payload) {
+    console.log("world:update", payload);
   }
 
   changeState(zone = {}) {
@@ -34,7 +37,7 @@ export default class World {
 
   /* SERIOUS DRAGONS EXIST BELOW */
   event(payload) {
-    console.log("socket in: ", payload);
+    console.log("socket in: ", payload.opcode);
     switch (payload.opcode) {
       case 'game.client.connect':
         this.game.gui.status(payload);
@@ -47,11 +50,6 @@ export default class World {
 
       case 'game.client.ident-challenge':
       this.changeState(IdentState);
-        this.zone && this.zone.handle_in(payload);
-        return payload.message;
-
-      case 'game.client.ident.success':
-        this.changeState(CharacterSelectState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 

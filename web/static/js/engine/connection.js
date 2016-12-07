@@ -7,13 +7,26 @@ export default class Connection {
     this.socket.connect();
     this.channels = {};
     this.channels['world'] = this.socket.channel('world:system', {});
-    this.channels['world'].join()
-      .receive('ok', resp => {
+    this.channels['zone'] = this.socket.channel('zone', {});
+    this.channels['character'] = this.socket.channel('character', {});
+    this.channels['forest'] = this.socket.channel('forest', {});
+    this.channels['village'] = this.socket.channel('village', {});
+    this.channels['messaging'] = this.socket.channel('messaging', {});
+
+    const channels = Object.keys(this.channels);
+    for (var i = 0; i < channels.length; i++) {
+      this.channels[channels[i]].join()
+        .receive('ok', resp => {
+          this.game.handle_in(resp, true);
+        });
+
+      this.channels[channels[i]].on('msg', resp => {
         this.game.handle_in(resp, true);
       });
 
-    this.channels['world'].on('msg', resp => {
-      this.game.handle_in(resp, true);
-    });
+      this.channels[channels[i]].on('data', resp => {
+        this.game.update(channels[i], resp);
+      });
+    }
   }
 }

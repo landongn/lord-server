@@ -3,6 +3,8 @@ import Connection from 'web/static/js/engine/connection';
 import World from 'web/static/js/services/world';
 import Gui from 'web/static/js/ui/gui';
 import Input from 'web/static/js/engine/input';
+import Character from 'web/static/js/mechanics/character';
+import Session from 'web/static/js/mechanics/session';
 
 export default class Game {
     constructor() {
@@ -11,12 +13,24 @@ export default class Game {
         this.world = new World(this);
         this.gui = new Gui(this);
         this.input = new Input(this);
+        this.character = null;
+        this.session = null;
     }
 
     handle_in(message) {
         const hasMessage = this.world.event(message);
         if (hasMessage) {
             this.renderer.render(message);
+        }
+    }
+
+    update(system, payload) {
+        switch(system) {
+            case 'character':
+                if (!this.character) {this.character = new Character(payload)};
+            default:
+                this.world.update(payload);
+                break;
         }
     }
 

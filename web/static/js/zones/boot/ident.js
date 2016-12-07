@@ -62,7 +62,6 @@ export default {
 
       focusPasswordField(selector) {
         this.passwordEl = document.querySelector(`.action-input-${selector}`);
-        console.log('selector', selector);
         this.passwordEl.focus();
         this.passwordEl.addEventListener('keypress', (e) => {
           console.log('enter', this.passwordEl);

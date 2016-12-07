@@ -6,6 +6,9 @@ defmodule Server.UserSocket do
   channel "world:system", Server.WorldChannel
   channel "messaging", Server.MessagingChannel
   channel "combat", Server.CombatChannel
+  channel "forest", Server.ForestChannel
+  channel "village", Server.VillageChannel
+  channel "character", Server.CharacterChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

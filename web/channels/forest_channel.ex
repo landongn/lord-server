@@ -1,7 +1,7 @@
-defmodule Server.MessagingChannel do
+defmodule Server.ForestChannel do
   use Server.Web, :channel
 
-  def join("messaging", payload, socket) do
+  def join("forest", payload, socket) do
     if authorized?(payload) do
       {:ok, socket}
     else
@@ -16,7 +16,7 @@ defmodule Server.MessagingChannel do
   end
 
   # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (messaging:lobby).
+  # broadcast to everyone in the current topic (forest:lobby).
   def handle_in("shout", payload, socket) do
     broadcast socket, "shout", payload
     {:noreply, socket}

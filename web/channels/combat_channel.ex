@@ -1,7 +1,7 @@
 defmodule Server.CombatChannel do
   use Server.Web, :channel
 
-  def join("combat:lobby", payload, socket) do
+  def join("combat", payload, socket) do
     if authorized?(payload) do
       {:ok, socket}
     else

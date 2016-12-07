@@ -6,6 +6,7 @@ defmodule Server.WorldChannel do
   alias Server.Player
   alias Phoenix.View
   alias Server.WorldView
+  alias Server.CharacterView
   alias Server.Auth
 
   def join("world:system", _, socket) do
@@ -20,14 +21,20 @@ defmodule Server.WorldChannel do
   end
 
   def handle_in("ident", _, socket) do
-    msg = View.render_to_string(WorldView, "auth_challenge.html", %{})
-    push socket, "msg", %{message: msg, opcode: "game.client.ident-challenge", actions: ["e"]}
+    push socket, "msg", %{
+      message: View.render_to_string(WorldView, "auth_challenge.html", %{}),
+      opcode: "game.client.ident-challenge",
+      actions: ["e"]
+    }
     {:noreply, socket}
   end
 
   def handle_in("email-ident", _, socket) do
-    msg = View.render_to_string(WorldView, "auth-email.html", %{})
-    push socket, "msg", %{message: msg, opcode: "game.client.ident-email", actions: ["enter"]}
+    push socket, "msg", %{
+      message: View.render_to_string(WorldView, "auth-email.html", %{}),
+      opcode: "game.client.ident-email",
+      actions: ["enter"]
+    }
     {:noreply, socket}
   end
 
@@ -35,12 +42,17 @@ defmodule Server.WorldChannel do
 
     case Server.Repo.get_by Player, email: payload do
       record when record != nil ->
-        msg = View.render_to_string(WorldView, "password.html", record)
-        push socket, "msg", %{message: msg, opcode: "game.client.ident.validuser"}
+        push socket, "msg", %{
+          message: View.render_to_string(WorldView, "password.html", record),
+          opcode: "game.client.ident.validuser"
+        }
 
       nil ->
-        msg = View.render_to_string(WorldView, "user-not-found.html", %{email: payload})
-        push socket, "msg", %{message: msg, opcode: "game.client.ident.notfound", actions: ["enter"]}
+        push socket, "msg", %{
+          message: View.render_to_string(WorldView, "user-not-found.html", %{email: payload}),
+          opcode: "game.client.ident.notfound",
+          actions: ["enter"]
+        }
 
     end
     {:noreply, socket}
@@ -50,13 +62,34 @@ defmodule Server.WorldChannel do
 
     case Server.Repo.get_by Player, email: email do
       record when record != nil ->
-        hash = Comeonin.Bcrypt.checkpw(password, record.password)
-        token = Phoenix.Token.sign(Server.Endpoint, "player_id", record.id)
-        updated = Ecto.Changeset.change record, secret: token
-        Server.Repo.update updated
-        push socket, "msg", %{token: token, message: View.render_to_string(WorldView, "welcome-back.html", %{name: record.name}), opcode: "game.client.ident.success", actions: []}
+        case Comeonin.Bcrypt.checkpw(password, record.password) do
+          true ->
+            token = Phoenix.Token.sign(Server.Endpoint, "player_id", record.id)
+            updated = Ecto.Changeset.change record, secret: token
+            Server.Repo.update updated
+
+            push socket, "data", %{
+              opcode: 'game.client.session.create',
+              token: token,
+              user_id: record.id
+            }
+
+            push socket, "msg", %{
+              message: View.render_to_string(CharacterView, "character-select.html", %{}),
+              opcode: "game.zone.character.select",
+              actions: []
+            }
+          _ ->
+            push socket, "msg", %{
+              message: View.render_to_string(WorldView, "auth_challenge.html", %{}),
+              opcode: "game.client.ident-challenge",
+              actions: ["e"]
+            }
+        end
       nil ->
-        changeset = Player.changeset(%Player{}, %{email: email, password: Comeonin.Bcrypt.hashpwsalt(password)})
+        changeset = Player.changeset(%Player{}, %{
+          email: email, password: Comeonin.Bcrypt.hashpwsalt(password)
+        })
         case changeset.valid? do
           true ->
             case Server.Repo.insert(changeset) do
@@ -64,12 +97,27 @@ defmodule Server.WorldChannel do
                 token = Phoenix.Token.sign(Server.Endpoint, "player_id", player.id)
                 updated = Ecto.Changeset.change player, secret: token
                 Server.Repo.update updated
-                push socket, "msg", %{token: token, message: View.render_to_string(WorldView, "email-identify.html", %{email: email}), opcode: "game.client.ident.success", actions: []}
+
+                push socket, "data", %{
+                  opcode: 'game.client.session.create',
+                  token: token,
+                  user_id: player.id,
+                }
+
+                push socket, "msg", %{
+                  message: View.render_to_string(CharacterView, "character-select.html", %{}),
+                  opcode: "game.zone.character.select",
+                  actions: []
+                }
               {:error, changeset} ->
                 push socket, "msg", %{opcode: "game.client.ident.error"}
             end
           false ->
-            push socket, "msg", %{opcode: "game.client.ident.bad-password", message: "That password wasn't accepted. Try harder.", actions: []}
+            push socket, "msg", %{
+              opcode: "game.client.ident.bad-password",
+              message: "That password didn't work. Sorry.",
+              actions: []
+            }
         end
     end
     {:noreply, socket}
@@ -90,7 +138,7 @@ defmodule Server.WorldChannel do
   # end
 
   # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
-  end
+  # defp authorized?(_payload) do
+  #   true
+  # end
 end

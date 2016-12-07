@@ -1,0 +1,9 @@
+<li>Which Character would you like to play?</li>
+<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
+<%= for {character, i} <- Enum.with_index(@characters) do %>
+<li><span class="action"><%= i %></span> <%= character %></li>
+<% end %>
+<li class="command">
+  Your Command? <span class="blink cursor">&#x2581;</span><span class="command-options">(Enter)</span>
+  <span class="menu">? for menu</span>
+</li>
