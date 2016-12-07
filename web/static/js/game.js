@@ -14,7 +14,7 @@ export default class Game {
         this.gui = new Gui(this);
         this.input = new Input(this);
         this.character = null;
-        this.session = null;
+        this.session = new Session({});
     }
 
     handle_in(message) {
@@ -26,8 +26,15 @@ export default class Game {
 
     update(system, payload) {
         switch(system) {
+            case 'session':
+                this.session.update(payload);
+                break;
+
             case 'character':
-                if (!this.character) {this.character = new Character(payload)};
+                if (!this.character) {this.character = new Character(payload)}
+                this.character.update(payload);
+                break;
+                
             default:
                 this.world.update(payload);
                 break;
@@ -36,7 +43,10 @@ export default class Game {
 
     handle_out(opcode, channel = '', payload = false) {
         if (payload) {
-            this.connection.channels[channel].push(opcode, payload);
+            const decoratedPayload = Object.assign({}, payload);
+            decoratedPayload.token = this.session && this.session.token || '';
+            decoratedPayload.user_id = this.session && this.session.id || '';
+            this.connection.channels[channel].push(opcode, decoratedPayload);
         } else {
             console.log('pushed opcode: ', opcode);
             this.connection.channels[channel].push(opcode);

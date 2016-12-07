@@ -12,9 +12,9 @@ defmodule Server.CharacterChannel do
     {:ok, socket}
   end
 
-  def handle_in("game.zone.character.list", _, socket) do
+  def handle_in("game.zone.character.list", payload, socket) do
     q = Character
-      |> Query.where(player_id: ^socket.user_id)
+      |> Query.where(player_id: ^payload["user_id"])
     results = Repo.all(q)
 
     push socket, "msg", %{

@@ -10,11 +10,9 @@ export default {
     }
     load() {
       Mousetrap.bind('c', () => {
-        console.log('c pressed');
         this.createCharacter();
       });
       Mousetrap.bind('l', () => {
-        console.log('l pressed');
         this.reloadCharacters();
       });
     }
