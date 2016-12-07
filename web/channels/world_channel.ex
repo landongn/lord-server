@@ -68,6 +68,7 @@ defmodule Server.WorldChannel do
             updated = Ecto.Changeset.change player, secret: token
             Server.Repo.update updated
 
+            session = :ets.lookup(socket.session)
             assign(socket, :user_id, player.id)
             assign(socket, :token, token)
 
