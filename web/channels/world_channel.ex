@@ -61,17 +61,20 @@ defmodule Server.WorldChannel do
   def handle_in("password-identify", %{"password" => password, "email" => email}, socket) do
 
     case Server.Repo.get_by Player, email: email do
-      record when record != nil ->
-        case Comeonin.Bcrypt.checkpw(password, record.password) do
+      player when player != nil ->
+        case Comeonin.Bcrypt.checkpw(password, player.password) do
           true ->
-            token = Phoenix.Token.sign(Server.Endpoint, "player_id", record.id)
-            updated = Ecto.Changeset.change record, secret: token
+            token = Phoenix.Token.sign(Server.Endpoint, "player_id", player.id)
+            updated = Ecto.Changeset.change player, secret: token
             Server.Repo.update updated
+
+            assign(socket, :user_id, player.id)
+            assign(socket, :token, token)
 
             push socket, "data", %{
               opcode: 'game.client.session.create',
               token: token,
-              user_id: record.id
+              user_id: player.id
             }
 
             push socket, "msg", %{
@@ -97,6 +100,9 @@ defmodule Server.WorldChannel do
                 token = Phoenix.Token.sign(Server.Endpoint, "player_id", player.id)
                 updated = Ecto.Changeset.change player, secret: token
                 Server.Repo.update updated
+
+                assign(socket, :user_id, player.id)
+                assign(socket, :token, token)
 
                 push socket, "data", %{
                   opcode: 'game.client.session.create',

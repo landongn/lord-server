@@ -10,14 +10,16 @@ export default {
     }
     load() {
       Mousetrap.bind('c', () => {
+        console.log('c pressed');
         this.createCharacter();
       });
       Mousetrap.bind('l', () => {
+        console.log('l pressed');
         this.reloadCharacters();
       });
-
     }
     handle_in(payload) {
+      console.log('handling', payload);
       switch(payload.opcode) {
         case 'game.zone.character.list':
           this.characterCount = payload.characters.length;
@@ -58,5 +60,6 @@ export default {
         });
       }
     }
-  }
+  },
+  id: 'character.select'
 }
