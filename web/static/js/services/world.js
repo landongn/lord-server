@@ -48,26 +48,19 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
-      case 'game.client.ident-email':
-        this.zone && this.zone.handle_in(payload);
-        return payload.message;
-
-      case 'game.client.ident.notfound':
-        this.zone && this.zone.handle_in(payload);
-        return payload.message;
-
-      case 'game.client.ident.validuser':
-        this.zone && this.zone.handle_in(payload);
-        return payload.message;
-
       case 'game.client.ident.success':
         this.changeState(WelcomeState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
+      case 'game.zone.character.select':
+        this.changeState(CharacterSelectState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
 
       default:
-        console.info('unhandled opcode: ', payload.opcode);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
         break;
     }
   }

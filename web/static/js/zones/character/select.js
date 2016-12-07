@@ -1,14 +1,14 @@
 import State from 'web/static/js/zones/base';
 
 export default {
-  cls: class VillageLoiterState extends State {
+  cls: class CharacterCreate extends State {
     constructor(game, id) {
       super();
       this.game = game;
       this.id = id;
     }
     load() {
-      console.log('loitering in the village');
+      console.log('character select');
     }
     handle_in(payload) {
 
