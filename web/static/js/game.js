@@ -15,6 +15,9 @@ export default class Game {
         this.input = new Input(this);
         this.character = null;
         this.session = new Session({});
+        window.addEventListener('touchstart', (e) => {
+            Mousetrap.trigger(e.target.attributes['data-command'].value);
+        });
     }
 
     handle_in(message) {
@@ -22,6 +25,8 @@ export default class Game {
         if (hasMessage) {
             this.renderer.render(message);
         }
+        const el = document.querySelector('.command-options')
+
     }
 
     update(system, payload) {

@@ -1,8 +1,8 @@
 <li>Welcome back!</li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
-<li><span class="action">(L)</span>ist existing characters</li>
-<li><span class="action">(C)</span>reate new character</li>
-<li><span class="action">(D)</span>elete a dead or unwanted character</li>
+<li><span class="action" data-command="l">(L)</span>ist existing characters</li>
+<li><span class="action" data-command="c">(C)</span>reate new character</li>
+<li><span class="action" data-command="d">(D)</span>elete a dead or unwanted character</li>
 <li class="command">
   Your Command? <span class="blink cursor">&#x2581;</span>
   <span class="command-options">(L, C, D)</span>

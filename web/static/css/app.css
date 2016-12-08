@@ -17,20 +17,30 @@ html, body {
     background-color:#000;
     color: #05c705;
     font-family: 'Classic Console';
-    font-size: 22px;
+    font-size:16px;
     -webkit-font-smoothing: antialiased;
 }
 
 #log {
-    background-color:#111;
+    background-color:#000;
     position: absolute;
+    top: 0;
     width: 100%;
-    height: 100%;
+    left: 0;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     margin: 0;
     padding: 10px;
+    font-size: 1.5em;
+}
+
+img.centered {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+
 }
 
 #touchBar {
@@ -111,4 +121,12 @@ span.action {
 .blink {
   animation: blink 1s step-start 0s infinite;
   -webkit-animation: blink 1s step-start 0s infinite;
+}
+
+span.special-light {
+    color: lightgreen;
+}
+
+span.strong {
+    color: magenta;
 }

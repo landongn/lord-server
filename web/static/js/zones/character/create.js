@@ -35,7 +35,8 @@ export default {
     verifyNameUniqueness() {
       const name = this.nameElement.value;
       this.game.handle_out('game.zone.character.validate', 'character', {name: name});
-      this.nameElement.removeEventListener('keypress');
+      this.nameElement.blur();
+
     }
 
     handle_in(payload) {

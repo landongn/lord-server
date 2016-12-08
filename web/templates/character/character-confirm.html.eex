@@ -1,10 +1,13 @@
 <li><%= @name %> has a nice ring to it.  What class do you want to be?
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
-<li><span class="action">(1)</span> Fighter: A brute who uses strength and steel to overcome their foes. Bonus to health pool and damage.</li>
-<li><span class="action">(2)</span> Wizard: A keen mind, trained over decades of intent study.  Special ability: Disintegrate -- make the very matter of your foes literally rip apart.</li>
-<li><span class="action">(3)</span> Thief: A master of deception, who'll cut you with their tongue right up to the point that they cut you with their blade. Special Ability: Sneak Attack -- deal exceptional damage, ignoring the targets defense rating.
+<li><span data-command="1" class="action">(1)</span> Fighter: A brute who uses strength and steel to overcome their foes. Bonus to health pool and damage rating.</li>
+<li><span class="special-light">Special ability:</span> <span class="strong">Power Strike</span> -- Pummel your opponent with overwhelming force.</li>
+<li><span class="action" data-command="2">(2)</span> Wizard: A keen mind, trained over decades of intent study.</li>
+<li><span class="special-light">Special ability:</span> <span class="strong">Disintegrate</span> -- make the very matter of your foes literally rip apart. Works most of the time.</li>
+<li><span data-command="3" class="action">(3)</span> Thief: A master of deception, catch them cutting your purse, and they cut you with their blades.</li>
+<li><span class="special-light">Special Ability:</span> <span class="strong">Sneak Attack</span> -- deal exceptional damage, ignoring the targets defense rating.</li>
 
-<li><span class="action">(B)</span>ack to character select</li>
+<li><span class="action" data-command="b">(B)</span>ack to character select</li>
 <li class="command">
   Your Command? <span class="blink cursor">&#x2581;</span>
   <span class="command-options">(1, 2, 3, B)</span>

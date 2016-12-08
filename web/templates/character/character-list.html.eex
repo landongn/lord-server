@@ -1,11 +1,14 @@
 <li>Which Character would you like to play?</li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <%= for {character, i} <- Enum.with_index(@characters) do %>
-<li><span class="action"><%= i %></span> <%= character %></li>
+<li><span class="action" data-command="<%= i %>">(<%= i+1 %>)</span> <%= character["name"] %>: Level <%= character["level"] %> <%= character["class"] %></li>
+<li><span class="special-light">Current Weapon:</span> <%= character["weapon"] %></li>
+<li><span class="special-light">Current Armor:</span> <%= character["armor"] %></li>
+<li>Gold: <%= character["gold"] %></li>
 <% end %>
-<li><span class="action">(B)</span>ack to character select</li>
+<li><span class="action" data-command="b">(B)</span>ack to character select</li>
 <li class="command">
   Your Command? <span class="blink cursor">&#x2581;</span>
-  <span class="command-options">(B)</span>
+  <span data-command="b" class="command-options">(B)</span>
   <span class="menu">? for menu</span>
 </li>

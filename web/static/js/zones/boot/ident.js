@@ -72,14 +72,14 @@ export default {
 
       checkEmail() {
         this.emailAddress = this.element.value;
-        this.game.handle_out('email-identify', 'world', {email: this.emailAddress});
+        this.game.handle_out('email-identify', 'world', {email: this.emailAddress.toLowerCase()});
       }
 
       checkPassword() {
         this.password = this.passwordEl.value;
         if (this.emailAddress.length && this.password.length) {
           this.game.handle_out('password-identify', 'world', {
-            email: this.emailAddress,
+            email: this.emailAddress.toLowerCase(),
             password: this.password
           });
         }

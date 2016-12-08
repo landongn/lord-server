@@ -1,6 +1,6 @@
-<li>I don't recognize you.  In order to go any further, I'll need an <span class="action">(E)</span>mail address.</li>
+<li>I don't recognize you.  In order to go any further, I'll need an <span data-command="e" class="action">(E)</span>mail address.</li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <li class="command">
-  Your Command? <span class="cursor blink">&#x2581;</span><span class="command-options">(E)</span>
+  Your Command? <span class="cursor blink">&#x2581;</span><span data-command="e" class="command-options">(E)</span>
   <span class="menu">? for menu</span>
 </li>

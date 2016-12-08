@@ -6,21 +6,27 @@ defmodule Server.CharacterChannel do
   alias Server.Repo
   alias Server.Player
   alias Server.Character
-  alias Ecto.Query
+  alias Server.Weapon
+  alias Server.Armor
+  alias Server.Class
 
   def join("character", _payload, socket) do
     {:ok, socket}
   end
 
   def handle_in("game.zone.character.list", payload, socket) do
-    q = Character
-      |> Query.where(player_id: ^payload["user_id"])
-    results = Repo.all(q)
+
+    chars = Repo.all from c in Character,
+      join: w in Weapon, on: c.weapon_id == w.id,
+      join: a in Armor, on: c.armor_id == a.id,
+      join: k in Class, on: c.class_id == k.id,
+      select: %{"name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => c.name},
+      where: c.player_id == ^payload["user_id"]
 
     push socket, "msg", %{
       opcode: "game.zone.character.list",
-      characters: results,
-      message: View.render_to_string(CharacterView, "character-list.html", %{characters: results})
+      characters: chars,
+      message: View.render_to_string(CharacterView, "character-list.html", %{characters: chars})
     }
     {:noreply, socket}
   end
@@ -43,7 +49,7 @@ defmodule Server.CharacterChannel do
   end
 
   def handle_in("game.zone.character.validate", payload, socket) do
-    
+
     case Repo.get_by Character, name: payload["name"] do
       {:ok, user} ->
         push socket, "msg", %{
