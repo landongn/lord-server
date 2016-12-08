@@ -34,7 +34,7 @@ export default class Game {
                 if (!this.character) {this.character = new Character(payload)}
                 this.character.update(payload);
                 break;
-                
+
             default:
                 this.world.update(payload);
                 break;
@@ -42,14 +42,9 @@ export default class Game {
     }
 
     handle_out(opcode, channel = '', payload = false) {
-        if (payload) {
-            const decoratedPayload = Object.assign({}, payload);
-            decoratedPayload.token = this.session && this.session.token || '';
-            decoratedPayload.user_id = this.session && this.session.id || '';
-            this.connection.channels[channel].push(opcode, decoratedPayload);
-        } else {
-            console.log('pushed opcode: ', opcode);
-            this.connection.channels[channel].push(opcode);
-        }
+        const decoratedPayload = Object.assign({}, payload);
+        decoratedPayload.token = this.session && this.session.token || '';
+        decoratedPayload.user_id = this.session && this.session.id || '';
+        this.connection.channels[channel].push(opcode, decoratedPayload);
     }
 }

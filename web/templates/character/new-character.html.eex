@@ -1,0 +1,6 @@
+<li>What would you like to name this character?
+<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
+    <span class="action-input">
+        <input class="action action-input-new-character" type="text" name="character-new" />
+    </span>
+</li>

@@ -3,7 +3,9 @@
 <%= for {character, i} <- Enum.with_index(@characters) do %>
 <li><span class="action"><%= i %></span> <%= character %></li>
 <% end %>
+<li><span class="action">(B)</span>ack to character select</li>
 <li class="command">
-  Your Command? <span class="blink cursor">&#x2581;</span><span class="command-options">(Enter)</span>
+  Your Command? <span class="blink cursor">&#x2581;</span>
+  <span class="command-options">(B)</span>
   <span class="menu">? for menu</span>
 </li>

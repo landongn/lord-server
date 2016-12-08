@@ -15,19 +15,18 @@ export default {
       Mousetrap.bind('l', () => {
         this.reloadCharacters();
       });
+      Mousetrap.bind('d', () => {
+        this.deleteCharacter()
+      });
+      Mousetrap.bind('b', () => {
+        this.game.handle_out('game.zone.character.select', 'character');
+      });
     }
     handle_in(payload) {
-      console.log('handling', payload);
       switch(payload.opcode) {
         case 'game.zone.character.list':
           this.characterCount = payload.characters.length;
           this.updateCharacterList(payload);
-          break;
-
-        case 'game.zone.character.create':
-          break;
-
-        case 'game.zone.character.delete':
           break;
 
         default:
@@ -43,11 +42,12 @@ export default {
       this.game.handle_out('game.zone.character.create', 'character');
     }
 
-    deleteCharacter(character) {
-      this.game.handle_out('game.zone.character.delete', 'character', character);
+    deleteCharacter() {
+      this.game.handle_out('game.zone.character.delete', 'character');
     }
 
     updateCharacterList(payload) {
+      this.game.renderer.clear();
       for (var i = 0; i < this.characterCount; i++) {
         Mousetrap.unbind(i+'');
       }

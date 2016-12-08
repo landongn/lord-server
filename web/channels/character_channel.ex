@@ -25,10 +25,43 @@ defmodule Server.CharacterChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.character.create", payload, socket) do
-
+  def handle_in("game.zone.character.create", _payload, socket) do
+    push socket, "msg", %{
+      opcode: "game.zone.character.new",
+      message: View.render_to_string(CharacterView, "new-character.html", %{})
+    }
     {:noreply, socket}
   end
+
+  def handle_in("game.zone.character.select", payload, socket) do
+    push socket, "msg", %{
+      message: View.render_to_string(CharacterView, "character-select.html", %{}),
+      opcode: "game.zone.character.select",
+      actions: []
+    }
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.character.validate", payload, socket) do
+    
+    case Repo.get_by Character, name: payload["name"] do
+      {:ok, user} ->
+        push socket, "msg", %{
+          message: View.render_to_string(CharacterView, "character-name-reject.html", %{}),
+          opcode: "game.zone.character.name-reject",
+          actions: []
+        }
+      nil ->
+        push socket, "msg", %{
+          message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"]}),
+          opcode: "game.zone.character.confirm",
+          actions: []
+        }
+      {:noreply, socket}
+    end
+
+  end
+
 
   def handle_in("game.zone.character.new", payload, socket) do
     {:noreply, socket}

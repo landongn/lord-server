@@ -64,7 +64,6 @@ export default {
         this.passwordEl = document.querySelector(`.action-input-${selector}`);
         this.passwordEl.focus();
         this.passwordEl.addEventListener('keypress', (e) => {
-          console.log('enter', this.passwordEl);
           if (e.keyCode === 13) {
             this.checkPassword();
           }

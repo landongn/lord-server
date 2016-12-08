@@ -1,0 +1,11 @@
+<li><%= @name %> has a nice ring to it.  What class do you want to be?
+<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
+<li><span class="action">(1)</span> Fighter: A brute who uses strength and steel to overcome their foes. Bonus to health pool and damage.</li>
+<li><span class="action">(2)</span> Wizard: A keen mind, trained over decades of intent study.  Special ability: Disintegrate -- make the very matter of your foes literally rip apart.</li>
+<li><span class="action">(3)</span> Thief: A master of deception, who'll cut you with their tongue right up to the point that they cut you with their blade. Special Ability: Sneak Attack -- deal exceptional damage, ignoring the targets defense rating.
+
+<li><span class="action">(B)</span>ack to character select</li>
+<li class="command">
+  Your Command? <span class="blink cursor">&#x2581;</span>
+  <span class="command-options">(1, 2, 3, B)</span>
+</li>

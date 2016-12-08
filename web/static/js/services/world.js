@@ -2,8 +2,8 @@ import ConnectState from 'web/static/js/zones/boot/connect';
 import IdentState from 'web/static/js/zones/boot/ident';
 import VillageLoiterState from 'web/static/js/zones/village/loiter';
 import CharacterSelectState from 'web/static/js/zones/character/select';
-
-
+import CharacterCreateState from 'web/static/js/zones/character/create';
+import CharacterListState from 'web/static/js/zones/character/list';
 
 export default class World {
   constructor(game) {
@@ -12,7 +12,9 @@ export default class World {
       [ConnectState.id]: new ConnectState.cls(game, ConnectState.id),
       [IdentState.id]: new IdentState.cls(game, IdentState.id),
       [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
-      [CharacterSelectState.id]: new CharacterSelectState.cls(game, CharacterSelectState.id)
+      [CharacterSelectState.id]: new CharacterSelectState.cls(game, CharacterSelectState.id),
+      [CharacterCreateState.id]: new CharacterCreateState.cls(game, CharacterCreateState.id),
+      [CharacterListState.id]: new CharacterListState.cls(game, CharacterListState.id)
     };
     this.zone = null;
 
@@ -23,6 +25,7 @@ export default class World {
   }
 
   changeState(zone = {}) {
+    console.log("changing state to : ", zone);
       this.game.renderer.clear();
 
       if (this.zone) {
@@ -55,6 +58,16 @@ export default class World {
 
       case 'game.zone.character.select':
         this.changeState(CharacterSelectState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      case 'game.zone.character.new':
+        this.changeState(CharacterCreateState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      case 'game.zone.character.list':
+        this.changeState(CharacterListState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 

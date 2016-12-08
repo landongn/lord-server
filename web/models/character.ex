@@ -17,6 +17,7 @@ defmodule Server.Character do
     belongs_to :armor, Server.Armor
     belongs_to :weapon, Server.Weapon
     belongs_to :class, Server.Class
+    belongs_to :player, Server.Player
 
     timestamps()
   end
