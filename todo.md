@@ -47,6 +47,9 @@
     - Win
     - Die
 
+- Healers Hut
+    - Heal
+    
 - Bank
     - Loiter
     - Withdrawl
