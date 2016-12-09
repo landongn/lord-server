@@ -3,16 +3,16 @@ defmodule Server.Character do
 
   schema "characters" do
     field :name, :string
-    field :level, :integer
-    field :experience, :integer
-    field :gold, :integer
-    field :gems, :integer
+    field :level, :integer, default: 1
+    field :experience, :integer, default: 0
+    field :gold, :integer, default: 0
+    field :gems, :integer, default: 0
     field :is_alive, :boolean, default: false
-    field :health, :integer
-    field :defense, :integer
+    field :health, :integer, default: 25
+    field :defense, :integer, default: 0
     field :is_admin, :boolean, default: false
-    field :sex, :string
-    field :attractiveness, :integer
+    field :sex, :string, default: "male"
+    field :attractiveness, :integer, default: 1
     field :married, :boolean, default: false
     belongs_to :armor, Server.Armor
     belongs_to :weapon, Server.Weapon
@@ -29,5 +29,13 @@ defmodule Server.Character do
     struct
     |> cast(params, [:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :is_admin, :sex, :attractiveness, :married])
     |> validate_required([:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :is_admin, :sex, :attractiveness, :married])
+  end
+
+  def new_character(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:name, :player_id, :class_id])
+    |> validate_required([:name, :class_id, :player_id])
+    |> cast_assoc(:class, required: true)
+    |> cast_assoc(:player, required: true)
   end
 end

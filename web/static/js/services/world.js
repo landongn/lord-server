@@ -4,7 +4,7 @@ import VillageLoiterState from 'web/static/js/zones/village/loiter';
 import CharacterSelectState from 'web/static/js/zones/character/select';
 import CharacterCreateState from 'web/static/js/zones/character/create';
 import CharacterListState from 'web/static/js/zones/character/list';
-import CharacterValidateState from 'web/static/js/zones/character/list';
+import CharacterValidateState from 'web/static/js/zones/character/validate';
 
 export default class World {
   constructor(game) {

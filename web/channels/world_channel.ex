@@ -44,7 +44,8 @@ defmodule Server.WorldChannel do
       record when record != nil ->
         push socket, "msg", %{
           message: View.render_to_string(WorldView, "password.html", record),
-          opcode: "game.client.ident.validuser"
+          opcode: "game.client.ident.validuser",
+          actions: []
         }
 
       nil ->
@@ -78,7 +79,7 @@ defmodule Server.WorldChannel do
             push socket, "msg", %{
               message: View.render_to_string(CharacterView, "character-select.html", %{}),
               opcode: "game.zone.character.select",
-              actions: []
+              actions: ["b", "l", "c", "d"]
             }
           _ ->
             push socket, "msg", %{

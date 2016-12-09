@@ -1,6 +1,6 @@
 defmodule Server.CharacterChannel do
   use Server.Web, :channel
-
+  require Logger
   alias Phoenix.View
   alias Server.CharacterView
   alias Server.Repo
@@ -55,13 +55,15 @@ defmodule Server.CharacterChannel do
         push socket, "msg", %{
           message: View.render_to_string(CharacterView, "character-name-reject.html", %{}),
           opcode: "game.zone.character.name-reject",
+          name: payload["name"],
           actions: []
         }
       nil ->
         push socket, "msg", %{
           message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"]}),
           opcode: "game.zone.character.confirm",
-          actions: []
+          name: payload["name"],
+          actions: ["k", "d", "l", "b"]
         }
       {:noreply, socket}
     end
@@ -69,7 +71,31 @@ defmodule Server.CharacterChannel do
   end
 
 
-  def handle_in("game.zone.character.new", payload, socket) do
+  def handle_in("game.zone.character.class-selected", payload, socket) do
+    Logger.info "payload data: #{inspect payload}"
+    changeset = Character.new_character(%Character{}, %{
+      name: payload["name"],
+      class_id: payload["class"],
+      player_id: payload["user_id"]
+    })
+
+    IO.inspect(changeset)
+
+    case Repo.insert!(changeset) do
+      {:ok, record} -> 
+        push socket, "msg", %{
+          message: View.render_to_string(CharacterView, "character-birth.html", %{}),
+          opcode: "game.zone.character.birth",
+          actions: []
+        }
+      :error ->
+        push socket, "msg", %{
+          message: View.render_to_string(CharacterView, "character-name-reject.html", %{}),
+          opcode: "game.zone.character.invalid-character",
+          actions: []
+        }
+    end
+
     {:noreply, socket}
   end
 

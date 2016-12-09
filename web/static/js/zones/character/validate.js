@@ -7,17 +7,18 @@ export default {
       this.game = game;
       this.id = id;
       this.cls = null;
+      this.name = null;
     }
 
     load() {
 
-      Mousetrap.bind('1', () => {
+      Mousetrap.bind('k', () => {
         this.chooseClass(1);
       });
-      Mousetrap.bind('2', () => {
+      Mousetrap.bind('d', () => {
         this.chooseClass(2);
       });
-      Mousetrap.bind('3', () => {
+      Mousetrap.bind('l', () => {
         this.chooseClass(3);
       });
 
@@ -29,11 +30,11 @@ export default {
 
     chooseClass(cls) {
       this.cls = cls;
-      this.game.handle_out('game.zone.character.class-selected', 'character', {class: this.cls});
+      this.game.handle_out('game.zone.character.class-selected', 'character', {class: this.cls, name: this.name});
     }
 
     confirm() {
-      this.game.handle_out('game.zone.character.birth', {class: this.cls});
+      this.game.handle_out('game.zone.character.birth', {class: this.cls, name: this.name});
     }
 
     handle_in(payload) {
@@ -44,6 +45,10 @@ export default {
           Mousetrap.bind('c', () => {
             this.confirm();
           });
+          break;
+
+        case 'game.zone.character.confirm':
+          this.name = payload.name;
           break;
 
         default:
