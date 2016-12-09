@@ -51,13 +51,6 @@ defmodule Server.CharacterChannel do
   def handle_in("game.zone.character.validate", payload, socket) do
 
     case Repo.get_by Character, name: payload["name"] do
-      {:ok, user} ->
-        push socket, "msg", %{
-          message: View.render_to_string(CharacterView, "character-name-reject.html", %{}),
-          opcode: "game.zone.character.name-reject",
-          name: payload["name"],
-          actions: []
-        }
       nil ->
         push socket, "msg", %{
           message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"]}),
@@ -65,8 +58,15 @@ defmodule Server.CharacterChannel do
           name: payload["name"],
           actions: ["k", "d", "l", "b"]
         }
-      {:noreply, socket}
+      _ ->
+        push socket, "msg", %{
+          message: '',
+          opcode: "game.zone.character.name-reject",
+          name: payload["name"],
+          actions: []
+        }
     end
+    {:noreply, socket}
 
   end
 
@@ -79,12 +79,10 @@ defmodule Server.CharacterChannel do
       player_id: payload["user_id"]
     })
 
-    IO.inspect(changeset)
-
     case Repo.insert!(changeset) do
-      {:ok, record} -> 
+      {:ok, record} ->
         push socket, "msg", %{
-          message: View.render_to_string(CharacterView, "character-birth.html", %{}),
+          message: View.render_to_string(CharacterView, "character-birth.html", %{character: record}),
           opcode: "game.zone.character.birth",
           actions: []
         }

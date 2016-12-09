@@ -48,6 +48,10 @@ export default {
           }, 100);
           break;
 
+        case 'game.zone.character.name-reject':
+          this.nameElement.value = '';
+          this.game.renderer.render({message: `<li>Sorry, <span class="special-light">${this.characterName}</span> is taken.  Try something else.</li>`});
+          this.nameElement.focus();
         default:
           break;
       }

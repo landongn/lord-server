@@ -8,8 +8,8 @@ defmodule Server.Entity do
     field :experience, :integer
     field :sex, :string
     field :is_vendor, :boolean, default: false
-    belongs_to :armor, Server.Armor
-    belongs_to :weapon, Server.Weapon
+    field :armor_id, :integer
+    field :weapon_id, :integer
 
     timestamps()
   end

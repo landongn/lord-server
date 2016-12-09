@@ -14,10 +14,11 @@ defmodule Server.Character do
     field :sex, :string, default: "male"
     field :attractiveness, :integer, default: 1
     field :married, :boolean, default: false
-    belongs_to :armor, Server.Armor
-    belongs_to :weapon, Server.Weapon
-    belongs_to :class, Server.Class
-    belongs_to :player, Server.Player
+    field :armor_id, :integer, default: 1
+    field :weapon_id, :integer, default: 1
+    field :class_id, :integer
+    field :player_id, :integer
+
 
     timestamps()
   end
@@ -34,8 +35,6 @@ defmodule Server.Character do
   def new_character(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :player_id, :class_id])
-    |> validate_required([:name, :class_id, :player_id])
-    |> cast_assoc(:class, required: true)
-    |> cast_assoc(:player, required: true)
+    |> validate_required([:name, :player_id, :class_id])
   end
 end
