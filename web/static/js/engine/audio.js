@@ -53,9 +53,11 @@ export default class SoundManager {
     this.source.start(0);
   }
 
-  load(k, shouldLoop = false) {
+  load(k, shouldLoop = false, ismp3 = false) {
+    console.log('loading ', k, shouldLoop, ismp3)
     const request = new XMLHttpRequest();
-    request.open('GET', `/effects/${k}.wav`, true);
+    if (ismp3 === true) { request.open('GET', `/effects/${k}.mp3`, true); }
+                  else  { request.open('GET', `/effects/${k}.wav`, true); }
     request.responseType = 'arraybuffer';
     request.onload = () => {
       this.ctx.decodeAudioData(request.response, (buffer) => {

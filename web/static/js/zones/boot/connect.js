@@ -15,7 +15,7 @@ export default {
 
       load() {
 
-        this.game.audio.play('intro-theme', true);
+        this.game.audio.play('intro-theme', true, true);
         Mousetrap.bind('enter', (e) => {
           this.game.handle_out('ident', 'world');
         });
