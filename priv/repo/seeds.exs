@@ -54,10 +54,7 @@ Repo.insert!(%Server.Weapon{"name": "Death Sword", "cost": 400000000, "damage": 
 
 #Fill out the Entity Map for Monsters, etc
 Repo.delete_all Server.EntityTypes
-Repo.insert!(%Server.EntityTypes{"name": "Old Man"})
+# Repo.insert!(%Server.EntityTypes{"name": "Old Man"})
 
-Repo.delete_all Server.Entities
-Repo.insert!(%Server.Entities{
-  name: "Rude Boy",
-  health: 25
-})
+Repo.delete_all Server.Entity
+# Repo.insert!(%Server.Entities{name: "Rude Boy", health: 25})

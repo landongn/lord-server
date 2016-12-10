@@ -20,11 +20,11 @@ export default class SoundManager {
 
   }
 
-  play(k, loop = false) {
+  play(k, loop = false, ismp3 = false) {
     if (this.cacheFor(k)) {
       this.connect(this._cache[k], k, loop);
     } else {
-      this.load(k);
+      this.load(k, loop, ismp3);
     }
   }
 
