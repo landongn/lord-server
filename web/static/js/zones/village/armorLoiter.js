@@ -82,7 +82,7 @@ export default {
 
     handle_in(payload) {
       switch(payload.opcode) {
-        case 'game.zone.village.loiter':
+        case 'game.zone.village.armor.loiter':
           for (var i = payload.actions.length - 1; i >= 0; i--) {
             console.log(payload.actions[i]);
             Mousetrap.unbind(payload.actions[i]);
@@ -93,5 +93,5 @@ export default {
       }
     }
   },
-  id: 'village.loiter'
+  id: 'village.armor.loiter'
 }

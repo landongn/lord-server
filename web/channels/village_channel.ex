@@ -90,6 +90,17 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
+  def handle_in("game.zone.village.armor.loiter", _, socket) do
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.armor.loiter",
+      message: View.render_to_string(VillageView, "armor-loiter.html", %{}),
+      actions: []
+    }
+
+    {:noreply, socket}
+  end
+
   def handle_in("game.zone.village.armor.buy", _, socket) do
 
     push socket, "msg", %{
@@ -227,6 +238,17 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.inn.violet",
       message: View.render_to_string(VillageView, "inn-violet.html", %{}),
+      actions: []
+    }
+
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.village.inn.room.ask", _, socket) do
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.inn.room.ask",
+      message: View.render_to_string(VillageView, "inn-room-ask.html", %{}),
       actions: []
     }
 

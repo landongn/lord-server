@@ -4,7 +4,7 @@
 <li>The streets are crowded, it is difficult to</li>
 <li>push your way through the mob....</li>
 <li></li>
-<section class="container"><pre>
+<pre>
   <span class="action">(F)</span>orest                             <span class="action">(S)</span>laughter other players
   <span class="action">(K)</span>ing Arthurs Weapons               <span class="action">(A)</span>bduls Armour
   <span class="action">(H)</span>ealers Hut                        <span class="action">(V)</span>iew your stats
@@ -13,4 +13,4 @@
   <span class="action">(W)</span>rite Mail                         <span class="action">(D)</span>aily News
   <span class="action">(C)</span>onjugality List                   <span class="action">(O)</span>ther Places
   <span class="action">(P)</span>eople Online                      <span class="action">(Q)</span>uit to Fields
-</pre></section>
+</section>

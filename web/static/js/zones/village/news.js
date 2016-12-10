@@ -93,5 +93,6 @@ export default {
       }
     }
   },
-  id: 'village.loiter'
+  id: 'news.read'
 }
+

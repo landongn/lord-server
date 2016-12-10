@@ -93,5 +93,5 @@ export default {
       }
     }
   },
-  id: 'village.loiter'
+  id: 'village.trainer.fail'
 }
