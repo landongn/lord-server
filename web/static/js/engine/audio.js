@@ -10,9 +10,6 @@ export default class SoundManager {
     }
 
     this._cache = {};
-
-    this.play('dragisat');
-    this.play('darkwds1', true);
   }
 
   cacheFor(k) {
@@ -22,6 +19,7 @@ export default class SoundManager {
   fadeOut() {
 
   }
+
   play(k, loop = false) {
     if (this.cacheFor(k)) {
       this.connect(this._cache[k], k, loop);

@@ -3,7 +3,7 @@ import State from 'web/static/js/zones/base';
 export default {
     cls: class ConnectState extends State {
       constructor(game, id) {
-        super();
+        super(game, id);
         this.game = game;
         this.id = id;
         this.hasIdent = false;
@@ -15,7 +15,7 @@ export default {
 
       load() {
 
-
+        this.game.audio.play('intro-theme', true);
         Mousetrap.bind('enter', (e) => {
           this.game.handle_out('ident', 'world');
         });

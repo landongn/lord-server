@@ -1,4 +1,4 @@
-use Mix.Config
+3use Mix.Config
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -21,9 +21,9 @@ config :server, Server.Endpoint,
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{web/views/.*(ex)$},
-      ~r{web/templates/.*(eex)$},
-      ~r{web/channels/.*(ex)$},
+      # ~r{web/views/.*(ex)$},
+      # ~r{web/templates/.*(eex)$},
+      # ~r{web/channels/.*(ex)$},
     ]
   ]
 
