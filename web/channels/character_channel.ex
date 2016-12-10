@@ -22,7 +22,7 @@ defmodule Server.CharacterChannel do
       join: w in Weapon, on: w.id == c.weapon_id,
       join: a in Armor, on: a.id == c.armor_id,
       join: k in Class, on: k.id == c.class_id,
-      select: %{"name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => c.name},
+      select: %{"name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => k.name},
       where: c.player_id == ^payload["user_id"]
 
     Logger.info "query results: #{inspect chars}"

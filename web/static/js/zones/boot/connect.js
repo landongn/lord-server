@@ -1,5 +1,5 @@
-import State from 'web/static/js/zones/base';
-
+import State from '../../zones/base';
+import Mousetrap from '../../../vendor/Mousetrap';
 export default {
     cls: class ConnectState extends State {
       constructor(game, id) {
@@ -15,8 +15,14 @@ export default {
 
       load() {
 
-        this.game.audio.play('intro-theme', true, true);
-        Mousetrap.bind('enter', (e) => {
+        this.game.audio.play('rainloop', true);
+        setTimeout(() => {
+          this.game.audio.play('wolf_howl');
+        }, 1000);
+        setTimeout(() => {
+          this.game.audio.play('thunder1');
+        }, 300);
+        Mousetrap.bind('enter', () => {
           this.game.handle_out('ident', 'world');
         });
       }

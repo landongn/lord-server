@@ -19,7 +19,6 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 import Game from './game';
-import Chatbox from 'web/static/js/ui/chat';
 
 const lord = new Game();
 

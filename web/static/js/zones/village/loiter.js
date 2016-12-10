@@ -1,4 +1,5 @@
-import State from 'web/static/js/zones/base';
+import State from '../../zones/base';
+import Mousetrap from '../../../vendor/Mousetrap';
 
 export default {
   cls: class VillageLoiterState extends State {
@@ -12,6 +13,7 @@ export default {
     }
 
     out(place) {
+      console.log('out to', place);
       this.game.handle_out(`game.zone.village.${place}`, 'village');
     }
 
@@ -67,7 +69,7 @@ export default {
       this.out('players.list')
     }
 
-    dKeypressed() {
+    dKeyPressed() {
       this.out('news.read')
     }
 
@@ -81,12 +83,13 @@ export default {
 
 
     handle_in(payload) {
+
       switch(payload.opcode) {
         case 'game.zone.village.loiter':
           for (var i = payload.actions.length - 1; i >= 0; i--) {
-            console.log(payload.actions[i]);
             Mousetrap.unbind(payload.actions[i]);
             Mousetrap.bind(payload.actions[i], () => {
+              debugger;
               this[payload.actions[i] + 'KeyPressed'] && this[payload.actions[i] + 'KeyPressed']();
             });
           }

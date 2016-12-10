@@ -1,4 +1,6 @@
-import State from 'web/static/js/zones/base';
+import State from '../../zones/base';
+import Mousetrap from '../../../vendor/Mousetrap';
+
 
 export default {
   cls: class CharacterCreate extends State {

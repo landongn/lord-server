@@ -1,3 +1,5 @@
+import Mousetrap from '../../vendor/Mousetrap';
+
 export default class State {
   constructor(game, id) {
     this.game = game;

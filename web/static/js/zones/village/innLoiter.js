@@ -1,7 +1,8 @@
-import State from 'web/static/js/zones/base';
+import State from '../../zones/base';
+import Mousetrap from '../../../vendor/Mousetrap';
 
 export default {
-  cls: class VillageLoiterState extends State {
+  cls: class VillageInnLoiterState extends State {
     constructor(game, id) {
       super();
       this.game = game;

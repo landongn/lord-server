@@ -1,4 +1,4 @@
-import Chatbox from 'web/static/js/ui/chat';
+import Chatbox from 'ui/chat';
 
 export default class Gui {
   constructor(game) {

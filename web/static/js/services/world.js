@@ -1,12 +1,12 @@
-import ConnectState from 'web/static/js/zones/boot/connect';
-import IdentState from 'web/static/js/zones/boot/ident';
-import CharacterSelectState from 'web/static/js/zones/character/select';
-import CharacterCreateState from 'web/static/js/zones/character/create';
-import CharacterListState from 'web/static/js/zones/character/list';
-import CharacterValidateState from 'web/static/js/zones/character/validate';
-import CharacterDeleteState from 'web/static/js/zones/character/delete';
-import VillageLoiterState from 'web/static/js/zones/village/loiter';
-
+import ConnectState from '../zones/boot/connect';
+import IdentState from '../zones/boot/ident';
+import CharacterSelectState from '../zones/character/select';
+import CharacterCreateState from '../zones/character/create';
+import CharacterListState from '../zones/character/list';
+import CharacterValidateState from '../zones/character/validate';
+import CharacterDeleteState from '../zones/character/delete';
+import VillageLoiterState from '../zones/village/loiter';
+import VillageInnLoiterState from '../zones/village/innLoiter';
 
 export default class World {
   constructor(game) {
@@ -19,7 +19,8 @@ export default class World {
       [CharacterListState.id]: new CharacterListState.cls(game, CharacterListState.id),
       [CharacterValidateState.id]: new CharacterValidateState.cls(game, CharacterValidateState.id),
       [CharacterDeleteState.id]: new CharacterDeleteState.cls(game, CharacterDeleteState.id),
-      [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id)
+      [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
+      [VillageInnLoiterState.id]: new VillageInnLoiterState.cls(game, VillageInnLoiterState.id)
     };
     this.zone = null;
 
@@ -88,6 +89,11 @@ export default class World {
 
       case 'game.zone.village.loiter':
         this.changeState(VillageLoiterState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      case 'game.zone.village.inn.loiter':
+        this.changeState(VillageInnLoiterState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
