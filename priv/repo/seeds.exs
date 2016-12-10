@@ -51,10 +51,83 @@ Repo.insert!(%Server.Weapon{"name": "Niras's Teeth", "cost": 40000000, "damage":
 Repo.insert!(%Server.Weapon{"name": "Blood Sword", "cost": 100000000, "damage": 120})
 Repo.insert!(%Server.Weapon{"name": "Death Sword", "cost": 400000000, "damage": 200})
 
-
 #Fill out the Entity Map for Monsters, etc
 Repo.delete_all Server.EntityTypes
-# Repo.insert!(%Server.EntityTypes{"name": "Old Man"})
+Repo.insert!(%Server.EntityTypes{"name": "Forest Creature"})
 
 Repo.delete_all Server.Entity
-# Repo.insert!(%Server.Entities{name: "Rude Boy", health: 25})
+Repo.insert!(%Server.Entity{
+    name: "Rude Gnome",
+    level: 1,
+    strength: 1,
+    endurance: 10,
+    s_hit: "gethit2ml",
+    s_die: "death_ml",
+    health: 25,
+    gold: 25,
+    weapon: "Makeshift Makeshift"
+})
+
+Repo.insert!(%Server.Entity{
+    name: "Decaying Skeleton",
+    level: 1,
+    strength: 1,
+    endurance: 10,
+    health: 25,
+    gold: 50,
+    s_hit: "skel_hit",
+    s_atk: "skel_att1",
+    s_die: "skel_die",
+    weapon: "Fist"
+})
+
+Repo.insert!(%Server.Entity{
+    name: "Giant Bat",
+    level: 1,
+    strength: 1,
+    endurance: 10,
+    gold: 5,
+    health: 25,
+    s_hit: "bat_hit",
+    s_atk: "bat_att",
+    s_die: "bat_die",
+    weapon: "Fangs"
+})
+
+Repo.insert!(%Server.Entity{
+    name: "Old Man",
+    level: 1,
+    strength: 1,
+    endurance: 10,
+    health: 25,
+    gold: 250,
+    s_hit: "gethit2ml",
+    s_atk: "",
+    s_die: "death_ml",
+    s_miss: "",
+    weapon: "Cane"
+})
+
+Repo.insert!(%Server.Entity{
+    name: "Bran the Warrior",
+    level: 1,
+    strength: 3,
+    endurance: 10,
+    health: 50,
+    gold: 150,
+    s_hit: "gethit3mb",
+    s_die: "death_mb",
+    weapon: "Short Sword"
+})
+
+
+
+# Populate Classes
+Repo.delete_all Server.Class
+Repo.insert!(%Server.Class{name: "Death Knight", description: ""})
+Repo.insert!(%Server.Class{name: "Thief", description: ""})
+Repo.insert!(%Server.Class{name: "Wizard", description: ""})
+
+# Extra Extra
+Repo.delete_all Server.News
+Repo.insert!(%Server.News{body: "It's a sad state of affairs when there are no heros to speak of in the land.", posted_by: "A Villager"})

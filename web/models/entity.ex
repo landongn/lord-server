@@ -8,15 +8,20 @@ defmodule Server.Entity do
     field :gold, :integer, default: 1000
     field :experience, :integer, default: 0
     field :sex, :string, default: "male"
-    field :armor_id, :integer, default: 1
-    field :weapon_id, :integer, default: 1
-    field :strength, :integer, default: 10
-    field :endurance, :integer, default: 10
+    field :armor, :string, default: "Armor"
+    field :weapon, :string, default: "Stick"
+    field :strength, :integer, default: 1
+    field :endurance, :integer, default: 1
     field :attractiveness, :integer, default: 0
     field :art_url, :string
     field :location_id, :integer
-    field :health, :integer, default: 0
-    field :defense, :integer, default: 0
+    field :health, :integer, default: 25
+    field :defense, :integer, default: 1
+    field :s_hit, :string, default: "gethit1m"
+    field :s_atk, :string, default: "stab"
+    field :s_die, :string, default: "death_m"
+    field :s_miss, :string, default: "stab"
+
 
     timestamps()
   end
