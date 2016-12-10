@@ -13,9 +13,13 @@ defmodule Server.Character do
     field :is_admin, :boolean, default: false
     field :sex, :string, default: "male"
     field :attractiveness, :integer, default: 1
+    field :strength, :integer, default: 1
+    field :endurance, :integer, default: 10
     field :married, :boolean, default: false
     field :armor_id, :integer, default: 1
     field :weapon_id, :integer, default: 1
+    field :luck, :integer, default: 1
+    field :reputation, :integer, default: 0
     field :class_id, :integer
     field :player_id, :integer
 

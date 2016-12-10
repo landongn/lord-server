@@ -16,7 +16,7 @@ export default {
         this.reloadCharacters();
       });
       Mousetrap.bind('d', () => {
-        this.deleteCharacter()
+        this.deleteCharacter();
       });
       Mousetrap.bind('b', () => {
         this.game.handle_out('game.zone.character.select', 'character');

@@ -7,7 +7,6 @@ defmodule Server.WorldChannel do
   alias Phoenix.View
   alias Server.WorldView
   alias Server.CharacterView
-  alias Server.Auth
 
   def join("world:system", _, socket) do
     msg = View.render_to_string(WorldView, "welcome_message.html", %{})
@@ -38,9 +37,9 @@ defmodule Server.WorldChannel do
     {:noreply, socket}
   end
 
-  def handle_in("email-identify", %{"email" => payload}, socket) do
+  def handle_in("email-identify", %{"email" => email}, socket) do
 
-    case Server.Repo.get_by Player, email: payload do
+    case Server.Repo.get_by Player, email: email do
       record when record != nil ->
         push socket, "msg", %{
           message: View.render_to_string(WorldView, "password.html", record),
@@ -50,7 +49,7 @@ defmodule Server.WorldChannel do
 
       nil ->
         push socket, "msg", %{
-          message: View.render_to_string(WorldView, "user-not-found.html", %{email: payload}),
+          message: View.render_to_string(WorldView, "user-not-found.html", %{email: email}),
           opcode: "game.client.ident.notfound",
           actions: ["enter"]
         }
@@ -112,7 +111,7 @@ defmodule Server.WorldChannel do
                   opcode: "game.zone.character.select",
                   actions: []
                 }
-              {:error, changeset} ->
+              {:error, _} ->
                 push socket, "msg", %{opcode: "game.client.ident.error"}
             end
           false ->

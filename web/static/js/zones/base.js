@@ -1,5 +1,8 @@
 export default class State {
-  constructor() {}
+  constructor(game, id) {
+    this.game = game;
+    this.id = id;
+  }
   resignResponder() {}
   focus() {}
   load() {
@@ -8,5 +11,6 @@ export default class State {
   unload() {
     Mousetrap.reset();
     // this.game.gui.resetTouches();
+    this.game.audio.fadeOut();
   }
 }

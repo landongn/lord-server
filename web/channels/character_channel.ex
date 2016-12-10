@@ -3,8 +3,9 @@ defmodule Server.CharacterChannel do
   require Logger
   alias Phoenix.View
   alias Server.CharacterView
+  alias Server.VillageView
   alias Server.Repo
-  alias Server.Player
+
   alias Server.Character
   alias Server.Weapon
   alias Server.Armor
@@ -31,6 +32,16 @@ defmodule Server.CharacterChannel do
     {:noreply, socket}
   end
 
+  def handle_in("game.zone.character.play", _payload, socket) do
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.loiter",
+      message: View.render_to_string(VillageView, "loiter.html", %{}),
+      actions: ["h", "i", "r", "w", "t", "f", "d"]
+    }
+    {:noreply, socket}
+  end
+
   def handle_in("game.zone.character.create", _payload, socket) do
     push socket, "msg", %{
       opcode: "game.zone.character.new",
@@ -39,7 +50,7 @@ defmodule Server.CharacterChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.character.select", payload, socket) do
+  def handle_in("game.zone.character.select", _payload, socket) do
     push socket, "msg", %{
       message: View.render_to_string(CharacterView, "character-select.html", %{}),
       opcode: "game.zone.character.select",
@@ -80,7 +91,7 @@ defmodule Server.CharacterChannel do
     })
 
     case Repo.insert!(changeset) do
-      {:ok, record} ->
+      record ->
         push socket, "msg", %{
           message: View.render_to_string(CharacterView, "character-birth.html", %{character: record}),
           opcode: "game.zone.character.birth",
@@ -98,6 +109,34 @@ defmodule Server.CharacterChannel do
   end
 
   def handle_in("game.zone.character.delete", payload, socket) do
+    chars = Repo.all from c in Character,
+      join: w in Weapon, on: c.weapon_id == w.id,
+      join: a in Armor, on: c.armor_id == a.id,
+      join: k in Class, on: c.class_id == k.id,
+      select: %{"name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => c.name},
+      where: c.player_id == ^payload["user_id"]
+
+    push socket, "msg", %{
+      message: View.render_to_string(CharacterView, "character-list.html", %{characters: chars}),
+      opcode: "game.zone.character.delete",
+      characters: chars,
+      actions: []
+    }
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.character.delete-confirm", payload, socket) do
+    case Repo.get(Character, payload["id"]) do
+      record ->
+        case Repo.delete!(Character, payload["id"]) do
+          :ok ->
+            push socket, "msg", %{
+              message: View.render_to_string(CharacterView, "character-was-deleted.html", %{character: record}),
+              opcode: "game.zone.character.delete-success",
+              actions: ["b"]
+            }
+        end
+      end
     {:noreply, socket}
   end
 

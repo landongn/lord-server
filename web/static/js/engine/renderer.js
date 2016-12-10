@@ -11,9 +11,15 @@ export default class Renderer {
         return temp.content;
     }
 
+    stripCommandQueue() {
+        const el = document.querySelectorAll('li.command');
+        el.length >= 2 ? el[0].remove() : void(0);
+    }
     render(data = {}) {
         const s = this.fragmentFromString(data.message);
+
         this.element.appendChild(s);
+        this.stripCommandQueue();
         this.handleScroll();
         this.handleBufferCleanup();
     }

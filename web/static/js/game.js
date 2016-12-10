@@ -5,6 +5,7 @@ import Gui from 'web/static/js/ui/gui';
 import Input from 'web/static/js/engine/input';
 import Character from 'web/static/js/mechanics/character';
 import Session from 'web/static/js/mechanics/session';
+import SoundManager from 'web/static/js/engine/audio';
 
 export default class Game {
     constructor() {
@@ -18,6 +19,7 @@ export default class Game {
         window.addEventListener('touchstart', (e) => {
             Mousetrap.trigger(e.target.attributes['data-command'].value);
         });
+        this.audio = new SoundManager(this);
     }
 
     handle_in(message) {

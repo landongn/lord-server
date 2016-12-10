@@ -11,17 +11,25 @@ export default {
       this.characterSchema = null;
     }
     load() {
-
       Mousetrap.bind('b', () => {
         this.game.handle_out('game.zone.character.select', 'character');
       });
     }
 
-    select(option) {
-      this.game.handle_out('game.zone.character.select', 'character', {id: option.id});
+    play(i) {
+      this.game.handle_out('game.zone.character.play', 'character', {id: i});
+      Mousetrap.reset();
+      Mousetrap.bind('b', () => {
+        this.game.handle_out('game.zone.character.select', 'character');
+      });
     }
 
     handle_in(payload) {
+      for (var i = payload.characters.length - 1; i >= 0; i--) {
+        Mousetrap.bind(i+1+'', () => {
+          this.play(i);
+        });
+      }
       console.log('payload for list', payload);
     }
   },
