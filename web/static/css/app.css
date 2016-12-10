@@ -63,12 +63,12 @@ section.buffer {
     background: transparent;
 }
 
-section.buffer input {
-    width: 100%;
+input {
     background: transparent;
     border: 0;
     outline: none;
     color: violet;
+    border-bottom: 1px solid violet;
 }
 
 li.sep {
@@ -95,13 +95,6 @@ span.cursor {
 }
 span.menu {
     color: rgba(25, 25, 25, 1);
-}
-
-span.action-input input.action {
-    background: transparent;
-    border: 0;
-    outline: none;
-    color: violet;
 }
 
 pre {

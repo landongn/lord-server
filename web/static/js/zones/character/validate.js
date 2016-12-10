@@ -33,23 +33,18 @@ export default {
       this.game.handle_out('game.zone.character.class-selected', 'character', {class: this.cls, name: this.name});
     }
 
-    confirm() {
-      this.game.handle_out('game.zone.character.birth', {class: this.cls, name: this.name});
-    }
-
     handle_in(payload) {
+      console.log(payload.opcode);
       switch(payload.opcode) {
-
-        case 'game.zone.character.class-selected':
-          Mousetrap.unbind('c');
-          Mousetrap.bind('c', () => {
-            this.confirm();
-          });
-          break;
 
         case 'game.zone.character.confirm':
           this.name = payload.name;
           break;
+
+        case 'game.zone.character.birth':
+          Mousetrap.bind('h', () => {
+            this.game.handle_out('game.zone.village.loiter', 'village');
+          });
 
         default:
           break;

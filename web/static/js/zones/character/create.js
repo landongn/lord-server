@@ -27,13 +27,13 @@ export default {
       this.nameElement.focus();
       this.nameElement.addEventListener('keypress', (e) => {
         if (e.keyCode === 13) {
-          this.verifyNameUniqueness();
+          debugger;
+          this.verifyNameUniqueness(this.nameElement.value);
         }
       });
     }
 
-    verifyNameUniqueness() {
-      const name = this.nameElement.value;
+    verifyNameUniqueness(name) {
       this.game.handle_out('game.zone.character.validate', 'character', {name: name});
       this.nameElement.blur();
 
@@ -50,8 +50,7 @@ export default {
 
         case 'game.zone.character.name-reject':
 
-          this.game.renderer.render({message: `<li>Sorry, <span class="special-light">${this.characterName}</span> is taken.  Try something else.</li>`});
-          this.nameElement.value = '';
+          this.game.renderer.render({message: `<li>Sorry, <span class="special-light">${this.nameElement.value}</span> is taken.  Try something else.</li>`});
           this.nameElement.focus();
           break;
         default:

@@ -11,6 +11,7 @@ defmodule Server.CharacterChannel do
   alias Server.Armor
   alias Server.Class
 
+
   def join("character", _payload, socket) do
     {:ok, socket}
   end
@@ -18,12 +19,13 @@ defmodule Server.CharacterChannel do
   def handle_in("game.zone.character.list", payload, socket) do
 
     chars = Repo.all from c in Character,
-      join: w in Weapon, on: c.weapon_id == w.id,
-      join: a in Armor, on: c.armor_id == a.id,
-      join: k in Class, on: c.class_id == k.id,
+      join: w in Weapon, on: w.id == c.weapon_id,
+      join: a in Armor, on: a.id == c.armor_id,
+      join: k in Class, on: k.id == c.class_id,
       select: %{"name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => c.name},
       where: c.player_id == ^payload["user_id"]
 
+    Logger.info "query results: #{inspect chars}"
     push socket, "msg", %{
       opcode: "game.zone.character.list",
       characters: chars,
@@ -62,14 +64,14 @@ defmodule Server.CharacterChannel do
   def handle_in("game.zone.character.validate", payload, socket) do
 
     case Repo.get_by Character, name: payload["name"] do
-      nil ->
+      _struct ->
         push socket, "msg", %{
           message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"]}),
           opcode: "game.zone.character.confirm",
           name: payload["name"],
           actions: ["k", "d", "l", "b"]
         }
-      _ ->
+      nil ->
         push socket, "msg", %{
           message: '',
           opcode: "game.zone.character.name-reject",
@@ -83,7 +85,6 @@ defmodule Server.CharacterChannel do
 
 
   def handle_in("game.zone.character.class-selected", payload, socket) do
-    Logger.info "payload data: #{inspect payload}"
     changeset = Character.new_character(%Character{}, %{
       name: payload["name"],
       class_id: payload["class"],
@@ -92,11 +93,26 @@ defmodule Server.CharacterChannel do
 
     case Repo.insert!(changeset) do
       record ->
-        push socket, "msg", %{
-          message: View.render_to_string(CharacterView, "character-birth.html", %{character: record}),
-          opcode: "game.zone.character.birth",
-          actions: []
-        }
+        case payload["class"] do
+          1 ->
+            push socket, "msg", %{
+              message: View.render_to_string(CharacterView, "character-birth-dk.html", %{character: record}),
+              opcode: "game.zone.character.birth",
+              actions: []
+            }
+          2 ->
+            push socket, "msg", %{
+              message: View.render_to_string(CharacterView, "character-birth-mystic.html", %{character: record}),
+              opcode: "game.zone.character.birth",
+              actions: []
+            }
+          3 ->
+            push socket, "msg", %{
+              message: View.render_to_string(CharacterView, "character-birth-thief.html", %{character: record}),
+              opcode: "game.zone.character.birth",
+              actions: []
+            }
+        end
       :error ->
         push socket, "msg", %{
           message: View.render_to_string(CharacterView, "character-name-reject.html", %{}),

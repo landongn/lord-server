@@ -1,6 +1,10 @@
-<li>What would you like to name this character?
+<li>Legend of the Red Dragon - <span class="action">Create new Hero</span></li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
-    <span class="action-input">
-        <input class="action action-input-new-character" type="text" name="character-new" />
-    </span>
+
+<li>What should I call you?
+<span class="action-input">
+    <input class="action action-input-new-character" type="text" name="character-new" />
+</span>
+</li>
+
 </li>
