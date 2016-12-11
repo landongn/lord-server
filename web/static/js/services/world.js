@@ -1,12 +1,12 @@
-import ConnectState from '../zones/boot/connect';
-import IdentState from '../zones/boot/ident';
-import CharacterSelectState from '../zones/character/select';
-import CharacterCreateState from '../zones/character/create';
-import CharacterListState from '../zones/character/list';
-import CharacterValidateState from '../zones/character/validate';
-import CharacterDeleteState from '../zones/character/delete';
-import VillageLoiterState from '../zones/village/loiter';
-import VillageInnLoiterState from '../zones/village/innLoiter';
+import ConnectState from 'web/static/js/zones/boot/connect';
+import IdentState from 'web/static/js/zones/boot/ident';
+import CharacterSelectState from 'web/static/js/zones/character/select';
+import CharacterCreateState from 'web/static/js/zones/character/create';
+import CharacterListState from 'web/static/js/zones/character/list';
+import CharacterValidateState from 'web/static/js/zones/character/validate';
+import CharacterDeleteState from 'web/static/js/zones/character/delete';
+import VillageLoiterState from 'web/static/js/zones/village/loiter';
+import VillageInnLoiterState from 'web/static/js/zones/village/innLoiter';
 
 export default class World {
   constructor(game) {

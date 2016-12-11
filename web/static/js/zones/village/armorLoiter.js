@@ -1,5 +1,6 @@
-import State from '../../zones/base';
-import Mousetrap from '../../../vendor/Mousetrap';
+
+import State from 'web/static/js/zones/base';
+
 
 export default {
   cls: class VillageLoiterState extends State {

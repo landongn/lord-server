@@ -1,5 +1,5 @@
-import State from '../../zones/base';
-import Mousetrap from '../../../vendor/Mousetrap';
+import State from 'web/static/js/zones/base';
+
 
 export default {
   cls: class VillageLoiterState extends State {
@@ -88,9 +88,9 @@ export default {
         case 'game.zone.village.loiter':
           for (var i = payload.actions.length - 1; i >= 0; i--) {
             Mousetrap.unbind(payload.actions[i]);
-            Mousetrap.bind(payload.actions[i], () => {
-              debugger;
-              this[payload.actions[i] + 'KeyPressed'] && this[payload.actions[i] + 'KeyPressed']();
+            Mousetrap.bind(payload.actions[i], (e) => {
+              const fn = `${e.key}KeyPressed`;
+              this[fn] && this[fn]();
             });
           }
       }

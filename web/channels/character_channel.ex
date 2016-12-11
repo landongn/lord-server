@@ -22,7 +22,7 @@ defmodule Server.CharacterChannel do
       join: w in Weapon, on: w.id == c.weapon_id,
       join: a in Armor, on: a.id == c.armor_id,
       join: k in Class, on: k.id == c.class_id,
-      select: %{"name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => k.name},
+      select: %{"id" => c.id, "name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => k.name},
       where: c.player_id == ^payload["user_id"]
 
     Logger.info "query results: #{inspect chars}"
@@ -34,8 +34,11 @@ defmodule Server.CharacterChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.character.play", _payload, socket) do
+  def handle_in("game.zone.character.play", payload, socket) do
 
+    char = Repo.get_by Character, id: payload["id"]
+    Logger.info("character selected: #{inspect Map.from_struct(char)}")
+    World.join(Map.from_struct(char))
     push socket, "msg", %{
       opcode: "game.zone.village.loiter",
       message: View.render_to_string(VillageView, "loiter.html", %{}),

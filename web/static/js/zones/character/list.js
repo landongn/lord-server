@@ -1,5 +1,5 @@
-import State from '../../zones/base';
-import Mousetrap from '../../../vendor/Mousetrap';
+import State from 'web/static/js/zones/base';
+
 
 
 export default {
@@ -11,6 +11,7 @@ export default {
       this.nameElement = null;
       this.characterName = null;
       this.characterSchema = null;
+      this.characters = null;
     }
     load() {
       Mousetrap.bind('b', () => {
@@ -19,7 +20,10 @@ export default {
     }
 
     play(i) {
-      this.game.handle_out('game.zone.character.play', 'character', {id: i});
+      console.log(i, this.characters[i]);
+      const char_id = this.characters[i].id || false;
+      if (!char_id) { console.error("internal problem with ID mismatch"); return; }
+      this.game.handle_out('game.zone.character.play', 'character', {id: char_id});
       Mousetrap.reset();
       Mousetrap.bind('b', () => {
         this.game.handle_out('game.zone.character.select', 'character');
@@ -27,12 +31,13 @@ export default {
     }
 
     handle_in(payload) {
-      for (var i = payload.characters.length - 1; i >= 0; i--) {
-        Mousetrap.bind(i+1+'', () => {
-          this.play(i);
+      console.log("payload for character list: ", payload);
+      this.characters = payload.characters;
+      for (var i = 0; i < payload.characters.length; i++) {
+        Mousetrap.bind(i+1+'', (e) => {
+          this.play(i-1);
         });
       }
-      console.log('payload for list', payload);
     }
   },
   id: 'character.list'
