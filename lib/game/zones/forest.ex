@@ -27,8 +27,8 @@ defmodule Game.Forest do
   @doc """
   fired when a player looks for a fight in the forest.
   """
-  def spawn(id, name, token, name, level) do
-    GenServer.call(__MODULE__, {:spawn, id, name, token, name, level})
+  def spawn(id, name, token, level) do
+    GenServer.call(__MODULE__, {:spawn, id, name, token, level})
   end
 
   @doc """
@@ -76,7 +76,7 @@ defmodule Game.Forest do
   @doc """
   spawns a monster for a given `name` and `level`, and stores it until dead/runs away
   """
-  def handle_call({:spawn, id, name, token, name, level}, _from, state) do
+  def handle_call({:spawn, id, name, token, level}, _from, state) do
 
     min = level - 1
     max = level + 5

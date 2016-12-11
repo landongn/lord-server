@@ -1,7 +1,9 @@
 defmodule Server.ForestChannel do
   use Server.Web, :channel
 
+  alias Server.ForestView
   alias Game.Forest
+  alias Phoenix.View
 
   def join("forest", payload, socket) do
     if authorized?(payload) do
@@ -30,7 +32,7 @@ defmodule Server.ForestChannel do
   end
 
   def handle_in("game.zone.forest.stats", payload, socket) do
-    user = Game.Forest.lookup(socket.assigns[:user_id])
+    user = Forest.lookup(socket.assigns[:user_id])
     push socket, "msg", %{
       message: View.render_to_string(ForestView, "stats.html", %{user: user}),
       opcode: "game.zone.forest.stats",
@@ -41,10 +43,7 @@ defmodule Server.ForestChannel do
   end
 
   def handle_in("game.zone.forest.search", payload, socket) do
-    case Game.Forest.spawn(socket.assigns[:user_id],
-     socket.assigns[:token],
-     payload["name"],
-     payload["level"]) do
+    case Forest.spawn(socket.assigns[:user_id], socket.assigns[:token], payload["name"], payload["level"]) do
        {:reply, encounter, _} ->
         push socket, "msg", %{
           opcode: "game.zone.forest.fight",

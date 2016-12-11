@@ -35,13 +35,19 @@ defmodule Server.CharacterChannel do
 
   def handle_in("game.zone.character.play", payload, socket) do
 
-    char = Repo.get_by Character, id: payload["id"]
+    char = Character
+      |> where(id: ^payload["id"])
+      |> select([:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :strength, :endurance, :luck])
+      |> Repo.one!
 
-    Game.Forest.enter(char)
+    rec = %{name: char.name, level: char.level, experience: char.experience, gold: char.gold, gems: char.gems, is_alive: char.is_alive, health: char.health, defense: char.defense, strength: char.strength, endurance: char.endurance, luck: char.luck}
+    Logger.info "welcoming #{inspect rec}"
+
+    Game.Forest.enter(rec)
 
     push socket, "msg", %{
       opcode: "game.zone.village.loiter",
-      char: char,
+      char: rec,
       message: View.render_to_string(VillageView, "loiter.html", %{}),
       actions: ["h", "i", "r", "w", "t", "f", "d"]
     }
