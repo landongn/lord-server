@@ -18,7 +18,7 @@ export default {
     }
 
     fKeyPressed() {
-      this.out('forest.loiter');
+      this.game.handle_out('game.zone.forest.loiter', 'forest');
     }
 
     kKeyPressed() {

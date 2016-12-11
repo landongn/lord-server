@@ -12,10 +12,11 @@ defmodule Server do
       supervisor(Server.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Server.Endpoint, []),
-      # supervisor(Server.World, [])
+      # supervisor(Game.Forest, [])
 
       # Start your own worker by calling: Server.Worker.start_link(arg1, arg2, arg3)
       # worker(Server.Worker, [arg1, arg2, arg3]),
+      worker(Game.Forest, [%{presence: %{}, encounters: %{}}])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

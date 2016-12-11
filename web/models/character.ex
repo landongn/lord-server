@@ -41,4 +41,10 @@ defmodule Server.Character do
     |> cast(params, [:name, :player_id, :class_id])
     |> validate_required([:name, :player_id, :class_id])
   end
+
+  def zone(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :strength, :endurance, :luck ])
+    |> validate_required([:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :strength, :endurance, :luck])
+  end
 end

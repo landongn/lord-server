@@ -1,6 +1,8 @@
 defmodule Server.Entity do
   use Server.Web, :model
 
+  alias Server.Repo
+
   schema "entities" do
     field :name, :string
     field :level, :integer, default: 1
@@ -33,5 +35,17 @@ defmodule Server.Entity do
     struct
     |> cast(params, [:name, ])
     |> validate_required([:name, :level, :gold, :experience, :sex, :is_vendor])
+  end
+
+  def spawn(player_level, player_experience, player_endurance) do
+    min = player_level - 1
+    max = player_level + 5
+    choices = Repo.all from e in __MODULE__,
+      select: [:name, :level, :gold, :experience, :armor, :weapon, :health, :defense,
+               :s_hit, :s_atk, :s_die, :s_miss],
+      where: e.level >= ^min,
+      where: e.level <= ^max
+
+    Enum.random(choices)
   end
 end

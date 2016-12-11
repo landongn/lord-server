@@ -7,6 +7,8 @@ import CharacterValidateState from 'web/static/js/zones/character/validate';
 import CharacterDeleteState from 'web/static/js/zones/character/delete';
 import VillageLoiterState from 'web/static/js/zones/village/loiter';
 import VillageInnLoiterState from 'web/static/js/zones/village/innLoiter';
+import ForestLoiterState from 'web/static/js/zones/forest/loiter';
+import ForestFightState from 'web/static/js/zones/forest/fight';
 
 export default class World {
   constructor(game) {
@@ -20,7 +22,10 @@ export default class World {
       [CharacterValidateState.id]: new CharacterValidateState.cls(game, CharacterValidateState.id),
       [CharacterDeleteState.id]: new CharacterDeleteState.cls(game, CharacterDeleteState.id),
       [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
-      [VillageInnLoiterState.id]: new VillageInnLoiterState.cls(game, VillageInnLoiterState.id)
+      [VillageInnLoiterState.id]: new VillageInnLoiterState.cls(game, VillageInnLoiterState.id),
+
+      [ForestLoiterState.id]: new ForestLoiterState.cls(game, ForestLoiterState.id),
+      [ForestFightState.id]: new ForestFightState.cls(game, ForestFightState.id),
     };
     this.zone = null;
 
@@ -94,6 +99,16 @@ export default class World {
 
       case 'game.zone.village.inn.loiter':
         this.changeState(VillageInnLoiterState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      case 'game.zone.forest.loiter':
+        this.changeState(ForestLoiterState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      case 'game.zone.forest.fight':
+        this.changeState(ForestFightState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 

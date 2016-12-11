@@ -1,8 +1,12 @@
 defmodule Game.ForestTest do
     use ExUnit.Case, async: true
 
-    test "Can store Character records" do
+    setup do
         {:ok, forest} = Game.Forest.start_link
+        {:ok, forest: forest}
+    end
+
+    test "Can store Character records", %{forest: forest} do
         assert Game.Forest.get(forest, "players") == nil
 
         changeset = Server.Character.new_character(%Server.Character{}, %{
@@ -20,8 +24,7 @@ defmodule Game.ForestTest do
 
     end
 
-    test "Forest can store multiple characters without collisions" do
-        {:ok, forest} = Game.Forest.start_link
+    test "Forest can store multiple characters without collisions", %{forest: forest} do
         assert Game.Forest.get(forest, "players") == nil
 
         changesetA = Server.Character.new_character(%Server.Character{}, %{
@@ -30,12 +33,14 @@ defmodule Game.ForestTest do
           class_id: 1,
           player_id: 2
         })
+
         changesetB = Server.Character.new_character(%Server.Character{}, %{
           name: "Dick",
           class_id: 2,
           id: 103848101,
           player_id: 3
         })
+
         changesetC = Server.Character.new_character(%Server.Character{}, %{
           name: "Harry",
           class_id: 3,
@@ -57,4 +62,23 @@ defmodule Game.ForestTest do
         assert playerRec.changes.class_id == 3
 
     end
+
+    test "can spawn new mobs into the forest", %{forest: forest} do
+      assert Game.Forest.get(forest, "fights") == nil
+      sesh = ")812h4g0aijdsfijqp9gh"
+      id = 1
+      name = "farfignuton"
+      player_level = 2
+
+      encounter = Game.Forest.spawn(forest, id, sesh, name, player_level)
+
+      assert encounter != nil
+    end
+
+    # test "removes buckets on exit", %{forest: forest} do
+    #     Game.Forest.create(registry, "Forest")
+    #     {:ok, bucket} = Game.Forest.lookup(registry, "Forest")
+    #     Agent.stop(bucket)
+    #     assert Game.Forest.lookup(registry, "Forest") == :error
+    # end
 end

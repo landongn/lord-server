@@ -25,7 +25,6 @@ defmodule Server.CharacterChannel do
       select: %{"id" => c.id, "name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => k.name},
       where: c.player_id == ^payload["user_id"]
 
-    Logger.info "query results: #{inspect chars}"
     push socket, "msg", %{
       opcode: "game.zone.character.list",
       characters: chars,
@@ -37,10 +36,12 @@ defmodule Server.CharacterChannel do
   def handle_in("game.zone.character.play", payload, socket) do
 
     char = Repo.get_by Character, id: payload["id"]
-    Logger.info("character selected: #{inspect Map.from_struct(char)}")
-    World.join(Map.from_struct(char))
+
+    Game.Forest.enter(char)
+
     push socket, "msg", %{
       opcode: "game.zone.village.loiter",
+      char: char,
       message: View.render_to_string(VillageView, "loiter.html", %{}),
       actions: ["h", "i", "r", "w", "t", "f", "d"]
     }
