@@ -1,6 +1,7 @@
 defmodule Server.ForestChannel do
   use Server.Web, :channel
 
+  require Logger
   alias Server.ForestView
   alias Game.Forest
   alias Phoenix.View
@@ -43,31 +44,74 @@ defmodule Server.ForestChannel do
   end
 
   def handle_in("game.zone.forest.search", payload, socket) do
-    case Forest.spawn(socket.assigns[:user_id], socket.assigns[:token], payload["name"], payload["level"]) do
-       {:reply, encounter, _} ->
-        push socket, "msg", %{
-          opcode: "game.zone.forest.fight",
-          encounter: encounter,
-          message: View.render_to_string(ForestView, "fight.html", %{encounter: encounter}),
-          actions: ["a", "r", "s"]
-        }
-      :error ->
-        push socket, "msg", %{
-          opcode: "game.zone.forest.error",
-          message: "shit! it broke"
-        }
-     end
+
+    encounter = Forest.spawn("thock", 2)
+    push socket, "msg", %{
+      opcode: "game.zone.forest.fight",
+      encounter: encounter,
+      message: View.render_to_string(ForestView, "fight.html", encounter),
+      actions: ["a", "r", "s"]
+    }
+
     {:noreply, socket}
   end
 
 
   def handle_in("game.zone.forest.attack", payload, socket) do
 
-    push socket, "msg", %{
-      opcode: "game.zone.forest.round",
-      message: View.render_to_string(ForestView, "attack.html", %{}),
-      actions: ["l", "h", "r"]
-    }
+    case Forest.lookup("thock") do
+      {:ok, fight} ->
+        Logger.info "STARTING FIGHT\n\n"
+        char = fight.char
+        mob = fight.mob
+        charArmor = Repo.get(Server.Armor, char.armor_id)
+        charWeapon = Repo.get(Server.Weapon, char.weapon_id)
+        Logger.info "associations loaded\n\n"
+        c_str = char.strength
+        c_def = char.defense
+        c_health = char.health
+        c_armor = charArmor.defense
+        c_weapon = charWeapon.damage
+        Logger.info "char stats: #{c_str} #{c_def} #{c_health} #{c_armor} #{c_weapon}"
+
+        m_str = mob.strength
+        m_def = mob.defense
+        m_health = mob.health
+        m_armor = mob.defense
+        m_damage = mob.damage
+        Logger.info "mob stats: #{m_str} #{m_def} #{m_health} #{m_armor} #{m_damage}"
+        Logger.info "Setup finished\n\n"
+        damage_dealt = ((c_str * c_weapon) - (m_def * m_armor))
+        retaliation_suffered = ((m_str * m_damage) - (c_def * c_armor) * 0.05)
+
+        mob = %{mob | health: (mob.health - damage_dealt)}
+        char = %{char| health: (c_health - retaliation_suffered)}
+        Logger.info "round calculated"
+        if char.health <= 0 do
+          # push death
+          Logger.info "oh no, the character died!"
+        else
+          if mob.health <= 0 do
+            #push victory
+            Logger.info "oh no, the mob has died!"
+          else
+            Logger.info("ROUND SUCCESS\n\n")
+            updatedFight = %{char: char, mob: mob, retaliation_suffered: retaliation_suffered, damage_dealt: damage_dealt}
+
+            Forest.attack("thock", updatedFight)
+            Logger.info("Updated Records")
+            push socket, "msg", %{
+              opcode: "game.zone.forest.round",
+              fight: updatedFight,
+              message: View.render_to_string(ForestView, "attack.html", updatedFight),
+              actions: ["a", "s", "r"]
+            }
+          end
+        end
+      :error ->
+        Logger.info "\n unable to lookup fight for thock\n"
+    end
+    Logger.info("All done\n\n")
     {:noreply, socket}
   end
 
@@ -84,7 +128,7 @@ defmodule Server.ForestChannel do
   def handle_in("game.zone.forest.run-away", payload, socket) do
     push socket, "msg", %{
       message: View.render_to_string(ForestView, "run-away.html", %{}),
-      opcode: "game.zone.forest.round",
+      opcode: "game.zone.forest.loiter",
       actions: ["l", "h", "r"]
     }
     {:noreply, socket}

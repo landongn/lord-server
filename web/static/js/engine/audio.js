@@ -22,7 +22,7 @@ export default class SoundManager {
 
   play(k, loop = false, ismp3 = false) {
     if (this.cacheFor(k)) {
-      this.connect(this._cache[k], k, loop);
+      this.connect(k, loop);
     } else {
       this.load(k, loop, ismp3);
     }
@@ -43,7 +43,8 @@ export default class SoundManager {
     return sound;
   }
 
-  connect(sound, key, shouldLoop = false) {
+  connect(key, shouldLoop = false) {
+    const sound = this.make(key, this._cache[key].buf, shouldLoop);
     sound.data.connect(this.ctx.destination);
     sound.data.loop = shouldLoop;
     sound.data.start(0);

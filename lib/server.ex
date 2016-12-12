@@ -16,7 +16,7 @@ defmodule Server do
 
       # Start your own worker by calling: Server.Worker.start_link(arg1, arg2, arg3)
       # worker(Server.Worker, [arg1, arg2, arg3]),
-      worker(Game.Forest, [%{presence: %{}, encounters: %{}}])
+      worker(Game.Forest, [%{}])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

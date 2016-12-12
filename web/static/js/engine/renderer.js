@@ -31,6 +31,7 @@ export default class Renderer {
 
     handleScroll() {
 
+        this.element.scrollTop = this.element.scrollHeight;
     }
 
     handleBufferCleanup() {

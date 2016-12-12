@@ -40,10 +40,28 @@ defmodule Server.CharacterChannel do
       |> select([:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :strength, :endurance, :luck])
       |> Repo.one!
 
-    rec = %{name: char.name, level: char.level, experience: char.experience, gold: char.gold, gems: char.gems, is_alive: char.is_alive, health: char.health, defense: char.defense, strength: char.strength, endurance: char.endurance, luck: char.luck}
-    Logger.info "welcoming #{inspect rec}"
+    rec = %{
+      id: payload["id"],
+      name: char.name,
+      level: char.level,
+      experience: char.experience,
+      gold: char.gold,
+      gems: char.gems,
+      is_alive: char.is_alive,
+      health: char.health,
+      defense: char.defense,
+      strength: char.strength,
+      endurance: char.endurance,
+      luck: char.luck
+    }
+    Logger.info "welcoming #{inspect rec.name}"
 
     Game.Forest.enter(rec)
+
+    push socket, "data", %{
+      opcode: 'character',
+      payload: rec
+    }
 
     push socket, "msg", %{
       opcode: "game.zone.village.loiter",

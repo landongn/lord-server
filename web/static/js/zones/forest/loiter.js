@@ -14,11 +14,11 @@ export default {
 
     out(place) {
       console.log('out to', place);
-      this.game.handle_out(`game.zone.forest.${place}`, 'village');
+      this.game.handle_out(`game.zone.forest.${place}`, 'forest');
     }
 
     lKeyPressed() {
-      this.out('forest.search');
+      this.out('search');
     }
 
     hKeyPressed() {

@@ -19,21 +19,21 @@ export default {
     }
 
     aKeyPressed() {
-      this.out('forest.attack');
+      this.out('attack');
     }
 
     pKeyPressed() {
-      this.out('forest.power-move')
+      this.out('power-move')
     }
 
     rKeyPressed() {
-      this.out('forest.run-away')
+      this.out('run-away')
     }
 
     handle_in(payload) {
 
       switch(payload.opcode) {
-        case 'game.zone.forest.engage':
+        case 'game.zone.forest.fight':
           for (var i = payload.actions.length - 1; i >= 0; i--) {
             Mousetrap.unbind(payload.actions[i]);
             Mousetrap.bind(payload.actions[i], (e) => {
@@ -41,6 +41,12 @@ export default {
               this[fn] && this[fn]();
             });
           }
+          console.log('fight start: ', payload);
+          break;
+
+        case 'game.zone.forest.round':
+          console.log('game round: ', payload);
+          this.game.audio.play(payload.fight.mob.s_hit);
           break;
 
         default:

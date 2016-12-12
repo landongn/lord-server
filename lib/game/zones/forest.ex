@@ -1,6 +1,8 @@
 defmodule Game.Forest do
   use GenServer
 
+  require Logger
+
   alias Server.Repo
   alias Server.Character
   alias Server.Entity
@@ -23,36 +25,37 @@ defmodule Game.Forest do
     GenServer.call(__MODULE__, {:enter, char})
   end
 
-
   @doc """
   fired when a player looks for a fight in the forest.
   """
-  def spawn(id, name, token, level) do
-    GenServer.call(__MODULE__, {:spawn, id, name, token, level})
+  def spawn(name, level) do
+    Logger.info "all the args #{inspect name} #{inspect level}"
+    GenServer.call(__MODULE__, {:spawn, name, level})
   end
 
   @doc """
   fired when a fight has finished.
   """
-  def battle_result(session_hash, character_id) do
-    GenServer.call(__MODULE__, {:round, session_hash, character_id})
+  def battle_result(name, encounter) do
+    GenServer.call(__MODULE__, {:attack, name, encounter})
   end
 
   @doc """
-  fired each combat round
+  fired each combat attack
   """
-  def round(session_hash, command) do
-    GenServer.call(__MODULE__, {:round, session_hash, command})
+  def attack(name, encounter) do
+    GenServer.call(__MODULE__, {:attack, name, encounter})
   end
 
   ## Server Callbacks
 
   def handle_call({:other_players}, _from, state) do
-    {:reply, Map.get(state, :presence), state}
+    {:reply, state, state}
   end
 
-  def handle_call({:round, session_hash, _command}, _from, state) do
-    {:reply, Map.get(:encounters, session_hash)}
+  def handle_call({:attack, name, encounter}, _from, state) do
+    new_state = Map.put(state, name, encounter)
+    {:reply, new_state, new_state}
   end
 
   def handle_call({:leave, char_id}, _from, state) do
@@ -64,19 +67,14 @@ defmodule Game.Forest do
   end
 
   def handle_call({:enter, char}, _from, state) do
-    new_state = case Map.get(state.presence, char) do
-      nil ->
-        Map.put(state, :presence, [char])
-      roster ->
-        Kernel.put_in(state.presence, Enum.uniq([char | roster]))
-    end
-    {:reply, new_state.presence, new_state}
+    #
+    {:reply, state, state}
   end
 
   @doc """
   spawns a monster for a given `name` and `level`, and stores it until dead/runs away
   """
-  def handle_call({:spawn, id, name, token, level}, _from, state) do
+  def handle_call({:spawn, name, level}, _from, state) do
 
     min = level - 1
     max = level + 5
@@ -87,13 +85,14 @@ defmodule Game.Forest do
       where: :level <= max
 
     mob = Enum.random(choices)
-
+    character = Repo.get_by Character, name: name
     encounter = %{
         mob: mob,
-        player: Repo.one(Character, id)
+        char: character
     }
 
-    Kernel.put_in(state.encounters, token, encounter)
-    {:reply, encounter, state}
+    Logger.info "spawning mob: #{mob.name}"
+    new_state = Map.put(state, name, encounter)
+    {:reply, encounter, new_state}
   end
 end

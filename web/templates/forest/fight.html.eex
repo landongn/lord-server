@@ -1,0 +1,24 @@
+<li class="fight-start">**<span class="white">FIGHT</span>**</li>
+<li></li>
+<li>You have encountered a <span class="white"><%= @mob.name %></span>!!</li>
+<li></li>
+<li>Your skill allows you to get the first strike.</li>
+<li></li>
+<li>Your Health : <span class="white"><%= @char.health %></span></li>
+<li><%= @mob.name %>'s Health : <span class="white"><%= @mob.health %></span></li>
+<li></li>
+<li></li>
+<li>(<span class="action">A</span>)ttack</li>
+<li>(<span class="action">S</span>)tats</li>
+<li>(<span class="action">R</span>)un</li>
+<li></li>
+<li></li>
+<li></li>
+
+<li data-volitile>Your command, <span class="player-name"><%= @char.name %></span>? <span class="blink cursor">&#x2581;</span></li>
+<li class="command" data-volitile>
+  <span data-command="A" class="command-options">(A)</span>
+  <span data-command="S" class="command-options">(S)</span>
+  <span data-command="R" class="command-options">(R)</span>
+  <span class="menu">? for menu</span>
+</li>

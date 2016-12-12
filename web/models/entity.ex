@@ -3,6 +3,9 @@ defmodule Server.Entity do
 
   alias Server.Repo
 
+  # @derive {Poison.Encoder, only: [:id, :name, :gold, :experience, :sex, :armor, :weapon, :strength,
+  # :endurance, :attractiveness, :health, :reputation, :luck, :defense, :s_hit, :s_atk, :s_die, :s_miss]}
+  @derive {Poison.Encoder, except: [:__meta__]}
   schema "entities" do
     field :name, :string
     field :level, :integer, default: 1
@@ -10,14 +13,16 @@ defmodule Server.Entity do
     field :gold, :integer, default: 1000
     field :experience, :integer, default: 0
     field :sex, :string, default: "male"
+    field :damage, :integer, default: 1
     field :armor, :string, default: "Armor"
+    field :armor_value, :integer, default: 1
     field :weapon, :string, default: "Stick"
     field :strength, :integer, default: 1
     field :endurance, :integer, default: 1
     field :attractiveness, :integer, default: 0
-    field :art_url, :string
-    field :location_id, :integer
     field :health, :integer, default: 25
+    field :reputation, :integer, default: 1
+    field :luck, :integer, default: 1
     field :defense, :integer, default: 1
     field :s_hit, :string, default: "gethit1m"
     field :s_atk, :string, default: "stab"
