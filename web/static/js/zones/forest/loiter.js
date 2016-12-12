@@ -13,7 +13,7 @@ export default {
     }
 
     lKeyPressed() {
-      this.game.handle_out('game.zone.forest.search', 'forest');
+      this.game.handle_out('game.zone.forest.search', 'forest', {id: this.game.character.id, level: this.game.character.level});
     }
 
     hKeyPressed() {

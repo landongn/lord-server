@@ -39,8 +39,7 @@ export default class Game {
                 break;
 
             case 'character':
-                if (!this.character) {this.character = new Character(payload)}
-                this.character.update(payload);
+                this.character = payload.payload;
                 break;
 
             default:

@@ -25,7 +25,6 @@ export default class Connection {
       });
 
       this.channels[channels[i]].on('data', resp => {
-        console.log("updating ", this.channels[channels[i]], resp);
         this.game.update(resp.system, resp);
       });
     }

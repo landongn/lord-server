@@ -59,8 +59,9 @@ defmodule Server.CharacterChannel do
     Game.Forest.enter(rec)
 
     push socket, "data", %{
-      opcode: 'character',
-      payload: rec
+      opcode: "game.client.character.update",
+      payload: rec,
+      system: "character",
     }
 
     push socket, "msg", %{
@@ -92,16 +93,16 @@ defmodule Server.CharacterChannel do
   def handle_in("game.zone.character.validate", payload, socket) do
 
     case Repo.get_by Character, name: payload["name"] do
-      _struct ->
+      struct ->
         push socket, "msg", %{
-          message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"]}),
+          message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"], char: struct}),
           opcode: "game.zone.character.confirm",
           name: payload["name"],
           actions: ["k", "d", "l", "b"]
         }
       nil ->
         push socket, "msg", %{
-          message: '',
+          message: "",
           opcode: "game.zone.character.name-reject",
           name: payload["name"],
           actions: []
@@ -148,6 +149,13 @@ defmodule Server.CharacterChannel do
           actions: []
         }
     end
+
+    char = Repo.get_by!(Character, name: payload["name"])
+    push socket, "data", %{
+      opcode: "game.client.character.update",
+      payload: char,
+      system: "character",
+    }
 
     {:noreply, socket}
   end
