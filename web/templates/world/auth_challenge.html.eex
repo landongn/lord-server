@@ -1,6 +1,6 @@
-<li>Legend of the Red Dragon - <span class="action">Registration</span></li>
+<li>Legend of the Red Dragon - <span class="action">Log in</span></li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
-<li>I don't recognize you.  In order to go any further, I'll need an <span data-command="e" class="action">(E)</span>mail address.</li>
+<li>In order to go any further, I'll need an <span data-command="e" class="action">(E)</span>mail address.</li>
 
 <li class="command">
   Your Command? <span class="cursor blink">&#x2581;</span><span data-command="e" class="command-options">(E)</span>

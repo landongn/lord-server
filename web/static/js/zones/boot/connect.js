@@ -23,7 +23,7 @@ export default {
           this.game.audio.play('thunder1');
         }, 300);
         Mousetrap.bind('enter', () => {
-          this.game.handle_out('ident', 'world');
+          this.game.handle_out('game.client.world.news', 'world');
         });
       }
 

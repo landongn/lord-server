@@ -1,5 +1,6 @@
 import ConnectState from 'web/static/js/zones/boot/connect';
 import IdentState from 'web/static/js/zones/boot/ident';
+import WelcomeNewsState from 'web/static/js/zones/boot/welcome_news';
 import CharacterSelectState from 'web/static/js/zones/character/select';
 import CharacterCreateState from 'web/static/js/zones/character/create';
 import CharacterListState from 'web/static/js/zones/character/list';
@@ -16,11 +17,14 @@ export default class World {
     this.zones = {
       [ConnectState.id]: new ConnectState.cls(game, ConnectState.id),
       [IdentState.id]: new IdentState.cls(game, IdentState.id),
+      [WelcomeNewsState.id]: new WelcomeNewsState.cls(game, WelcomeNewsState.id),
+
       [CharacterSelectState.id]: new CharacterSelectState.cls(game, CharacterSelectState.id),
       [CharacterCreateState.id]: new CharacterCreateState.cls(game, CharacterCreateState.id),
       [CharacterListState.id]: new CharacterListState.cls(game, CharacterListState.id),
       [CharacterValidateState.id]: new CharacterValidateState.cls(game, CharacterValidateState.id),
       [CharacterDeleteState.id]: new CharacterDeleteState.cls(game, CharacterDeleteState.id),
+
       [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
       [VillageInnLoiterState.id]: new VillageInnLoiterState.cls(game, VillageInnLoiterState.id),
 
@@ -60,6 +64,10 @@ export default class World {
 
       case 'game.client.motd':
         this.changeState(ConnectState);
+        return payload.message;
+
+      case 'game.zone.world.news':
+        this.changeState(WelcomeNewsState);
         return payload.message;
 
       case 'game.client.ident-challenge':
