@@ -8,6 +8,9 @@
 <li><span class="action" data-command="b">(B)</span>ack to character select</li>
 <li class="command">
   Your Command? <span class="blink cursor">&#x2581;</span>
+  <%= for {characters, i} <- Enum.with_index(@characters) do %>
+  <span data-command="<%= i %>" class="command-options"><%= i+1 %></span>
+  <% end %>
   <span data-command="b" class="command-options">(B)</span>
   <span class="menu">? for menu</span>
 </li>
