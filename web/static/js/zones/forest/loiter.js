@@ -12,17 +12,12 @@ export default {
 
     }
 
-    out(place) {
-      console.log('out to', place);
-      this.game.handle_out(`game.zone.forest.${place}`, 'forest');
-    }
-
     lKeyPressed() {
-      this.out('search');
+      this.game.handle_out('game.zone.forest.search', 'forest');
     }
 
     hKeyPressed() {
-      this.out('healer.loiter')
+      this.game.handle_out('game.zone.healer.loiter', 'village');
     }
 
     rKeyPressed() {
