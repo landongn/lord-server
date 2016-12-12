@@ -36,7 +36,7 @@ defmodule Game.Forest do
   @doc """
   fired when a fight has finished.
   """
-  def battle_result(name, encounter) do
+  def battle_report(name, encounter) do
     GenServer.call(__MODULE__, {:attack, name, encounter})
   end
 
@@ -51,6 +51,11 @@ defmodule Game.Forest do
 
   def handle_call({:other_players}, _from, state) do
     {:reply, state, state}
+  end
+
+  def handle_call({:battle_report, name, encounter}, _from, state) do
+    new_state = Map.put(state, name, encounter)
+    {:reply, new_state, new_state}
   end
 
   def handle_call({:attack, name, encounter}, _from, state) do

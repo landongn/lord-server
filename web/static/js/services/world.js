@@ -112,6 +112,7 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
+
       default:
         this.zone && this.zone.handle_in(payload);
         return payload.message;

@@ -1,0 +1,9 @@
+<li></li>
+<li><span class="attack-stars">**</span><%= @mob.name %> hits with its <%= @mob.weapon %> for <span class="mob-damage"><%= @retaliation_suffered %></span> damage! <span class="attack-stars">**</span></li><li></li>
+<li></li>
+<li>You fall to the ground in a lifeless heap.</li>
+<li></li>
+<li class="death">** YOU ARE DEAD **</li>
+<li><span class="white">** A STORY HAS BEEN POSTED ON THE TREE **</span></li>
+<li><span class="action" data-command="space">-= RESTART -=</span></li>
+<li></li>

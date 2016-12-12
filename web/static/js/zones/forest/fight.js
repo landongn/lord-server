@@ -27,7 +27,7 @@ export default {
     }
 
     rKeyPressed() {
-      this.out('run-away')
+      this.out('loiter')
     }
 
     handle_in(payload) {
@@ -46,8 +46,38 @@ export default {
 
         case 'game.zone.forest.round':
           console.log('game round: ', payload);
-          this.game.audio.play(payload.fight.mob.s_hit);
+          this.game.audio.play('punch1');
+          setTimeout(() => {
+            this.game.audio.play(payload.fight.mob.s_hit);
+            setTimeout(() => {
+              this.game.audio.play(payload.fight.mob.s_atk);
+              setTimeout(() => {
+                this.game.audio.play('gethit4m');
+              }, 100);
+            }, 300)
+          }, 300);
+
+
           break;
+
+        case 'game.zone.forest.kill':
+          this.game.audio.play(payload.fight.mob.s_die);
+          Mousetrap.bind('space', () => {
+            this.out('loiter');
+          });
+          break;
+
+        case 'game.zone.forest.killed':
+          this.game.audio.play('flshhit1');
+          setTimeout(() => {
+            this.game.audio.play('flshhit2');
+            this.game.audio.play('death_m');
+            setTimeout(() => {
+              Mousetrap.bind('space', () => {
+                window.location.reload();
+              });
+            }, 2000);
+          }, 100);
 
         default:
           console.log('unbound forest state', payload.opcode);

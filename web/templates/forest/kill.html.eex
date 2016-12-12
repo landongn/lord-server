@@ -1,0 +1,9 @@
+<li></li>
+<li>you hit <%= @mob.name %> for <%= @damage_dealt %> damage!</li>
+<li></li>
+<li></li>
+<li><%= @mob.name %> falls to the ground in a lifeless heap.</li>
+<li></li>
+<li>You gain <span class="white"><%= @mob.experience %></span> and <span class="gold"><%= @mob.gold %></span> on the corpse.</li>
+<li><span class="action" data-command="space">-= MORE -=</span></li>
+<li></li>

@@ -12,8 +12,8 @@ export default class Renderer {
     }
 
     stripCommandQueue() {
-        const el = document.querySelectorAll('li.command');
-        el.length >= 2 ? el[0].remove() : void(0);
+        const el = document.querySelectorAll('data-volitile');
+        el.remove();
     }
     render(data = {}) {
         const s = this.fragmentFromString(data.message);

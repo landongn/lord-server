@@ -42,6 +42,12 @@ defmodule Server.Character do
     |> validate_required([:name, :player_id, :class_id])
   end
 
+  def battle_report(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:health, :gems, :gold, :experience, :level, :is_alive])
+    |> validate_required([:health, :gems, :gold, :experience, :level, :is_alive])
+  end
+
   def zone(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :strength, :endurance, :luck ])
