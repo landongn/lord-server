@@ -10,7 +10,7 @@ node {
 
     }
 
-    if (env.BRANCH_NAME == "develop") {
+    if (env.BRANCH_NAME == "master") {
         stage ('Docker') {
             version = "${BUILD_VERSION}"
             // dockerImage = docker.build "home.cherubini.casa:5000/lordserver:${version}"
