@@ -11,7 +11,7 @@ node {
             sh "mix local.hex --force"
             sh "mix deps.get"
         }
-        withEnv(['PATH=/Users/daniel/.nvm/versions/node/v4.2.1/bin:$PATH']) {
+        withEnv(['PATH=/Users/daniel/.nvm/versions/node/v6.9.1/bin:$PATH']) {
             sh "npm install"
         }
     }
