@@ -1,7 +1,7 @@
 <li><span class="white">Legend of the Red Dragon</span> - <span class="action">Hero Select</span></li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <%= for {character, i} <- Enum.with_index(@characters) do %>
-<li><span class="action" data-command="<%= i %>">(<%= i+1 %>)</span> <%= character["name"] %>: Level <%= character["level"] %> <%= character["class"] %></li>
+<li><span class="action" data-command="<%= i+1 %>">(<%= i+1 %>)</span> <%= character["name"] %>: Level <%= character["level"] %> <%= character["class"] %></li>
 <li><span class="special-light">Current Weapon:</span> <%= character["weapon"] %> <span class="special-light">Current Armor:</span> <%= character["armor"] %></li>
 <li>Gold: <%= character["gold"] %></li>
 <% end %>
