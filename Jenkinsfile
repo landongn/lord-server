@@ -7,9 +7,9 @@ node {
     }
 
     stage ('Build') {
-        sh "mix local.hex --force"
-        sh "mix deps.get"
-        sh "npm install"
+        sh "/usr/local/bin/mix local.hex --force"
+        sh "/usr/local/bin/mix deps.get"
+        sh "/Users/daniel/.nvm/versions/node/v4.2.1/bin/npm install"
     }
 
     if (env.BRANCH_NAME == "master") {
