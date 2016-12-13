@@ -1,0 +1,9 @@
+version: '2'
+services:
+    lord:
+        build: .
+        image: 'home.cherubini.casa:5000/lord'
+        environment:
+            - MIX_ENV=dev
+        ports:
+            - '4000:4000'
