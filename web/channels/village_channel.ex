@@ -272,15 +272,16 @@ defmodule Server.VillageChannel do
 
     char = Repo.get(Character, payload["id"])
     case char.health < char.m_health do
-      true -> 
+      true ->
         cost = round(round((char.m_health - char.health) * char.level))
         amount = round(char.m_health - char.health)
-        char = %{char | gold: round(char.gold - round((char.m_health - char.health) * char.level)), 
-          health: char.m_health}
+        gold = round(char.gold - round((char.m_health - char.health) * char.level))
 
-        changeset = Character.heal(%Character{id: char.id}, %{gold: char.gold, health: char.m_health})
-        Repo.update!(changeset)
+        char = Character.healer_full(char, %{gold: gold, health: char.m_health})
 
+
+        {:ok, delta} = Repo.update(char)
+        IO.inspect delta
         push socket, "msg", %{
           opcode: "game.zone.village.healer.heal-all",
           message: View.render_to_string(VillageView, "healer-heal-all.html", %{amount: amount, cost: cost}),
@@ -288,14 +289,14 @@ defmodule Server.VillageChannel do
         }
         push socket, "data", %{
           opcode: "game.client.character.update",
-          payload: char,
+          payload: delta,
           system: "character",
         }
-      false -> 
+      false ->
         push socket, "msg", %{
           opcode: "game.zone.village.healer.heal-all",
           message: View.render_to_string(VillageView, "healer-heal-full.html"),
-          actions: ["space"]
+          actions: ["space", "enter"]
         }
     end
 

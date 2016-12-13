@@ -15,17 +15,10 @@ export default {
     }
 
     handle_in(payload) {
-
-      switch(payload.opcode) {
-        case 'game.zone.village.healer.heal-full':
-          for (var i = payload.actions.length - 1; i >= 0; i--) {
-            Mousetrap.unbind(payload.actions[i]);
-            Mousetrap.bind(payload.actions[i], (e) => {
-              const fn = `${e.key}KeyPressed`;
-              this[fn] && this[fn]();
-            });
-          }
-      }
+      console.log('healer in: ', payload);
+      Mousetrap.bind(['enter', 'space'], (e) => {
+        this.spaceKeyPressed(e);
+      });
     }
   },
   id: 'village.healer.heal-full'

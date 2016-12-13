@@ -12,7 +12,6 @@ import VillageLoiterState from 'web/static/js/zones/village/loiter';
 import VillageInnLoiterState from 'web/static/js/zones/village/innLoiter';
 
 import HealerLoiterState from 'web/static/js/zones/village/healer-loiter';
-import HealerHealSomeState from 'web/static/js/zones/village/healer-heal-some';
 import HealerHealAllState from 'web/static/js/zones/village/healer-heal-all';
 import HealerHealFullState from 'web/static/js/zones/village/healer-heal-full';
 
@@ -37,8 +36,7 @@ export default class World {
       [VillageInnLoiterState.id]: new VillageInnLoiterState.cls(game, VillageInnLoiterState.id),
 
       [HealerLoiterState.id]: new HealerLoiterState.cls(game, HealerLoiterState.id),
-      [HealerHealSomeState.id]: new HealerHealSomeState.cls(game, HealerHealSomeState.id),
-      [HealerHealSomeState.id]: new HealerHealAllState.cls(game, HealerHealAllState.id),
+      [HealerHealAllState.id]: new HealerHealAllState.cls(game, HealerHealAllState.id),
       [HealerHealFullState.id]: new HealerHealFullState.cls(game, HealerHealFullState.id),
 
       [ForestLoiterState.id]: new ForestLoiterState.cls(game, ForestLoiterState.id),
@@ -134,15 +132,8 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
-
       case 'game.zone.village.healer.loiter':
         this.changeState(HealerLoiterState);
-        this.zone && this.zone.handle_in(payload);
-        return payload.message;
-
-      case 'game.zone.village.healer.heal-some':
-        this.changeState(HealerHealAllState);
-        this.game.audio.play('spelgdht');
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 

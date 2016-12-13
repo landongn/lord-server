@@ -120,6 +120,7 @@ span.menu {
 
 pre {
     font-size: 1em;
+    overflow: hidden;
     color: lightgreen;
     padding: 0;
     font-family: "Classic Console";
