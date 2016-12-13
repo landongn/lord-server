@@ -26,6 +26,17 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
+  def handle_in("game.zone.village.players.online", _, socket) do
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.loiter",
+      message: View.render_to_string(VillageView, "players-online.html", %{}),
+      actions: ["f", "k", "h", "i", "y", "w", "c", "p", "s", "a", "v", "t", "l", "d", "o", "q"]
+    }
+
+    {:noreply, socket}
+  end
+
   def handle_in("game.zone.village.mail", _, socket) do
 
     push socket, "msg", %{
@@ -295,7 +306,7 @@ defmodule Server.VillageChannel do
       false ->
         push socket, "msg", %{
           opcode: "game.zone.village.healer.heal-all",
-          message: View.render_to_string(VillageView, "healer-heal-full.html"),
+          message: View.render_to_string(VillageView, "healer-heal-full.html", %{}),
           actions: ["space", "enter"]
         }
     end

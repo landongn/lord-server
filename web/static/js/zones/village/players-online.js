@@ -3,7 +3,7 @@ import State from 'web/static/js/zones/base';
 
 
 export default {
-  cls: class ArmorSellConfirmState extends State {
+  cls: class PlayersOnlineState extends State {
     constructor(game, id) {
       super();
       this.game = game;
@@ -19,7 +19,7 @@ export default {
 
     handle_in(payload) {
       switch(payload.opcode) {
-        case 'game.zone.village.armor.sell.offer':
+        case 'game.zone.village.armor.loiter':
           for (var i = payload.actions.length - 1; i >= 0; i--) {
             console.log(payload.actions[i]);
             Mousetrap.unbind(payload.actions[i]);
@@ -30,5 +30,5 @@ export default {
       }
     }
   },
-  id: 'village.armor.sell.offer'
+  id: 'village.players.online'
 }
