@@ -5,13 +5,5 @@ services:
         image: 'home.cherubini.casa:5000/lord'
         environment:
             - MIX_ENV=dev
-        depends_on:
-            - db
-        links:
-            - db
         ports:
             - '4000:4000'
-    db:
-        image: postgres
-        ports:
-            - '5432:5432'

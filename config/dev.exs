@@ -42,5 +42,5 @@ config :server, Server.Repo,
   username: "postgres",
   password: "d3m3t3r3d",
   database: "server_dev",
-  hostname: "db",
+  hostname: "home.cherubini.casa",
   pool_size: 10
