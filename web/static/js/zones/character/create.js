@@ -29,7 +29,6 @@ export default {
       this.nameElement.focus();
       this.nameElement.addEventListener('keypress', (e) => {
         if (e.keyCode === 13) {
-          debugger;
           this.verifyNameUniqueness(this.nameElement.value);
         }
       });

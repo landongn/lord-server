@@ -1,5 +1,7 @@
-<li>Welcome back!</li>
+<li><span class="white">Legend of the Red Dragon</span> - <span class="action">Hero Select</span></li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
+<li></li>
+<li></li>
 <li><span class="action" data-command="l">(L)</span>ist existing characters</li>
 <li><span class="action" data-command="c">(C)</span>reate new character</li>
 <li><span class="action" data-command="d">(D)</span>elete a dead or unwanted character</li>

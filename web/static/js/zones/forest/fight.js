@@ -19,7 +19,7 @@ export default {
     }
 
     aKeyPressed() {
-      this.out('attack');
+      this.game.handle_out('game.zone.forest.attack', 'forest', {id: this.game.character.id})
     }
 
     pKeyPressed() {

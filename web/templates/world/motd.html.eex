@@ -1,8 +1,8 @@
 <img class="centered" src="/images/intro1.png" alt="adapted by Landon Noss">
-<li>Welcome to the Legend of the Red Dragon! Press enter, or touch purple text to get started.</li>
+<li>Welcome to the <span class="white">Legend of the Red Dragon</span>! Press enter, or touch purple text to get started.</li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <li class="command">
   Your Command? <span class="blink cursor">&#x2581;</span>
-  <span data-command="enter" class="command-options">(Enter)</span>
+  <span data-volitile data-command="enter" class="command-options">(Enter)</span>
   <span class="menu">? for menu</span>
 </li>

@@ -18,7 +18,13 @@ export default class Game {
         this.character = null;
         this.session = new Session({});
         window.addEventListener('touchstart', (e) => {
-            Mousetrap.trigger(e.target.attributes['data-command'].value);
+            const val = parseInt(e.target.attributes['data-command'].value);
+            if (isNaN(val)) {
+                Mousetrap.trigger(e.target.attributes['data-command'].value);
+            } else {
+                Mousetrap.trigger(val);
+            }
+            
         });
         this.audio = new SoundManager(this);
     }
@@ -39,8 +45,7 @@ export default class Game {
                 break;
 
             case 'character':
-                if (!this.character) {this.character = new Character(payload)}
-                this.character.update(payload);
+                this.character = payload.payload;
                 break;
 
             default:

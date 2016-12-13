@@ -7,7 +7,7 @@ defmodule Server.ForestChannel do
   alias Phoenix.View
   alias Server.Character
   alias Server.News
-
+  alias Server.HealerView
 
   def join("forest", payload, socket) do
     if authorized?(payload) do
@@ -28,19 +28,19 @@ defmodule Server.ForestChannel do
 
   def handle_in("game.zone.forest.healer.loiter", payload, socket) do
     push socket, "msg", %{
-      opcode: "game.zone.forest.loiter",
-      message: View.render_to_string(ForestView, "healer-loiter.html", %{}),
+      opcode: "game.zone.healer.loiter",
+      message: View.render_to_string(HealerView, "healer-loiter.html", %{}),
       actions: ["h", "r", "a"]
     }
     {:noreply, socket}
   end
 
   def handle_in("game.zone.forest.stats", payload, socket) do
-    user = Forest.lookup(socket.assigns[:user_id])
+    char = Repo.get_by(Character, payload["id"])
     push socket, "msg", %{
-      message: View.render_to_string(ForestView, "stats.html", %{user: user}),
+      message: View.render_to_string(ForestView, "stats.html", char),
       opcode: "game.zone.forest.stats",
-      user: user,
+      char: char,
       actions: ["l", "h", "r", "v", "b"]
     }
     {:noreply, socket}
@@ -48,7 +48,7 @@ defmodule Server.ForestChannel do
 
   def handle_in("game.zone.forest.search", payload, socket) do
 
-    encounter = Forest.spawn("thock", 2)
+    encounter = Forest.spawn(payload["id"], payload["level"])
     push socket, "msg", %{
       opcode: "game.zone.forest.fight",
       encounter: encounter,
@@ -62,7 +62,9 @@ defmodule Server.ForestChannel do
 
   def handle_in("game.zone.forest.attack", payload, socket) do
 
-    case Forest.lookup("thock") do
+    charId = payload["id"]
+
+    case Forest.lookup(charId) do
       {:ok, fight} ->
         Logger.info "STARTING FIGHT\n\n"
         char = fight.char
@@ -84,7 +86,7 @@ defmodule Server.ForestChannel do
         m_damage = mob.damage
         Logger.info "mob stats: #{m_str} #{m_def} #{m_health} #{m_armor} #{m_damage}"
         Logger.info "Setup finished\n\n"
-        damage_dealt = ((c_str * c_weapon) - (m_def * m_armor) * 1.8)
+        damage_dealt = ((c_str * c_weapon) - (m_def * m_armor) * 1.4)
         retaliation_suffered = ((m_str * m_damage) - (c_def * c_armor) * 0.03)
 
         mob = %{mob | health: round(mob.health - damage_dealt)}
@@ -94,7 +96,7 @@ defmodule Server.ForestChannel do
           # push death
           char = %{char | is_alive: false, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
           Logger.info "oh no, the character died!"
-          Forest.battle_report(char.name, %{char: char, mob: mob})
+          Forest.battle_report(char.id, %{char: char, mob: mob})
 
           changeset = Server.News.changeset(%Server.News{}, %{posted_by: mob.name, body: "#{mob.name} has murdered #{char.name} in cold blood."})
           Repo.insert!(changeset)
@@ -155,7 +157,7 @@ defmodule Server.ForestChannel do
             updatedFight = %{char: char, mob: mob, char_missed: charMissed, mob_missed: mobMissed,
             retaliation_suffered: retaliation_suffered, damage_dealt: damage_dealt}
 
-            Forest.attack("thock", updatedFight)
+            Forest.attack(char.id, updatedFight)
             Logger.info("Updated Records")
             push socket, "msg", %{
               opcode: "game.zone.forest.round",
@@ -184,7 +186,7 @@ defmodule Server.ForestChannel do
 
   def handle_in("game.zone.forest.run-away", payload, socket) do
     push socket, "msg", %{
-      message: View.render_to_string(ForestView, "run-away.html", %{}),
+      message: View.render_to_string(ForestView, "loiter.html", %{}),
       opcode: "game.zone.forest.loiter",
       actions: ["l", "h", "r"]
     }

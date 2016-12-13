@@ -66,8 +66,11 @@ Repo.insert!(%Server.Entity{
     health: 25,
     armor_value: 1,
     damage: 1,
+    experience: 10,
+    m_health: 25,
+    m_mana: 25,
     gold: 25,
-    weapon: "Makeshift Makeshift"
+    weapon: "Makeshift Shank"
 })
 
 Repo.insert!(%Server.Entity{
@@ -76,13 +79,16 @@ Repo.insert!(%Server.Entity{
     strength: 1,
     endurance: 10,
     health: 25,
+    m_health: 25,
+    m_mana: 25,
     gold: 50,
     armor_value: 1,
     damage: 1,
+    experience: 2,
     s_hit: "skel_hit",
-    s_atk: "skel_att1",
+    s_atk: "skelatt1",
     s_die: "skel_die",
-    weapon: "Fist"
+    weapon: "Rusty Long Sword"
 })
 
 Repo.insert!(%Server.Entity{
@@ -93,6 +99,9 @@ Repo.insert!(%Server.Entity{
     armor_value: 1,
     damage: 1,
     gold: 5,
+    m_health: 25,
+    experience: 3,
+    m_mana: 25,
     health: 25,
     s_hit: "bat_hit",
     s_atk: "bat_att",
@@ -109,6 +118,9 @@ Repo.insert!(%Server.Entity{
     gold: 250,
     armor_value: 1,
     damage: 1,
+    m_health: 25,
+    experience: 8,
+    m_mana: 25,
     s_hit: "gethit2ml",
     s_atk: "",
     s_die: "death_ml",
@@ -121,7 +133,10 @@ Repo.insert!(%Server.Entity{
     level: 1,
     strength: 3,
     endurance: 10,
+    experience: 10,
     health: 50,
+    m_health: 25,
+    m_mana: 25,
     armor_value: 1,
     damage: 1,
     gold: 150,
@@ -137,7 +152,3 @@ Repo.delete_all Server.Class
 Repo.insert!(%Server.Class{id: 1, name: "Death Knight", description: ""})
 Repo.insert!(%Server.Class{id: 2, name: "Thief", description: ""})
 Repo.insert!(%Server.Class{id: 3, name: "Wizard", description: ""})
-
-# Extra Extra
-Repo.delete_all Server.News
-Repo.insert!(%Server.News{body: "It's a sad state of affairs when there are no heros to speak of in the land.", posted_by: "A Villager"})

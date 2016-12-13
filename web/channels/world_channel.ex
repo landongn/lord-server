@@ -6,6 +6,7 @@ defmodule Server.WorldChannel do
   alias Server.Player
   alias Phoenix.View
   alias Server.WorldView
+  alias Server.News
   alias Server.CharacterView
 
   def join("world:system", _, socket) do
@@ -14,16 +15,31 @@ defmodule Server.WorldChannel do
   end
 
   def handle_in("motd", _, socket) do
-    msg = View.render_to_string(WorldView, "motd.html", %{})
-    push socket, "msg", %{message: msg, opcode: "game.client.motd", actions: ["enter"]}
+    push socket, "msg", %{
+      message: View.render_to_string(WorldView, "motd.html", %{}),
+      opcode: "game.client.motd",
+      actions: ["enter"]
+    }
     {:noreply, socket}
   end
 
   def handle_in("ident", _, socket) do
     push socket, "msg", %{
-      message: View.render_to_string(WorldView, "auth_challenge.html", %{}),
+      message: View.render_to_string(WorldView, "ident.html", %{}),
       opcode: "game.client.ident-challenge",
       actions: ["e"]
+    }
+    {:noreply, socket}
+  end
+
+  def handle_in("game.client.world.news", _, socket) do
+    posts = Repo.all from n in News,
+      limit: 10
+
+    push socket, "msg", %{
+      message: View.render_to_string(WorldView, "news.html", %{posts: posts}),
+      opcode: "game.zone.world.news",
+      actions: ["enter", "space"]
     }
     {:noreply, socket}
   end
@@ -82,7 +98,7 @@ defmodule Server.WorldChannel do
             }
           _ ->
             push socket, "msg", %{
-              message: View.render_to_string(WorldView, "auth_challenge.html", %{}),
+              message: View.render_to_string(WorldView, "ident.html", %{}),
               opcode: "game.client.ident-challenge",
               actions: ["e"]
             }

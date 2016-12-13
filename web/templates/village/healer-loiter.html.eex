@@ -1,0 +1,16 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Healer's Hut</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li>Entering the hut, the healer looks you up and down and gives you a toothless grin.</li>
+<li>"My Prices are the best in the village!", he shrieks.</li>
+<li></li>
+<li></li>
+<pre>
+  <span data-command="h" class="action">(H)</span>eal Completely
+  <span data-command="r" class="action">(R)</span>eturn to Town                     
+</section>
+<li class="command">
+  Well? <span class="blink cursor">&#x2581;</span>
+  <span data-command="h" class="command-options">(H)</span>
+  <span data-command="r" class="command-options">(R)</span>
+</li>

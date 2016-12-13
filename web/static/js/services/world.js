@@ -1,12 +1,21 @@
 import ConnectState from 'web/static/js/zones/boot/connect';
 import IdentState from 'web/static/js/zones/boot/ident';
+import WelcomeNewsState from 'web/static/js/zones/boot/welcome_news';
+
 import CharacterSelectState from 'web/static/js/zones/character/select';
 import CharacterCreateState from 'web/static/js/zones/character/create';
 import CharacterListState from 'web/static/js/zones/character/list';
 import CharacterValidateState from 'web/static/js/zones/character/validate';
 import CharacterDeleteState from 'web/static/js/zones/character/delete';
+
 import VillageLoiterState from 'web/static/js/zones/village/loiter';
 import VillageInnLoiterState from 'web/static/js/zones/village/innLoiter';
+
+import HealerLoiterState from 'web/static/js/zones/village/healer-loiter';
+import HealerHealSomeState from 'web/static/js/zones/village/healer-heal-some';
+import HealerHealAllState from 'web/static/js/zones/village/healer-heal-all';
+import HealerHealFullState from 'web/static/js/zones/village/healer-heal-full';
+
 import ForestLoiterState from 'web/static/js/zones/forest/loiter';
 import ForestFightState from 'web/static/js/zones/forest/fight';
 
@@ -16,17 +25,26 @@ export default class World {
     this.zones = {
       [ConnectState.id]: new ConnectState.cls(game, ConnectState.id),
       [IdentState.id]: new IdentState.cls(game, IdentState.id),
+      [WelcomeNewsState.id]: new WelcomeNewsState.cls(game, WelcomeNewsState.id),
+
       [CharacterSelectState.id]: new CharacterSelectState.cls(game, CharacterSelectState.id),
       [CharacterCreateState.id]: new CharacterCreateState.cls(game, CharacterCreateState.id),
       [CharacterListState.id]: new CharacterListState.cls(game, CharacterListState.id),
       [CharacterValidateState.id]: new CharacterValidateState.cls(game, CharacterValidateState.id),
       [CharacterDeleteState.id]: new CharacterDeleteState.cls(game, CharacterDeleteState.id),
+
       [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
       [VillageInnLoiterState.id]: new VillageInnLoiterState.cls(game, VillageInnLoiterState.id),
+
+      [HealerLoiterState.id]: new HealerLoiterState.cls(game, HealerLoiterState.id),
+      [HealerHealSomeState.id]: new HealerHealSomeState.cls(game, HealerHealSomeState.id),
+      [HealerHealSomeState.id]: new HealerHealAllState.cls(game, HealerHealAllState.id),
+      [HealerHealFullState.id]: new HealerHealFullState.cls(game, HealerHealFullState.id),
 
       [ForestLoiterState.id]: new ForestLoiterState.cls(game, ForestLoiterState.id),
       [ForestFightState.id]: new ForestFightState.cls(game, ForestFightState.id),
     };
+
     this.zone = null;
 
   }
@@ -60,6 +78,10 @@ export default class World {
 
       case 'game.client.motd':
         this.changeState(ConnectState);
+        return payload.message;
+
+      case 'game.zone.world.news':
+        this.changeState(WelcomeNewsState);
         return payload.message;
 
       case 'game.client.ident-challenge':
@@ -112,6 +134,28 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
+
+      case 'game.zone.village.healer.loiter':
+        this.changeState(HealerLoiterState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      case 'game.zone.village.healer.heal-some':
+        this.changeState(HealerHealAllState);
+        this.game.audio.play('spelgdht');
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      case 'game.zone.village.healer.heal-all':
+        this.changeState(HealerHealAllState);
+        this.game.audio.play('spelgdht');
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      case 'game.zone.village.healer.heal-full':
+        this.changeState(HealerHealAllState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
 
       default:
         this.zone && this.zone.handle_in(payload);

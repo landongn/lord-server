@@ -7,6 +7,7 @@ export default {
       super();
       this.game = game;
       this.id = id;
+      this.characters = null;
     }
     load() {
       Mousetrap.bind('b', () => {
@@ -15,17 +16,17 @@ export default {
     }
 
     delete(i) {
-      this.game.handle_out('game.zone.character.play', 'character', {id: i});
+      console.log(i);
+      this.game.handle_out('game.zone.character.delete-confirm', 'character', {id: this.characters[i].id});
       Mousetrap.reset();
-      Mousetrap.bind('b', () => {
-        this.game.handle_out('game.zone.character.select', 'character');
-      });
     }
 
     handle_in(payload) {
-      for (var i = payload.characters.length - 1; i >= 0; i--) {
-        Mousetrap.bind(i+1+'', () => {
-          this.delete(i);
+      console.log('payload from delete: ', payload);
+      this.characters = payload.characters;
+      for (var i = 0; i < payload.characters.length; i++) {
+        Mousetrap.bind(i+1+'', (e) => {
+          this.delete(i-1);
         });
       }
     }

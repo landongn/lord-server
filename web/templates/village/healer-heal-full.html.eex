@@ -1,0 +1,9 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Healer's Hut</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li>"You look perfectly fine to me!"</li>
+<li>Embarassed, you walk out of the Healer's Hut. </li>
+<li></li>
+<pre>
+  <span data-command="space" class="action">(Continue)</span>
+</section>

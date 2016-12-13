@@ -1,0 +1,10 @@
+<li><span class="white">Legend of the Red Dragon</span> - <span class="action">News</span></li>
+<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
+<%= for post <- @posts do %>
+<li><%= post.body %></li>
+<li></li>
+<% end %>
+<li data-volitile class="command">
+  Enter the realm: <span class="cursor blink">&#x2581;</span><span data-command="space" class="command-options">(space)</span>
+  <span class="menu">? for menu</span>
+</li>
