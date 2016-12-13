@@ -2,8 +2,9 @@
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <%= for post <- @posts do %>
 <li><%= post.body %></li>
+<li></li>
 <% end %>
-<li class="command">
+<li data-volitile class="command">
   Enter the realm: <span class="cursor blink">&#x2581;</span><span data-command="space" class="command-options">(space)</span>
   <span class="menu">? for menu</span>
 </li>

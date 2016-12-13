@@ -18,6 +18,8 @@ defmodule Server.Entity do
     field :armor_value, :integer, default: 1
     field :weapon, :string, default: "Stick"
     field :strength, :integer, default: 1
+    field :m_health, :integer, default: 25
+    field :m_mana, :integer, default: 25
     field :endurance, :integer, default: 1
     field :attractiveness, :integer, default: 0
     field :health, :integer, default: 25

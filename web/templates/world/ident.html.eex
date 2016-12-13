@@ -1,8 +1,8 @@
-<li>Legend of the Red Dragon - <span class="action">Log in</span></li>
+<li><span class="white">Legend of the Red Dragon</span> - <span class="action">Log in</span></li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <li>In order to go any further, I'll need an <span data-command="e" class="action">(E)</span>mail address.</li>
 
-<li class="command">
+<li data-volitile class="command">
   Your Command? <span class="cursor blink">&#x2581;</span><span data-command="e" class="command-options">(E)</span>
   <span class="menu">? for menu</span>
 </li>

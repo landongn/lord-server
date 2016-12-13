@@ -25,7 +25,7 @@ defmodule Server.WorldChannel do
 
   def handle_in("ident", _, socket) do
     push socket, "msg", %{
-      message: View.render_to_string(WorldView, "auth_challenge.html", %{}),
+      message: View.render_to_string(WorldView, "ident.html", %{}),
       opcode: "game.client.ident-challenge",
       actions: ["e"]
     }
@@ -98,7 +98,7 @@ defmodule Server.WorldChannel do
             }
           _ ->
             push socket, "msg", %{
-              message: View.render_to_string(WorldView, "auth_challenge.html", %{}),
+              message: View.render_to_string(WorldView, "ident.html", %{}),
               opcode: "game.client.ident-challenge",
               actions: ["e"]
             }

@@ -1,0 +1,10 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Healer's Hut</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li>You have been healed for <%= @amount %> hitpoints!</li>
+<li>You pay the healer his fee of <%= @cost %> gold.</li>
+<li></li>
+<li>"Come again!"</li>
+<pre>
+  <span data-command="space" class="action">(Continue)</span>
+</section>

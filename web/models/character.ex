@@ -14,6 +14,8 @@ defmodule Server.Character do
     field :sex, :string, default: "male"
     field :attractiveness, :integer, default: 1
     field :strength, :integer, default: 10
+    field :m_health, :integer, default: 25
+    field :m_mana, :integer, default: 25
     field :endurance, :integer, default: 10
     field :married, :boolean, default: false
     field :armor_id, :integer, default: 2
@@ -46,6 +48,12 @@ defmodule Server.Character do
     struct
     |> cast(params, [:health, :gems, :gold, :experience, :level, :is_alive])
     |> validate_required([:health, :gems, :gold, :experience, :level, :is_alive])
+  end
+
+  def heal(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:health, :gold])
+    |> validate_required([:health, :gold])
   end
 
   def zone(struct, params \\ %{}) do

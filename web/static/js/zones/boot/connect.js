@@ -14,14 +14,10 @@ export default {
       }
 
       load() {
-
-        this.game.audio.play('rainloop', true);
         setTimeout(() => {
-          this.game.audio.play('wolf_howl');
-        }, 1000);
-        setTimeout(() => {
-          this.game.audio.play('thunder1');
-        }, 300);
+          // this.game.audio.play('thunder1');
+          // this.game.audio.play(`crow0${Math.floor(Math.random() * 4) + 1}`);
+        }, Math.floor(Math.random() * 2000) + 1000);
         Mousetrap.bind('enter', () => {
           this.game.handle_out('game.client.world.news', 'world');
         });

@@ -3,6 +3,8 @@ defmodule Server.VillageChannel do
 
   alias Phoenix.View
   alias Server.VillageView
+  alias Server.Character
+  alias Server.Repo
 
   def join("village", payload, socket) do
     if authorized?(payload) do
@@ -250,6 +252,62 @@ defmodule Server.VillageChannel do
       opcode: "game.zone.village.inn.room.ask",
       message: View.render_to_string(VillageView, "inn-room-ask.html", %{}),
       actions: []
+    }
+
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.village.healer.loiter", _payload, socket) do
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.healer.loiter",
+      message: View.render_to_string(VillageView, "healer-loiter.html", %{}),
+      actions: ["h", "a", "r"]
+    }
+
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.village.healer.heal-all", payload, socket) do
+
+    char = Repo.get(Character, payload["id"])
+    case char.health < char.m_health do
+      true -> 
+        cost = round(round((char.m_health - char.health) * char.level))
+        amount = round(char.m_health - char.health)
+        char = %{char | gold: round(char.gold - round((char.m_health - char.health) * char.level)), 
+          health: char.m_health}
+
+        changeset = Character.heal(%Character{id: char.id}, %{gold: char.gold, health: char.m_health})
+        Repo.update!(changeset)
+
+        push socket, "msg", %{
+          opcode: "game.zone.village.healer.heal-all",
+          message: View.render_to_string(VillageView, "healer-heal-all.html", %{amount: amount, cost: cost}),
+          actions: ["space"]
+        }
+        push socket, "data", %{
+          opcode: "game.client.character.update",
+          payload: char,
+          system: "character",
+        }
+      false -> 
+        push socket, "msg", %{
+          opcode: "game.zone.village.healer.heal-all",
+          message: View.render_to_string(VillageView, "healer-heal-full.html"),
+          actions: ["space"]
+        }
+    end
+
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.village.healer.loiter", _payload, socket) do
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.healer.heal-all",
+      message: View.render_to_string(VillageView, "healer-heal-all.html", %{}),
+      actions: ["h", "a", "r"]
     }
 
     {:noreply, socket}
