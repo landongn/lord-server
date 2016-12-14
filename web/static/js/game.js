@@ -15,7 +15,7 @@ export default class Game {
         this.world = new World(this);
         this.gui = new Gui(this);
         this.input = new Input(this);
-        this.character = null;
+        this.character = new Character(this);
         this.session = new Session({});
         window.addEventListener('touchstart', (e) => {
             const val = parseInt(e.target.attributes['data-command'].value);
@@ -45,7 +45,7 @@ export default class Game {
                 break;
 
             case 'character':
-                this.character = payload.payload;
+                this.character.update(payload.payload);
                 break;
 
             default:

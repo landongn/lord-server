@@ -5,9 +5,14 @@ defmodule Server.ForestChannel do
   alias Server.ForestView
   alias Game.Forest
   alias Phoenix.View
-  alias Server.Character
+  
   alias Server.News
   alias Server.HealerView
+
+  alias Server.Character
+  alias Server.Armor
+  alias Server.Weapon
+  alias Server.Class
 
   def join("forest", payload, socket) do
     if authorized?(payload) do
@@ -36,9 +41,14 @@ defmodule Server.ForestChannel do
   end
 
   def handle_in("game.zone.forest.stats", payload, socket) do
-    char = Repo.get_by(Character, payload["id"])
+
+    char = Repo.get(Character, payload["id"])
+    weapon = Repo.get(Weapon, char.weapon_id)
+    armor = Repo.get(Armor, char.armor_id)
+    class = Repo.get(Class, char.class_id)
+
     push socket, "msg", %{
-      message: View.render_to_string(ForestView, "stats.html", char),
+      message: View.render_to_string(ForestView, "stats.html", %{char: char, class: class, armor: armor, weapon: weapon}),
       opcode: "game.zone.forest.stats",
       char: char,
       actions: ["l", "h", "r", "v", "b"]

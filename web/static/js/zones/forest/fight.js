@@ -46,38 +46,48 @@ export default {
 
         case 'game.zone.forest.round':
           console.log('game round: ', payload);
-          this.game.audio.play('punch1');
-          setTimeout(() => {
-            this.game.audio.play(payload.fight.mob.s_hit);
+            this.game.audio.play('swing');
             setTimeout(() => {
+              this.game.audio.play(payload.fight.mob.s_hit);
+            }, 50);
+
+            setTimeout(() => {
+              const el = document.querySelectorAll('.round-hidden');
+              for (var i = 0; i < el.length; i++) {
+                const itr = i;
+                setTimeout(() => {
+                  el[itr].classList.remove('round-hidden');
+                }, (itr + 50));
+              }
               this.game.audio.play(payload.fight.mob.s_atk);
               setTimeout(() => {
-                this.game.audio.play('gethit4m');
-              }, 100);
-            }, 300)
-          }, 300);
-
-
+                this.game.character.getHit();
+              }, 250);
+            }, 1000); 
+        
           break;
 
         case 'game.zone.forest.kill':
+          this.game.audio.play('swing');
+          this.game.audio.play('flshhit2');
           this.game.audio.play(payload.fight.mob.s_die);
+          Mousetrap.unbind('a');
+          Mousetrap.unbind('r');
           Mousetrap.bind('space', () => {
             this.out('loiter');
           });
           break;
 
         case 'game.zone.forest.killed':
-          this.game.audio.play('flshhit1');
-          setTimeout(() => {
-            this.game.audio.play('flshhit2');
-            this.game.audio.play('death_m');
-            setTimeout(() => {
-              Mousetrap.bind('space', () => {
-                window.location.reload();
-              });
-            }, 2000);
-          }, 100);
+          Mousetrap.unbind('a');
+          Mousetrap.unbind('r');
+          this.game.audio.play(payload.fight.mob.s_atk);
+          this.game.audio.play('flshhit2');
+          this.game.audio.play('death_m');
+
+          Mousetrap.bind('space', () => {
+            window.location.reload();
+          });
 
         default:
           console.log('unbound forest state', payload.opcode);

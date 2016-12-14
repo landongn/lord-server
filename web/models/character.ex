@@ -22,6 +22,7 @@ defmodule Server.Character do
     field :m_health, :integer, default: 25
     field :m_mana, :integer, default: 25
     field :health, :integer, default: 25
+    field :mana,:integer, default: 25
     field :endurance, :integer, default: 10
     field :defense, :integer, default: 3
     field :strength, :integer, default: 10

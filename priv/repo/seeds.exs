@@ -70,8 +70,8 @@ Repo.insert!(%Server.Entity{
     m_health: 25,
     m_mana: 25,
     gold: 25,
-    kill_msg: "You begin fumbling to keep hold of your weapon before it falls and hits the gnome and impales itself in his skull.As you lean in to remove your weapon, a foul stench erupts from the other end of him.  It's probably wise to move on, quickly.",
-    death_msg: "\"What a moron\", the Gnome blurts as he draws his blade from your gushing throat.",
+    death_msg: "You begin fumbling to keep hold of your weapon before it falls and hits the gnome and impales itself in his skull.As you lean in to remove your weapon, a foul stench erupts from the other end of him.  It's probably wise to move on, quickly.",
+    kill_msg: "\"What a moron\", the Gnome blurts as he draws his blade from your gushing throat.",
     weapon: "Makeshift Shank"
 })
 
@@ -110,8 +110,8 @@ Repo.insert!(%Server.Entity{
     s_hit: "bat_hit",
     s_atk: "bat_att",
     s_die: "bat_die",
-    death_msg: "The bat sinks its fangs into your jugular, popping open the artery. A fountain of blood flows from the wound as you slowly writhe on the ground, gasping your final breaths.",
-    kill_msg: "You snag the left wing of the bat with your right hand and yank the wing clean off. The creature flops around on the ground, in shock. You lean over it and crush its pathetic skull with your boot. ",
+    kill_msg: "The bat sinks its fangs into your jugular, popping open the artery. A fountain of blood flows from the wound as you slowly writhe on the ground, gasping your final breaths.",
+    death_msg: "You snag the left wing of the bat with your right hand and yank the wing clean off. The creature flops around on the ground, in shock. You lean over it and crush its pathetic skull with your boot. ",
     weapon: "Fangs"
 })
 

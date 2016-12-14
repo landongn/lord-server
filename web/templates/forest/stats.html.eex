@@ -1,0 +1,9 @@
+<li>Your Stats:</li>
+<li><%= @char.name %>: level <%= @char.level %> <%= @char.class_id %></li>
+<li>Current Health: <%= @char.health %></li>
+<li>Current Mana: <%= @char.mana %></li>
+<li>Current Weapon: <%= @char.weapon_id %></li>
+<li>Current Armor: <%= @char.armor_id %></li>
+<li>Strength: <%= @char.strength %></li>
+<li>Defense: <%= @char.defense %></li>
+<li>Luck: <%= @char.luck %></li>
