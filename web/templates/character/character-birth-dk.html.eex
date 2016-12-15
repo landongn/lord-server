@@ -4,7 +4,7 @@
 <li>All beginners want the power to use their body and weapon as one. </li>
 <li>To inflict twice the damage with the finesse only a warrior of perfect mind can do.</li>
 
-<li><span class="action">(H)</span>ead for the Village</li>
+<li><span class="action" data-command="h">(H)</span>ead for the Village</li>
 <li class="command">
   Your Command? <span class="blink cursor">&#x2581;</span>
   <span class="command-options">(K, D, L, B)</span>

@@ -7,6 +7,7 @@ export default {
       super();
       this.game = game;
       this.id = id;
+      this.alreadyAttacking = false;
     }
 
     load() {
@@ -19,15 +20,16 @@ export default {
     }
 
     aKeyPressed() {
+      if (this.alreadyAttacking) { return; }
       this.game.handle_out('game.zone.forest.attack', 'forest', {id: this.game.character.id})
     }
 
     pKeyPressed() {
-      this.out('power-move')
+      this.out('power-move');
     }
 
     rKeyPressed() {
-      this.out('loiter')
+      this.out('loiter');
     }
 
     handle_in(payload) {
@@ -45,6 +47,7 @@ export default {
           break;
 
         case 'game.zone.forest.round':
+          this.alreadyAttacking = true;
           console.log('game round: ', payload);
             this.game.audio.play('swing');
             setTimeout(() => {
@@ -57,8 +60,12 @@ export default {
                 const itr = i;
                 setTimeout(() => {
                   el[itr].classList.remove('round-hidden');
-                }, (itr + 50));
+                }, (itr * 60));
               }
+              setTimeout(() => {
+                this.alreadyAttacking = false;
+              }, el.length * 60);
+
               this.game.audio.play(payload.fight.mob.s_atk);
               setTimeout(() => {
                 this.game.character.getHit();

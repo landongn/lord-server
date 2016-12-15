@@ -12,7 +12,7 @@ export default class Renderer {
     }
 
     stripCommandQueue() {
-        const el = document.querySelectorAll('data-volitile');
+        const el = document.querySelector('[data-volitile]');
         el.length ? el.remove() : console.log('nothing to clean');
     }
     render(data = {}) {

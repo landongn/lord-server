@@ -6,17 +6,17 @@
 <li class="round-hidden"><%= @mob.name %>'s Health : <span class="white"><%= @mob.health %></span></li>
 <li class="round-hidden"></li>
 <li class="round-hidden"></li>
-<li class="round-hidden">(<span class="action">A</span>)ttack</li>
-<li class="round-hidden">(<span class="action">S</span>)tats</li>
-<li class="round-hidden">(<span class="action">R</span>)un</li>
+<li class="round-hidden">(<span data-command="a" class="action">A</span>)ttack</li>
+<li class="round-hidden">(<span data-command="s" class="action">S</span>)tats</li>
+<li class="round-hidden">(<span data-command="r" class="action">R</span>)un</li>
 <li class="round-hidden"></li>
 <li class="round-hidden"></li>
 <li class="round-hidden"></li>
 
 <li class="round-hidden" data-volitile>Your command, <span class="player-name"><%= @char.name %></span>? <span class="blink cursor">&#x2581;</span></li>
 <li class="round-hidden" class="command" data-volitile>
-  <span data-command="A" class="command-options">(A)</span>
-  <span data-command="S" class="command-options">(S)</span>
-  <span data-command="R" class="command-options">(R)</span>
+  <span data-command="a" class="command-options">(A)</span>
+  <span data-command="s" class="command-options">(S)</span>
+  <span data-command="r" class="command-options">(R)</span>
   <span class="menu">? for menu</span>
 </li>

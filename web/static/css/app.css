@@ -26,7 +26,7 @@ html, body {
     top: 0;
     width: 100%;
     left: 0;
-    height: 95%;
+    height: 86%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -162,4 +162,63 @@ span.strong {
 
 span.death-knight {
     color: rgb(204, 119, 34);
+}
+
+section.chat {
+    position: fixed;
+    bottom: 0px;
+    height: 25%;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    background: rgba(25, 25, 25, 0.5);
+    color: #eee;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+section.chat input.chat-enter {
+    position: fixed;
+    bottom: 0;
+    width: 81%;
+    border-top: 2px solid rgba(25, 25, 25, 1);
+    border-bottom: none;
+    height: 2rem;
+    left: 0;
+    padding-left: 10px;
+}
+
+.chat-wrap {
+    overflow: auto;
+    padding: 10px;
+    margin: 0;
+    margin-bottom: 50px;
+}
+
+span.username {
+    color: purple;
+}
+
+.chatlog {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 20px 28px 11px;
+    justify-content: flex-end;
+}
+
+.chatlog span.message {
+    color: whitesmoke;
+}
+
+section.presence {
+    width: 20%;
+    border-left: 1px solid rgba(25, 25, 25, 1);
+    height: 100%;
+    display: flex;
+}
+
+section.presence ul > li {
+
 }

@@ -1,12 +1,12 @@
 <li><%= @name %> has a nice ring to it. </li>
 <li>To figure out what you REALLY want to do in your life, think about your childhood...</li>
-<li class="special-light">-=-=-=-=-=- Bring back your memories -=-=-=-=-=-</li>
+<li class="special-light white">-=-=-=-=-=- Bring back your memories -=-=-=-=-=-</li>
 <li>As you remember your childhood, you remember:</li>
 <li class="special-light"><span data-command="k" class="action">(K)</span>illing a lot of Woodland Creatures.</li>
 <li class="special-light"><span data-command="d" class="action">(D)</span>abbling in the Mystical Arts.</li>
 <li class="special-light"><span data-command="l" class="action">(L)</span>ying Cheating and Stealing from the Blind</li>
 
-<li><span class="action" data-command="b">(B)</span>ack to character select</li>
+<li data-command="b"><span class="action" data-command="b">(B)</span>ack to character select</li>
 <li class="command">
   Your Command? <span class="blink cursor">&#x2581;</span>
   <span class="command-options">(K, D, L, B)</span>

@@ -18,14 +18,18 @@ export default class Game {
         this.character = new Character(this);
         this.session = new Session({});
         window.addEventListener('touchstart', (e) => {
-            const val = parseInt(e.target.attributes['data-command'].value);
-            if (isNaN(val)) {
-                Mousetrap.trigger(e.target.attributes['data-command'].value);
-            } else {
-                Mousetrap.trigger(val);
-            }
-            
-        });
+            console.log('e', e.target.dataset);
+            try {
+              const val = parseInt(e.target.dataset.command, 10);
+              if (isNaN(val)) {
+                  Mousetrap.trigger(e.target.dataset.command);
+              } else {
+                  Mousetrap.trigger(val);
+              }
+          } catch (err) {
+            console.info('unable to find touch target for ', e.target.dataset, err);
+          }
+        }, {useCapture: true, passive: true});
         this.audio = new SoundManager(this);
     }
 

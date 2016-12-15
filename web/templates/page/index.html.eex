@@ -1,3 +1,18 @@
 <%# <section class='auth'></section> %>
 <ul id="log"></ul>
 <%# <aside id="touchBar"></aside> %>
+<section class="chat">
+    <section class="chatlog">
+        <ul class="chat-wrap"></ul>
+    </section>
+    <section class="presence">
+        <ul>
+            <li>thock</li>
+            <li>marriah</li>
+            <li>don</li>
+            <li>dave</li>
+            <li>scott</li>
+        </ul>
+    </section>
+    <input type="text" class="chat-enter" placeholder="press enter to chat" />
+</section>
