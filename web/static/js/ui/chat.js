@@ -1,8 +1,27 @@
 export default class Chatbox {
-    constructor(props) {
-        this.element = document.getElementById('controller');
+    constructor(gui, game) {
+        this.element = document.querySelector('.chat');
+        this.presenceEl = document.querySelector('.presence');
+        this.inputEl = document.querySelector('.chat-enter');
+        this.gui = gui;
+        this.game = game;
+        this.inputEl.addEventListener('keypress', (e) => {
+            if (e.keyCode !== 13) {
+                return;
+            }
+            const message = this.inputEl.value;
+            if (!this.game.character.name) { return; }
+            const char = this.game.character.name;
+            this.game.handle_out('game.zone.broadcast', 'zone', {
+                message,
+                character: char
+            });
+            this.inputEl.value = '';
+            this.inputEl.focus();
+        });
+
         this.visible = false;
-        this.renderer = props.renderer || {};
+        this.renderer = game.renderer || {};
     }
 
     toggleVisibility() {
@@ -14,4 +33,6 @@ export default class Chatbox {
             this.visible = true;
         }
     }
+
+
 }

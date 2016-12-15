@@ -27,6 +27,8 @@ export default class Connection {
       this.channels[channels[i]].on('data', resp => {
         this.game.update(resp.system, resp);
       });
+
+
     }
   }
 }
