@@ -1,0 +1,18 @@
+<%# <section class='auth'></section> %>
+<ul id="log"></ul>
+<%# <aside id="touchBar"></aside> %>
+<section class="chat">
+    <section class="chatlog">
+        <ul class="chat-wrap"></ul>
+    </section>
+    <section class="presence inactive">
+        <ul>
+
+        </ul>
+    </section>
+    <input type="text" class="chat-enter" placeholder="press enter to chat" />
+</section>
+
+    <script>window.zlordtoken = "<%= assigns[:socket_token] %>";</script>
+    <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

@@ -17,12 +17,16 @@ defmodule Server.Router do
   scope "/", Server do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", IndexController, :index
 
-    post "/login", PageController, :login
-    get "/login", PageController, :login_form
+    get "/signup", IndexController, :signup
+    get "/about", IndexController, :about
+    get "/subscribe", IndexController, :subscribe
+    get "/play", IndexController, :play
+    get "/login", IndexController, :login_form
 
-    post "/logout", PageController, :logout
+    post "/login", IndexController, :login
+    post "/signup", IndexController, :register
 
     resources "/classes", ClassController
   end

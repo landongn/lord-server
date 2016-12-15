@@ -1,0 +1,45 @@
+<nav class="navbar navbar-dark">
+  <div class="container">
+    <div class="navbar-xs">
+      <a class="navbar-brand" href="/">LORD</a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/play">Play</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="/signup">Sign up </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container" style="
+    margin: 10% auto;
+    width: 40%;
+">
+  <h2>Sign in to your Account</h2>
+  <%= get_flash(@conn, :error) %>
+    <%= form_for @changeset, index_path(@conn, :login), fn f -> %>
+
+      <fieldset class="row">
+          <label class="col-xs-5" for="email">Email Address</label>
+          <%= text_input f, :email, class: "col-xs-7", id: "email", placeholder: "Email Address" %>
+      </fieldset>
+      <fieldset class="row">
+      <label class="col-xs-5" for="password">Password</label>
+      <%= text_input f, :password, type: "password", class: "col-xs-7", id: "password" %>
+      <br />
+      </fieldset>
+      <%= submit "Sign up" %>
+    <% end %>
+  </div>
+</div>
+
+

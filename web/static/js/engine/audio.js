@@ -36,7 +36,7 @@ export default class SoundManager {
       source: this.ctx.createBufferSource(),
       id: k,
       loop: shouldLoop,
-      gain: 0.01,
+      gain: 0.001,
     };
 
     sound.source.buffer = sound.buf;
@@ -46,7 +46,7 @@ export default class SoundManager {
 
   connect(key, shouldLoop = false) {
     const sound = this.make(key, this._cache[key].buf, shouldLoop);
-    
+
     sound.source.connect(sound.gainNode);
     sound.source.connect(this.ctx.destination);
     sound.gainNode.connect(this.ctx.destination);

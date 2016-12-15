@@ -6,7 +6,7 @@
 <li>To arrive, remember one thing, "Even thieves have honor."</li>
 <li></li>
 <li></li>
-<li><span class="action">(H)</span>ead for the Village</li>
+<li><span class="action" data-command="h">(H)</span>ead for the Village</li>
 <li class="command">
   Your choice? <span class="blink cursor">&#x2581;</span>
   <span class="command-options">(K, D, L, B)</span>

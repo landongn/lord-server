@@ -1,22 +1,22 @@
 <li></li>
 <li>you hit <%= @mob.name %> for <%= @damage_dealt %> damage!</li>
-<li><span class="attack-stars">**</span><%= @mob.name %> hits with its <%= @mob.weapon %> for <span class="mob-damage"><%= @retaliation_suffered %></span> damage! <span class="attack-stars">**</span></li>
-<li></li>
-<li>Your Health : <%= @char.health %></li>
-<li><%= @mob.name %>'s Health : <%= @mob.health %></li>
-<li></li>
-<li></li>
-<li>(<span class="action">A</span>)ttack</li>
-<li>(<span class="action">S</span>)tats</li>
-<li>(<span class="action">R</span>)un</li>
-<li></li>
-<li></li>
-<li></li>
+<li class="round-hidden"><span class="attack-stars">**</span><%= @mob.name %> hits with its <%= @mob.weapon %> for <span class="mob-damage"><%= @retaliation_suffered %></span> damage! <span class="attack-stars">**</span></li>
+<li class="round-hidden"></li>
+<li class="round-hidden">Your Health : <span class="white"><%= @char.health %></span></li>
+<li class="round-hidden"><%= @mob.name %>'s Health : <span class="white"><%= @mob.health %></span></li>
+<li class="round-hidden"></li>
+<li class="round-hidden"></li>
+<li class="round-hidden">(<span data-command="a" class="action">A</span>)ttack</li>
+<li class="round-hidden">(<span data-command="s" class="action">S</span>)tats</li>
+<li class="round-hidden">(<span data-command="r" class="action">R</span>)un</li>
+<li class="round-hidden"></li>
+<li class="round-hidden"></li>
+<li class="round-hidden"></li>
 
-<li data-volitile>Your command, <span class="player-name"><%= @char.name %></span>? <span class="blink cursor">&#x2581;</span></li>
-<li class="command" data-volitile>
-  <span data-command="A" class="command-options">(A)</span>
-  <span data-command="S" class="command-options">(S)</span>
-  <span data-command="R" class="command-options">(R)</span>
+<li class="round-hidden" data-volitile>Your command, <span class="player-name"><%= @char.name %></span>? <span class="blink cursor">&#x2581;</span></li>
+<li class="round-hidden" class="command" data-volitile>
+  <span data-command="a" class="command-options">(A)</span>
+  <span data-command="s" class="command-options">(S)</span>
+  <span data-command="r" class="command-options">(R)</span>
   <span class="menu">? for menu</span>
 </li>

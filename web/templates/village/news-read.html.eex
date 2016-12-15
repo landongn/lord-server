@@ -1,0 +1,13 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">News</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li>Todays Happenings:</li>
+<li></li>
+
+  <li><span data-command="r" class="action">(R)</span>Return to Town</li>
+
+
+<li class="command">
+  Where to? <span class="blink cursor">&#x2581;</span>
+  <span class="command-options">(F, K, H, I, Y, W, P, S, A, V, T, L, D, Q)</span>
+</li>

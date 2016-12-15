@@ -1,0 +1,58 @@
+<nav class="navbar navbar-dark">
+  <div class="container">
+    <div class="navbar-xs">
+      <a class="navbar-brand" href="/">LORD</a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/play">Play</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/signup">Sign up <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+ <div class="col-xs-10 push-xs-1 centered">
+    <p class="lead">In order to play LORD, you'll need an account to create characters with. </p>
+    <p>LORD has permadeath.  Once a character dies, that's it. It's gone forever.  It'll get deleted the moment it dies.</p>
+    <p>You can have as many characters as you want, and they're all associated with a master account. NEVER give out these details to anyone. </p>
+    <p>So with that in mind, be prepared to create many, many characters, because LORD is a Player Versus Player game.</p>
+    <p>When you are unable to afford a room at the Inn, and provided players can't bribe the bartender for a key, you log off "into the fields".  You are completely vulnerable to attack.</p>
+    <p>When another player engages you, you'll fight back, of course, just as though you were at the keyboard. In some cases, you'll even win, and collect the gold and gems of any fool dumb enough to attack you.</p>
+
+<div class="container" style="
+    margin: 10% auto;
+    width: 70%;
+    padding-bottom: 100px;
+">
+  <h2>Register an Account</h2>
+    <%= get_flash(@conn, :error) %>
+    <%= get_flash(@conn, :info) %>
+    <%= form_for @changeset, index_path(@conn, :signup), fn f -> %>
+
+      <fieldset class="row">
+          <label class="col-xs-5" for="email">Email Address</label>
+          <%= text_input f, :email, class: "col-xs-7", id: "email", placeholder: "Email Address" %>
+          <small>No third parties will ever see this.</small>
+      </fieldset>
+      <fieldset class="row">
+      <label class="col-xs-5" for="password">Password</label>
+      <%= text_input f, :password, type: "password", class: "col-xs-7", id: "password" %>
+      <br />
+      </fieldset>
+      <%= submit "Sign up" %>
+    <% end %>
+  </div>
+</div>
+</div>
+
+

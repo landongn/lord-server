@@ -1,0 +1,37 @@
+<nav class="navbar navbar-dark">
+  <div class="container">
+    <div class="navbar-xs" id="exCollapsingNavbar2">
+      <a class="navbar-brand" href="#">LORD</a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/play">Play</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Sign up</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+ <div class="col-xs-10 push-xs-1 centered">
+    <p class="lead">In order to play LORD, you'll need an account to create characters with. </p>
+    <p>LORD has permadeath.  Once a character dies, that's it. It's gone forever.  It'll get deleted the moment it dies.</p>
+    <p>You can have as many characters as you want, and they're all associated with a master account. NEVER give out these details to anyone. </p>
+    <p>So with that in mind, be prepared to create many, many characters, because LORD is a Player Versus Player game.</p>
+    <p>When you are unable to afford a room at the Inn, and provided players can't bribe the bartender for a key, you log off "into the fields".  You are completely vulnerable to attack.</p>
+    <p>When another player engages you, you'll fight back, of course, just as though you were at the keyboard. In some cases, you'll even win, and collect the gold and gems of any fool dumb enough to attack you.</p>
+    <p>If you're interested, a single dollar each month goes a long way to helping keep this game growing, and expanding.  You can find out more about subscribing here: <script src="https://gumroad.com/js/gumroad.js"></script>
+
+    <p>We want to see how far we can push the boundaries of MUD style gaming on the web.  I'm personally a huge fan of DikuMud, and things were inspired by it. Lord for me, is in that category, but is a good first stop. </p>
+    <a class="gumroad-button" href="https://gum.co/KPQiR">Support our Community</a></p>
+    <p>Once we have enough of the system built, we'll want to start looking at other door classics, like Ursurper, and Drug Wars.</p>
+</div>
+</div>

@@ -1,5 +1,8 @@
 defmodule Server.ZoneChannel do
   use Server.Web, :channel
+  alias Server.Presence
+  alias Phoenix.View
+  alias Server.ChatView
 
   def join("zone", payload, socket) do
     if authorized?(payload) do
@@ -8,6 +11,8 @@ defmodule Server.ZoneChannel do
       {:error, %{reason: "unauthorized"}}
     end
   end
+
+
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
@@ -19,6 +24,42 @@ defmodule Server.ZoneChannel do
   # broadcast to everyone in the current topic (zone:lobby).
   def handle_in("shout", payload, socket) do
     broadcast socket, "shout", payload
+    {:noreply, socket}
+  end
+
+  def handle_info(:after_join, socket) do
+    push socket, "presence_state", Presence.list(socket)
+    {:ok, _} = Presence.track(socket, socket.assigns.user_id, %{
+      online_at: inspect(System.system_time(:seconds))
+    })
+    {:noreply, socket}
+  end
+
+  def handle_in("status", payload, socket) do
+    # <user> has entered <zone>
+    # <user> has left <zone>
+    # <user> hello
+    # <user> has died via <mob|user>
+    # <user> has gained a level
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.chat.level.up", payload, socket) do
+    broadcast! socket, "game.zone.chat.level.up", %{
+      from: payload["character"],
+      message: View.render_to_string(ChatView, "level-up.html", %{payload: payload}),
+      stamp: :os.system_time(:seconds)
+    }
+  end
+
+   def handle_in("game.zone.broadcast", payload, socket) do
+    payload =  %{
+      from: payload["character"],
+      message: payload["message"],
+      stamp: :os.system_time(:seconds),
+      opcode: "game.zone.broadcast"
+    }
+    broadcast! socket, "chat", payload
     {:noreply, socket}
   end
 

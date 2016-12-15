@@ -3,14 +3,16 @@
 <li>The strong stench of death permiates the air surrounding the forest.</li>
 <li>As you come to the fork in the path, you rest for a moment near the trunk of an imposing tree, which is littered with engravings and markings. </li>
 <li>Surveying the area, you think about what to do next.</li>
-<li class="inner-thought"><span class="action">(L)</span>ook for something to kill. </li>
-<li class="inner-thought">The <span class="action">(H)</span>ealers hut is to your left. </li>
-<li class="inner-thought"><span class="action">(R)</span>eturn to town.</li>
+<li class="inner-thought"><span data-command="l" class="action">(L)</span>ook for something to kill. </li>
+<li class="inner-thought"><span data-command="h" class="action">(H)</span>ealers hut. </li>
+<li class="inner-thought"><span data-command="v" class="action">(V)</span>iew your stats. </li>
+<li class="inner-thought"><span data-command="r" class="action">(R)</span>eturn to town.</li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <li class="command">
   Your Choice? <span class="blink cursor">&#x2581;</span>
   <span data-command="enter" class="command-options">(Enter)</span>
   <span data-command="l" class="command-options">(L)</span>
   <span data-command="h" class="command-options">(H)</span>
+  <span data-command="v" class="command-options">(V)</span>
   <span class="menu">? for menu</span>
 </li>

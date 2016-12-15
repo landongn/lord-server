@@ -20,6 +20,10 @@ export default {
       this.game.handle_out('game.zone.village.healer.loiter', 'village');
     }
 
+    vKeyPressed() {
+      this.game.handle_out("game.zone.forest.stats", 'forest', {id: this.game.character.id});
+    }
+
     rKeyPressed() {
       this.game.handle_out('game.zone.village.loiter', 'village');
     }

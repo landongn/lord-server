@@ -28,5 +28,8 @@ export default class Connection {
         this.game.update(resp.system, resp);
       });
     }
+    this.channels.zone.on('chat', resp => {
+      this.game.update('chat', resp);
+    });
   }
 }

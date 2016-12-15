@@ -15,17 +15,21 @@ export default class Game {
         this.world = new World(this);
         this.gui = new Gui(this);
         this.input = new Input(this);
-        this.character = null;
+        this.character = new Character(this);
         this.session = new Session({});
         window.addEventListener('touchstart', (e) => {
-            const val = parseInt(e.target.attributes['data-command'].value);
-            if (isNaN(val)) {
-                Mousetrap.trigger(e.target.attributes['data-command'].value);
-            } else {
-                Mousetrap.trigger(val);
-            }
-            
-        });
+            console.log('e', e.target.dataset);
+            try {
+              const val = parseInt(e.target.dataset.command, 10);
+              if (isNaN(val)) {
+                  Mousetrap.trigger(e.target.dataset.command);
+              } else {
+                  Mousetrap.trigger(val);
+              }
+          } catch (err) {
+            console.info('unable to find touch target for ', e.target.dataset, err);
+          }
+        }, {useCapture: true, passive: true});
         this.audio = new SoundManager(this);
     }
 
@@ -45,7 +49,11 @@ export default class Game {
                 break;
 
             case 'character':
-                this.character = payload.payload;
+                this.character.update(payload.payload);
+                break;
+
+            case 'chat':
+                this.gui.handle_in(payload);
                 break;
 
             default:

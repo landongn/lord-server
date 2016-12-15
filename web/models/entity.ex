@@ -30,6 +30,8 @@ defmodule Server.Entity do
     field :s_atk, :string, default: "stab"
     field :s_die, :string, default: "death_m"
     field :s_miss, :string, default: "stab"
+    field :death_msg, :string, default: ""
+    field :kill_msg, :string, default: ""
 
 
     timestamps()

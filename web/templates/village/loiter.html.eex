@@ -1,18 +1,24 @@
 
 <li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Town Square</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li>The streets are crowded, it is difficult to</li>
-<li>push your way through the mob....</li>
+<li>The village bustles with activity.  You push your way through the mob...</li>
 <li></li>
-<pre>
-  <span data-command="f" class="action">(F)</span>orest                             <span data-command="s" class="action">(S)</span>laughter other players
-  <span data-command="k" class="action">(K)</span>ing Arthurs Weapons               <span data-command="a" class="action">(A)</span>bduls Armour
-  <span data-command="h" class="action">(H)</span>ealers Hut                        <span data-command="v" class="action">(V)</span>iew your stats
-  <span data-command="i" class="action">(I)</span>nn                                <span data-command="t" class="action">(T)</span>urgons Warrior Training
-  <span data-command="y" class="action">(Y)</span>e Old Bank                        <span data-command="l" class="action">(L)</span>ist Warriors
-  <span data-command="w" class="action">(W)</span>rite Mail                         <span data-command="d" class="action">(D)</span>aily News
-  <span data-command="p" class="action">(P)</span>eople Online                      <span data-command="q" class="action">(Q)</span>uit to Fields
-</section>
+
+  <li><span data-command="f" class="action">(F)</span>orest</li>
+  <li><span data-command="s" class="action">(S)</span>laughter other players</li>
+  <li><span data-command="k" class="action">(K)</span>ing Arthurs Weapons</li>
+  <li><span data-command="a" class="action">(A)</span>bduls Armour</li>
+  <li><span data-command="h" class="action">(H)</span>ealers Hut</li>
+  <li><span data-command="v" class="action">(V)</span>iew your stats</li>
+  <li><span data-command="i" class="action">(I)</span>nn</li>
+  <li><span data-command="t" class="action">(T)</span>urgons Warrior Training</li>
+  <li><span data-command="y" class="action">(Y)</span>e Old Bank</li>
+  <li><span data-command="l" class="action">(L)</span>ist Warriors</li>
+  <li><span data-command="w" class="action">(W)</span>rite Mail</li>
+  <li><span data-command="d" class="action">(D)</span>aily News</li>
+  <li><span data-command="p" class="action">(P)</span>eople Online</li>
+  <li><span data-command="q" class="action">(Q)</span>uit to Fields</li>
+
 <li class="command">
   Where to? <span class="blink cursor">&#x2581;</span>
   <span class="command-options">(F, K, H, I, Y, W, P, S, A, V, T, L, D, Q)</span>

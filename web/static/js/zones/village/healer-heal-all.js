@@ -8,18 +8,18 @@ export default {
       this.game = game;
       this.id = id;
     }
-    load() {}
+
+    load() {
+      Mousetrap.bind(['space', 'enter'], (e) => {
+        this.spaceKeyPressed(e);
+      });
+    }
 
     spaceKeyPressed(e) {
       this.game.handle_out('game.zone.village.loiter', 'village');
     }
 
-    handle_in(payload) {
-      console.log('healer in: ', payload);
-      Mousetrap.bind('space', (e) => {
-        this.spaceKeyPressed(e);
-      });
-    }
+    handle_in() {}
   },
   id: 'village.healer.heal-all'
 }

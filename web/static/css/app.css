@@ -16,26 +16,23 @@ html, body {
     background-color:#000;
     color: #03C705;
     font-family: 'Classic Console';
-    font-size:16px;
+    font-size: 20px;
     -webkit-font-smoothing: antialiased;
 }
 
 #log {
     background-color:#000;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    left: 0;
-    height: 95%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+
     margin: 0;
     padding: 5% 5% 10% 5%;
     margin-bottom: 5%;
-    font-size: 1.7em;
+    font-size: 1.0em;
     overflow: hidden;
 
+}
+
+li.round-hidden {
+    visibility: hidden;
 }
 
 .attack-stars {
@@ -120,6 +117,7 @@ span.menu {
 
 pre {
     font-size: 1em;
+    overflow: hidden;
     color: lightgreen;
     padding: 0;
     font-family: "Classic Console";
@@ -157,4 +155,105 @@ span.strong {
 
 span.death-knight {
     color: rgb(204, 119, 34);
+}
+
+section.chat {
+    position: fixed;
+    bottom: 0px;
+    height: 25%;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    border-top: 1px solid rgba(25, 25, 25, 0.5);
+    background: rgba(25, 25, 25, 0.5);
+    color: #eee;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+section.chat input.chat-enter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid rgba(25, 25, 25, 1);
+    border-bottom: none;
+    height: 2rem;
+    left: 0;
+    padding-left: 10px;
+}
+
+.chat-wrap {
+    overflow: auto;
+    padding: 10px;
+    margin: 0;
+    margin-bottom: 50px;
+}
+
+span.username {
+    color: purple;
+}
+
+.chatlog {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 20px 28px 11px;
+    justify-content: flex-end;
+}
+
+.chatlog span.message {
+    color: whitesmoke;
+}
+
+section.presence {
+    width: 20%;
+    border-left: 1px solid rgba(25, 25, 25, 1);
+    height: 84%;
+    display: flex;
+}
+
+section.presence ul > li {
+
+}
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.form-group {
+    margin: 0 auto;
+    width: 50%;
+}
+
+button[type=submit] {
+       background-color: black;
+    color: violet;
+    border: 1px solid rgba(25, 25, 25, 1);
+    width: 104%;
+    margin-top: 13px;
 }

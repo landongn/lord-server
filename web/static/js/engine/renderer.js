@@ -12,8 +12,8 @@ export default class Renderer {
     }
 
     stripCommandQueue() {
-        const el = document.querySelectorAll('data-volitile');
-        el.length ? el.remove() : console.log('nothing to clean');
+        const el = document.querySelector('[data-volitile]');
+        el ? el.remove() : console.log('nothing to clean');
     }
     render(data = {}) {
         const s = this.fragmentFromString(data.message);

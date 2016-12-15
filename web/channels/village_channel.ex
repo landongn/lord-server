@@ -26,6 +26,17 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
+  def handle_in("game.zone.village.players.online", _, socket) do
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.loiter",
+      message: View.render_to_string(VillageView, "players-online.html", %{}),
+      actions: ["f", "k", "h", "i", "y", "w", "c", "p", "s", "a", "v", "t", "l", "d", "o", "q"]
+    }
+
+    {:noreply, socket}
+  end
+
   def handle_in("game.zone.village.mail", _, socket) do
 
     push socket, "msg", %{
@@ -272,15 +283,16 @@ defmodule Server.VillageChannel do
 
     char = Repo.get(Character, payload["id"])
     case char.health < char.m_health do
-      true -> 
+      true ->
         cost = round(round((char.m_health - char.health) * char.level))
         amount = round(char.m_health - char.health)
-        char = %{char | gold: round(char.gold - round((char.m_health - char.health) * char.level)), 
-          health: char.m_health}
+        gold = round(char.gold - round((char.m_health - char.health) * char.level))
 
-        changeset = Character.heal(%Character{id: char.id}, %{gold: char.gold, health: char.m_health})
-        Repo.update!(changeset)
+        char = Character.healer_full(char, %{gold: gold, health: char.m_health})
 
+
+        {:ok, delta} = Repo.update(char)
+        IO.inspect delta
         push socket, "msg", %{
           opcode: "game.zone.village.healer.heal-all",
           message: View.render_to_string(VillageView, "healer-heal-all.html", %{amount: amount, cost: cost}),
@@ -288,14 +300,14 @@ defmodule Server.VillageChannel do
         }
         push socket, "data", %{
           opcode: "game.client.character.update",
-          payload: char,
+          payload: delta,
           system: "character",
         }
-      false -> 
+      false ->
         push socket, "msg", %{
           opcode: "game.zone.village.healer.heal-all",
-          message: View.render_to_string(VillageView, "healer-heal-full.html"),
-          actions: ["space"]
+          message: View.render_to_string(VillageView, "healer-heal-full.html", %{}),
+          actions: ["space", "enter"]
         }
     end
 
