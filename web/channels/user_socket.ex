@@ -25,8 +25,7 @@ defmodule Server.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(_params, socket) do
-    tbl = :ets.new(:buckets_registry, [:set, :protected])
-    assign(socket, :session, tbl)
+
     {:ok, socket}
   end
 

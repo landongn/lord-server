@@ -52,6 +52,10 @@ export default class Game {
                 this.character.update(payload.payload);
                 break;
 
+            case 'chat':
+                this.gui.handle_in(payload);
+                break;
+
             default:
                 this.world.update(payload);
                 break;

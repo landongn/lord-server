@@ -1,6 +1,7 @@
 export default class Chatbox {
     constructor(gui, game) {
         this.element = document.querySelector('.chat');
+        this.log = document.querySelector('.chat-wrap');
         this.presenceEl = document.querySelector('.presence');
         this.inputEl = document.querySelector('.chat-enter');
         this.gui = gui;
@@ -24,6 +25,8 @@ export default class Chatbox {
         this.renderer = game.renderer || {};
     }
 
+
+
     toggleVisibility() {
         if (this.visible) {
             this.element.classList.remove('active');
@@ -35,4 +38,9 @@ export default class Chatbox {
     }
 
 
+    render(data = {}) {
+        var temp = document.createElement('template');
+        temp.innerHTML = `<li><span class="username">${data.from}</span>: ${data.message}</li>`;
+        this.log.appendChild(temp.content);
+    }
 }

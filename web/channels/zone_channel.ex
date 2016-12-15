@@ -1,5 +1,8 @@
 defmodule Server.ZoneChannel do
   use Server.Web, :channel
+  alias Server.Presence
+  alias Phoenix.View
+  alias Server.ChatView
 
   def join("zone", payload, socket) do
     if authorized?(payload) do
@@ -21,6 +24,14 @@ defmodule Server.ZoneChannel do
   # broadcast to everyone in the current topic (zone:lobby).
   def handle_in("shout", payload, socket) do
     broadcast socket, "shout", payload
+    {:noreply, socket}
+  end
+
+  def handle_info(:after_join, socket) do
+    push socket, "presence_state", Presence.list(socket)
+    {:ok, _} = Presence.track(socket, socket.assigns.user_id, %{
+      online_at: inspect(System.system_time(:seconds))
+    })
     {:noreply, socket}
   end
 
@@ -46,9 +57,9 @@ defmodule Server.ZoneChannel do
       from: payload["character"],
       message: payload["message"],
       stamp: :os.system_time(:seconds),
-      opcode: 'game.zone.broadcast'
+      opcode: "game.zone.broadcast"
     }
-    broadcast! socket, "game.zone.chat.shout", payload
+    broadcast! socket, "chat", payload
     {:noreply, socket}
   end
 

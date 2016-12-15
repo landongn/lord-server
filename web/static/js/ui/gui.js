@@ -11,7 +11,16 @@ export default class Gui {
     this.targets = [];
   }
 
+  handle_in(payload) {
+    switch(payload.opcode) {
+      case 'game.zone.broadcast':
+        this.chatbox.render(payload);
+        break;
 
+      default:
+        break;
+    }
+  }
 
   toggleChat() {
     this.chatbox.toggleVisibility();

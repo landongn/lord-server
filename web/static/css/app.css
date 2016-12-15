@@ -216,3 +216,44 @@ section.presence {
 section.presence ul > li {
 
 }
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.form-group {
+    margin: 0 auto;
+    width: 50%;
+}
+
+button[type=submit] {
+       background-color: black;
+    color: violet;
+    border: 1px solid rgba(25, 25, 25, 1);
+    width: 104%;
+    margin-top: 13px;
+}
