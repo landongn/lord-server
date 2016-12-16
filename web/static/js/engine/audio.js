@@ -2,6 +2,7 @@ export default class SoundManager {
   constructor(game) {
     this.game = game;
     this.ctx = null;
+    this.isMuted = false;
     try {
       const ctor = window.AudioContext || window.webkitAudioContext;
       this.ctx = new ctor();
@@ -36,7 +37,7 @@ export default class SoundManager {
       source: this.ctx.createBufferSource(),
       id: k,
       loop: shouldLoop,
-      gain: 0.001,
+      gain: -0.5,
     };
 
     sound.source.buffer = sound.buf;

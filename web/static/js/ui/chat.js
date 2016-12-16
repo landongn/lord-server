@@ -6,6 +6,7 @@ export default class Chatbox {
         this.inputEl = document.querySelector('.chat-enter');
         this.gui = gui;
         this.game = game;
+
         this.inputEl.addEventListener('keypress', (e) => {
             if (e.keyCode !== 13) {
                 return;

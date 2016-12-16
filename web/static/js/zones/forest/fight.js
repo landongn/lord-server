@@ -60,6 +60,7 @@ export default {
                 const itr = i;
                 setTimeout(() => {
                   el[itr].classList.remove('round-hidden');
+                  this.game.renderer.handleScroll();
                 }, (itr * 60));
               }
               setTimeout(() => {
