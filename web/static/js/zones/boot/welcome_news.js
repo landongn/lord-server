@@ -11,7 +11,7 @@ export default {
 
       load() {
         Mousetrap.bind('space', () => {
-          this.game.handle_out('ident', 'world');
+          this.game.handle_out('game.zone.character.select', 'character');
         });
       }
 

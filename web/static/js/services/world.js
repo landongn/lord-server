@@ -130,11 +130,6 @@ export default class World {
         this.changeState(WelcomeNewsState);
         return payload.message;
 
-      case 'game.client.ident-challenge':
-      this.changeState(IdentState);
-        this.zone && this.zone.handle_in(payload);
-        return payload.message;
-
       case 'game.zone.character.select':
         this.changeState(CharacterSelectState);
         this.zone && this.zone.handle_in(payload);
