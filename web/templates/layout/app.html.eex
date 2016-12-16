@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Play Legend of the Red Dragon online, in your browser, with no special software.">
+    <meta name="author" content="@landongn">
 
     <title>LORD - Legend of the Red Dragon</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">

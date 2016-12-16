@@ -26,6 +26,7 @@
 ">
   <h2>Sign in to your Account</h2>
   <%= get_flash(@conn, :error) %>
+  <%= get_flash(@conn, :info) %>
     <%= form_for @changeset, index_path(@conn, :login), fn f -> %>
 
       <fieldset class="row">
@@ -37,7 +38,7 @@
       <%= text_input f, :password, type: "password", class: "col-xs-7", id: "password" %>
       <br />
       </fieldset>
-      <%= submit "Sign up" %>
+      <%= submit "Log in" %>
     <% end %>
   </div>
 </div>

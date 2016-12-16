@@ -5,13 +5,19 @@ defmodule Server.ZoneChannel do
   alias Server.ChatView
 
   def join("zone", payload, socket) do
-    if authorized?(payload) do
+    if authorized?(socket, payload) do
       {:ok, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
   end
 
+  # Add authorization logic here as required.
+  defp authorized?(socket, payload) do
+    if socket.assigns.player_id do
+      true
+    end
+  end
 
 
   # Channels can be used in a request/response fashion
@@ -64,7 +70,9 @@ defmodule Server.ZoneChannel do
   end
 
   # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
+  defp authorized?(payload) do
+    if socket.assigns.player_id do
+      true
+    end
   end
 end

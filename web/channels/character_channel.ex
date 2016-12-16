@@ -12,18 +12,29 @@ defmodule Server.CharacterChannel do
   alias Server.Class
 
 
-  def join("character", _payload, socket) do
-    {:ok, socket}
+  def join("character", payload, socket) do
+    if authorized?(socket, payload) do
+      {:ok, socket}
+    else
+      {:error, %{reason: "unauthorized"}}
+    end
+  end
+
+  # Add authorization logic here as required.
+  defp authorized?(socket, payload) do
+    if socket.assigns.player_id do
+      true
+    end
   end
 
   def handle_in("game.zone.character.list", payload, socket) do
-
+    {:ok, player_id} = socket.assigns.player_id
     chars = Repo.all from c in Character,
       join: w in Weapon, on: w.id == c.weapon_id,
       join: a in Armor, on: a.id == c.armor_id,
       join: k in Class, on: k.id == c.class_id,
       select: %{"id" => c.id, "name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => k.name},
-      where: c.player_id == ^payload["user_id"]
+      where: c.player_id == ^player_id
 
     push socket, "msg", %{
       opcode: "game.zone.character.list",

@@ -15,10 +15,17 @@ defmodule Server.ForestChannel do
   alias Server.Class
 
   def join("forest", payload, socket) do
-    if authorized?(payload) do
+    if authorized?(socket, payload) do
       {:ok, socket}
     else
       {:error, %{reason: "unauthorized"}}
+    end
+  end
+
+  # Add authorization logic here as required.
+  defp authorized?(socket, payload) do
+    if socket.assigns.player_id do
+      true
     end
   end
 
@@ -203,8 +210,4 @@ defmodule Server.ForestChannel do
     {:noreply, socket}
   end
 
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
-  end
 end

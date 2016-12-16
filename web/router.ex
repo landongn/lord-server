@@ -7,11 +7,20 @@ defmodule Server.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Server.Auth, repo: Server.Repo
+    plug Server.SessionPlug, repo: Server.Repo
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :authenticated do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug Server.Plug.Authenticate, repo: Server.Repo
   end
 
   scope "/", Server do
@@ -27,7 +36,9 @@ defmodule Server.Router do
 
     post "/login", IndexController, :login
     post "/signup", IndexController, :register
+  end
 
+  scope "/cms", Server do
     resources "/classes", ClassController
   end
 end
