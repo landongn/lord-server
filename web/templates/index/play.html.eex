@@ -13,6 +13,6 @@
     <input type="text" class="chat-enter" placeholder="press enter to chat" />
 </section>
 
-    <script>window.zlordtoken = "<%= assigns[:socket_token] %>";</script>
+    <script>window.zlordtoken = "<%= assigns[:token] %>";</script>
     <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
