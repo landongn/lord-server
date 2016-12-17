@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Play Legend of the Red Dragon online, in your browser, with no special software.">
     <meta name="author" content="@landongn">
+    <meta property="og:title" content="The Legend of the Red Dragon" />
+    <meta property="og:type" content="video.game" />
+    <meta property="og:url" content="http://www.thelegendofthereddragon.com/" />
+    <meta property="og:image" content="http://www.thelegendofthereddragon.com/images/intro.png" />
 
     <title>LORD - Legend of the Red Dragon</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
