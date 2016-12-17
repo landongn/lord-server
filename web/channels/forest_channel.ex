@@ -5,7 +5,7 @@ defmodule Server.ForestChannel do
   alias Server.ForestView
   alias Game.Forest
   alias Phoenix.View
-  
+
   alias Server.News
   alias Server.HealerView
 
@@ -103,11 +103,28 @@ defmodule Server.ForestChannel do
         m_damage = mob.damage
         Logger.info "mob stats: #{m_str} #{m_def} #{m_health} #{m_armor} #{m_damage}"
         Logger.info "Setup finished\n\n"
-        damage_dealt = ((c_str * c_weapon) - (m_def * m_armor) * 1.4)
-        retaliation_suffered = ((m_str * m_damage) - (c_def * c_armor) * 0.03)
+        damage_dealt = round((c_str * c_weapon) - (m_def * m_armor) * Enum.random([0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0]))
+        retaliation_suffered = round((m_str * m_damage) - (c_def * c_armor) * Enum.random([-0.5, -1.0, -1.5, -2.0, -2.5, -3.0, 3.5, 4.0]))
 
-        mob = %{mob | health: round(mob.health - damage_dealt)}
-        char = %{char | health: round(c_health - retaliation_suffered)}
+        missed_me = false
+        missed_them = false
+
+        cond retaliation_suffered do
+          retaliation_suffered <= 0 ->
+            missed_me = true
+          retaliation_suffered >= 0 ->
+            missed_me = false
+            char = %{char | health: round(c_health - retaliation_suffered)}
+        end
+
+        cond damage_dealt do
+          damage_dealt <= 0 ->
+            missed_them = true
+          damage_dealt >= 0 ->
+            mob = %{mob | health: round(mob.health - damage_dealt)}
+            missed_them = false
+        end
+
         Logger.info "round calculated"
         if char.health <= 0 do
           # push death
@@ -177,15 +194,8 @@ defmodule Server.ForestChannel do
 
           else
             Logger.info("ROUND SUCCESS\n\n")
-            mobMissed = false
-            charMissed = false
-            if retaliation_suffered == 0 do
-              mobMissed = true
-            end
-            if damage_dealt == 0 do
-              charMissed = true
-            end
-            updatedFight = %{char: char, mob: mob, char_missed: charMissed, mob_missed: mobMissed,
+
+            updatedFight = %{char: char, mob: mob, char_missed: missed_them, mob_missed: missed_me,
             retaliation_suffered: retaliation_suffered, damage_dealt: damage_dealt}
 
             Forest.attack(char.id, updatedFight)
