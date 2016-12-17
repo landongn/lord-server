@@ -77,7 +77,10 @@ export default class Game {
 
     handle_out(opcode, channel = '', payload = false) {
         const decoratedPayload = Object.assign({}, payload);
-        decoratedPayload.char_id = this.character.id || '';
+        if (!decoratedPayload.char_id) {
+            decoratedPayload.char_id = this.character.id || '';
+        }
+        console.log("\n handle out\n ",opcode, channel, decoratedPayload);
         this.connection.channels[channel].push(opcode, decoratedPayload);
     }
 }

@@ -23,7 +23,8 @@ export default {
       console.log(i, this.characters[i]);
       const char_id = this.characters[i].id || false;
       if (!char_id) { console.error("internal problem with ID mismatch"); return; }
-      this.game.handle_out('game.zone.character.play', 'character', {id: char_id});
+      console.log('\n CHAR ID: ', char_id);
+      this.game.handle_out('game.zone.character.play', 'character', {char_id: char_id});
       Mousetrap.reset();
       Mousetrap.bind('b', () => {
         this.game.handle_out('game.zone.character.select', 'character');
