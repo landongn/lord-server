@@ -63,7 +63,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.weapons.loiter",
       message: View.render_to_string(VillageView, "weapons-loiter.html", %{}),
-      actions: []
+      actions: ["b", "s" ,"r"]
     }
 
     {:noreply, socket}
@@ -71,10 +71,7 @@ defmodule Server.VillageChannel do
 
   def handle_in("game.zone.village.weapons.buy", _, socket) do
 
-
     weapons = Repo.all(Weapon)
-
-
     push socket, "msg", %{
       opcode: "game.zone.village.weapons.buy",
       equipment: weapons,
@@ -138,20 +135,20 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.armor.loiter",
       message: View.render_to_string(VillageView, "armor-loiter.html", %{}),
-      actions: []
+      actions: ["b", "s", "r"]
     }
 
     {:noreply, socket}
   end
 
   def handle_in("game.zone.village.armor.buy", _, socket) do
-
+    armor = Repo.all(Armor)
     push socket, "msg", %{
-      opcode: "game.zone.village.mail",
-      message: View.render_to_string(VillageView, "armor-buy.html", %{}),
+      opcode: "game.zone.village.armor.buy",
+      equipment: armor,
+      message: View.render_to_string(VillageView, "armor-buy.html", %{equipment: armor}),
       actions: []
     }
-
     {:noreply, socket}
   end
 

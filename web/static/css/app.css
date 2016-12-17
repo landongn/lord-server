@@ -286,3 +286,24 @@ section.village-option {
 section.village-option span {
     margin-top: -3px;
 }
+
+
+li.weapons {
+    color: gold;
+}
+
+section.weapon-menu {
+    min-height: 100%;
+    display: flex;
+    margin: 25px;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+section.weapon-option {
+    display: flex;
+    flex-basis: calc(25%);
+}
+section.weapon-option span {
+    margin-top: -3px;
+}

@@ -64,8 +64,7 @@ export default class Game {
 
     handle_out(opcode, channel = '', payload = false) {
         const decoratedPayload = Object.assign({}, payload);
-        decoratedPayload.token = this.session && this.session.token || '';
-        decoratedPayload.user_id = this.session && this.session.id || '';
+        decoratedPayload.char_id = this.character.id || '';
         this.connection.channels[channel].push(opcode, decoratedPayload);
     }
 }

@@ -81,7 +81,7 @@ defmodule Server.CharacterChannel do
       opcode: "game.zone.village.loiter",
       char: rec,
       message: View.render_to_string(VillageView, "loiter.html", %{}),
-      actions: ["h", "i", "r", "w", "t", "f", "d"]
+      actions: ["f", "k", "h", "i", "y", "w", "c", "p", "s", "a", "v", "t", "l", "d", "o", "q"]
     }
 
     socket |> assign(:name, char.name)

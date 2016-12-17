@@ -29,21 +29,12 @@ export default {
     }
 
     handle_in(payload) {
-
-      switch(payload.opcode) {
-        case 'game.zone.forest.loiter':
-          for (var i = payload.actions.length - 1; i >= 0; i--) {
-            Mousetrap.unbind(payload.actions[i]);
-            Mousetrap.bind(payload.actions[i], (e) => {
-              const fn = `${e.key}KeyPressed`;
-              this[fn] && this[fn]();
-            });
-          }
-          break;
-
-        default:
-          console.log('unbound forest state', payload.opcode);
-          break;
+      const actions = payload.actions[i];
+      for (var i = 0; i < actions.length; i++) {
+        Mousetrap.bind(actions[i], (e) => {
+          const fn = `${e.key}KeyPressed`;
+          this[fn] && this[fn]();
+        });
       }
     }
   },
