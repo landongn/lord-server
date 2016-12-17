@@ -29,6 +29,7 @@ export default {
     }
 
     handle_in(payload) {
+      const self = this;
       const actions = payload.actions;
       for (var i = 0; i < actions.length; i++) {
         const action = payload.actions[i];
