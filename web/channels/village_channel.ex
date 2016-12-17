@@ -323,7 +323,7 @@ defmodule Server.VillageChannel do
         push socket, "msg", %{
           opcode: "game.zone.village.healer.heal-all",
           message: View.render_to_string(VillageView, "healer-heal-all.html", %{amount: amount, cost: cost}),
-          actions: ["space"]
+          actions: ["space", "enter"]
         }
         push socket, "data", %{
           opcode: "game.client.character.update",
@@ -341,15 +341,6 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.healer.loiter", _payload, socket) do
 
-    push socket, "msg", %{
-      opcode: "game.zone.village.healer.heal-all",
-      message: View.render_to_string(VillageView, "healer-heal-all.html", %{}),
-      actions: ["h", "a", "r"]
-    }
-
-    {:noreply, socket}
-  end
 
 end

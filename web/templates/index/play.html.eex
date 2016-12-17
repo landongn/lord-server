@@ -3,9 +3,8 @@
     <section class="chatlog">
         <ul class="chat-wrap"></ul>
     </section>
-    
-    <input type="text" class="chat-enter" placeholder="press enter to chat" />
 </section>
+  <input type="text" class="chat-enter" placeholder="press enter to chat" />
 
     <script>window.zlordtoken = "<%= assigns[:token] %>";</script>
     <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>

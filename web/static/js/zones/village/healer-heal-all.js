@@ -19,7 +19,18 @@ export default {
       this.game.handle_out('game.zone.village.loiter', 'village');
     }
 
-    handle_in() {}
+    handle_in(payload) {
+      const self = this;
+      const actions = payload.actions;
+      for (var i = 0; i < actions.length; i++) {
+        const action = payload.actions[i];
+        console.log('bound handler for ', `${action}KeyPressed`, action);
+        Mousetrap.bind(action, (e) => {
+          const fn = `${action}KeyPressed`;
+          self[fn]();
+        });
+      }
+    }
   },
   id: 'village.healer.heal-all'
 }

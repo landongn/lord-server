@@ -167,6 +167,7 @@ section.chat {
     height: 25%;
     max-height: 500px;
     padding: 0;
+    pointer-events: none;
     width: 100%;
     display: flex;
 
@@ -183,7 +184,7 @@ section.chat.inactive {
     transition: translate 150ms ease-out;
 }
 
-section.chat input.chat-enter {
+input.chat-enter {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -192,6 +193,7 @@ section.chat input.chat-enter {
     height: 2rem;
     left: 0;
     padding-left: 10px;
+
 }
 
 .chat-wrap {
@@ -282,6 +284,14 @@ section.village-option {
     display: flex;
     flex-basis: calc(50% - 40px);
     padding: 4px;
+}
+
+@media screen and (max-width: 730px) {
+    section.village-option {
+        display: flex;
+        flex-basis: 100%;
+        padding: 4px;
+    }
 }
 section.village-option span {
     margin-top: -3px;
