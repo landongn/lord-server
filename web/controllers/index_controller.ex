@@ -21,7 +21,7 @@ defmodule Server.IndexController do
     else
       redirect conn, to: "/login"
     end
-      
+
   end
 
   def about(conn, _) do
@@ -33,14 +33,15 @@ defmodule Server.IndexController do
     render conn, "signup.html", changeset: changeset
   end
 
-  def register(conn, %{"player" => player_params}) do
-    changeset = Player.new_account(%Player{}, player_params)
+  def register(conn, %{"player" => %{"email" => email, "password" => password}}) do
+    changeset = Player.new_account(%Player{}, player)
 
     case Repo.insert(changeset) do
-      {:ok, _class} ->
+      {:ok, user} ->
         conn
         |> put_flash(:info, "Account Created!")
-        |> redirect(to: index_path(conn, :index))
+        |> Server.Auth.login(user)
+        |> redirect(to: index_path(conn, :play))
       {:error, changeset} ->
         conn
         |> put_flash(:error, "Cant create an account with those details.")
@@ -48,11 +49,17 @@ defmodule Server.IndexController do
     end
   end
 
-  def login(conn, %{"player" => player}) do
-    Logger.info "attemping to login as #{inspect player["email"]}"
+  def login(conn, %{"player" => %{"email" => email, "password" => password}}) do
+    Logger.info "attemping to login as #{inspect email}"
 
-      case Server.Repo.get_by(Player, email: player["email"]) do
-        user ->
+      if !email do
+        conn
+        |> put_flash(:error, "an email address is required. Sorry.")
+        render conn, "login.html"
+      end
+
+      case Server.Repo.get_by(Player, email: email) do
+        {:ok, user} ->
             conn = Server.Auth.login(conn, user)
             redirect conn, to: "/play"
             conn |> halt

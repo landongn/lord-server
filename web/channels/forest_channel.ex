@@ -55,7 +55,10 @@ defmodule Server.ForestChannel do
     class = Repo.get(Class, char.class_id)
 
     push socket, "msg", %{
-      message: View.render_to_string(ForestView, "stats.html", %{char: char, class: class, armor: armor, weapon: weapon}),
+      message: View.render_to_string(ForestView, "stats.html", %{
+        char: char, class: class, armor: armor, weapon: weapon
+      }),
+
       opcode: "game.zone.forest.stats",
       char: char,
       actions: ["l", "h", "r", "v", "b"]
@@ -109,20 +112,18 @@ defmodule Server.ForestChannel do
         missed_me = false
         missed_them = false
 
-        cond retaliation_suffered do
-          retaliation_suffered <= 0 ->
-            missed_me = true
-          retaliation_suffered >= 0 ->
-            missed_me = false
-            char = %{char | health: round(c_health - retaliation_suffered)}
+        if retaliation_suffered <= 0 do
+          missed_me = true
+        else
+          missed_me = false
+          char = %{char | health: round(c_health - retaliation_suffered)}
         end
 
-        cond damage_dealt do
-          damage_dealt <= 0 ->
-            missed_them = true
-          damage_dealt >= 0 ->
-            mob = %{mob | health: round(mob.health - damage_dealt)}
-            missed_them = false
+        if damage_dealt <= 0 do
+          missed_them = true
+        else
+          mob = %{mob | health: round(mob.health - damage_dealt)}
+          missed_them = false
         end
 
         Logger.info "round calculated"
