@@ -32,19 +32,30 @@ defmodule Server.IndexController do
     render conn, "signup.html", changeset: changeset
   end
 
-  def register(conn, %{"player" => %{"email" => email, "password" => password}}) do
-    changeset = Player.new_account(%Player{}, %{email: email, password: password})
+  def register(conn, %{"player" => %{"email" => email, "password" => password, "name" => name}}) do
+    Logger.info "#{email}"
+    case Server.Repo.get_by Player, email: email do
+      nil ->
+        changeset = Player.new_account(%Player{}, %{
+          email: email, name: name, password: Comeonin.Bcrypt.hashpwsalt(password)
+        })
+        case Repo.insert(changeset) do
+          {:ok, user} ->
 
-    case Repo.insert(changeset) do
-      user ->
-        conn
-        |> put_flash(:info, "Account Created!")
-        |> Server.Auth.login(user)
-        |> redirect(to: index_path(conn, :play))
-      {:error, changeset} ->
-        conn
-        |> put_flash(:error, "Cant create an account with those details.")
-        render(conn, "signup.html", changeset: changeset)
+            Logger.info "user registered: #{user.email}"
+            conn
+            |> Server.Auth.login(user)
+            |> redirect(to: index_path(conn, :play))
+          {:error, changeset} ->
+            Logger.info "user failed: #{changeset.changes.email}"
+            conn
+            |> put_flash(:error, "Cant create an account. Try a different email address")
+            render(conn, "signup.html", changeset: changeset)
+        end
+      existing ->
+        Logger.info "already exists: #{email}"
+        conn |> put_flash(:error, "email already exists.  Did you want to login instead?")
+        render(conn, "signup.html", changeset: Player.new_account(%Player{}, %{}))
     end
   end
 

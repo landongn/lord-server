@@ -31,14 +31,19 @@
 
 <div class="container" style="
     margin: 10% auto;
-    width: 70%;
+    width: 80%;
     padding-bottom: 100px;
 ">
   <h2>Register an Account</h2>
-    <%= get_flash(@conn, :error) %>
-    <%= get_flash(@conn, :info) %>
+    <span> <%= get_flash(@conn, :error) %> </span>
+    <span><%= get_flash(@conn, :info) %></span>
     <%= form_for @changeset, index_path(@conn, :signup), fn f -> %>
 
+      <fieldset class="row">
+          <label class="col-xs-5" for="name">Name</label>
+          <%= text_input f, :name, class: "col-xs-7", id: "name", placeholder: "John Smith" %>
+          <small>No third parties will ever see this.</small>
+      </fieldset>
       <fieldset class="row">
           <label class="col-xs-5" for="email">Email Address</label>
           <%= text_input f, :email, class: "col-xs-7", id: "email", placeholder: "Email Address" %>
