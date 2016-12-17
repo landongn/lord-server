@@ -31,9 +31,11 @@ export default {
     handle_in(payload) {
       const actions = payload.actions;
       for (var i = 0; i < actions.length; i++) {
-        Mousetrap.bind(actions[i], (e) => {
-          const fn = `${e.key}KeyPressed`;
-          this[fn] && this[fn]();
+        const action = payload.actions[i];
+        console.log('bound handler for ', `${action}KeyPressed`, action);
+        Mousetrap.bind(action, (e) => {
+          const fn = `${action}KeyPressed`;
+          self[fn]();
         });
       }
     }
