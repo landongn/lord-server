@@ -25,7 +25,7 @@ node {
 
         stage('Delivery') {
             dockerImage.push()
-             
+            
             // sh "./deploy.sh ubuntu@172.29.194.214 home.cherubini.casa:5000/lordserver ${version} docker-container-globalweb.service"
         }
     }
