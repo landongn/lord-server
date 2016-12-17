@@ -1,9 +1,20 @@
 
-<li><span class="white">Legend Of The Red Dragon</span> - <span class="light"></span></li>
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">King Arthurs Weapons</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li></li>
-<li>I don't work yet! Sorry.</li>
-<li></li>
-<pre>
-  <span data-command="space" class="action">(R)eturn to town</span>
+<li class="weapons">King Arthurs Weapons is a sprawling, haute place.</li>
+<li class="weapons">The attendant sees you enters and flags you down.</li>
+<li class="weapons">as you approach the counter, the attendant sizes you up and says "Welcome! Only the finest weapons for a warrior such as yourself."</li>
+<section class="village-menu">
+    <section class="village-option"><span data-command="b" class="action">(B)</span>rowse weapons</section>
+    <section class="village-option"><span data-command="s" class="action">(S)</span>ell your current weapon</section>
+    <section class="village-option"><span data-command="r" class="action">(R)</span>eturn to town</section>
+</section>
+<li class="command">
+  What'll it be? <span class="blink cursor">&#x2581;</span>
+  <span class="command-options">
+      <span data-command="b" class="action">(B)</span>
+      <span data-command="s" class="action">(S)</span>
+      <span data-command="r" class="action">(R)</span>
+  </span>
+</li>
 </section>

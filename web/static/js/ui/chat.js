@@ -43,5 +43,6 @@ export default class Chatbox {
         var temp = document.createElement('template');
         temp.innerHTML = `<li><span class="username">${data.from}</span>: ${data.message}</li>`;
         this.log.appendChild(temp.content);
+        this.log.scrollTop = this.log.scrollHeight;
     }
 }

@@ -135,6 +135,13 @@ defmodule Server.ForestChannel do
             fight: %{char: char, mob: mob}
           }
 
+          Server.Endpoint.broadcast("zone", "chat", %{
+            from: '',
+            message: "#{mob.name} has slain #{char.name}.",
+            stamp: :os.system_time(:seconds),
+            opcode: "game.zone.broadcast"
+          })
+
         else
           if mob.health <= 0 do
             #push victory
@@ -160,6 +167,13 @@ defmodule Server.ForestChannel do
               message: View.render_to_string(ForestView, "kill.html", %{char: char, mob: mob, damage_dealt: damage_dealt}),
               actions: ["space"]
             }
+
+            Server.Endpoint.broadcast("zone", "chat", %{
+              from: '',
+              message: "#{char.name} has slain #{mob.name}.",
+              stamp: :os.system_time(:seconds),
+              opcode: "game.zone.broadcast"
+            })
 
           else
             Logger.info("ROUND SUCCESS\n\n")

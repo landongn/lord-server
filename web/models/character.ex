@@ -70,4 +70,10 @@ defmodule Server.Character do
     |> cast(params, [:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :strength, :endurance, :luck ])
     |> validate_required([:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :strength, :endurance, :luck])
   end
+
+  def buy_weapon(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:weapon_id, :gold])
+    |> validate_required([:gold, :weapon_id])
+  end
 end

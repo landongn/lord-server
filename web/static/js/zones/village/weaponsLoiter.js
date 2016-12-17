@@ -10,13 +10,17 @@ export default {
     }
 
     load() {
-      Mousetrap.bind(['space', 'enter'], (e) => {
-        this.spaceKeyPressed(e);
+      Mousetrap.bind('b', (e) => {
+        this.game.handle_out('game.zone.village.weapons.buy', 'village');
       });
-    }
 
-    spaceKeyPressed(e) {
-      this.game.handle_out('game.zone.village.loiter', 'village');
+      Mousetrap.bind('s', (e) => {
+        this.game.handle_out('game.zone.village.weapons.sell.offer', 'village');
+      });
+
+      Mousetrap.bind('r', (e) => {
+        this.game.handle_out('game.zone.village.loiter', 'village');
+      });
     }
 
     handle_in() {}

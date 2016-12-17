@@ -10,7 +10,7 @@ defmodule Server.CharacterChannel do
   alias Server.Weapon
   alias Server.Armor
   alias Server.Class
-
+  alias Server.Presence
 
   def join("character", payload, socket) do
     if authorized?(socket, payload) do
@@ -28,7 +28,7 @@ defmodule Server.CharacterChannel do
   end
 
   def handle_in("game.zone.character.list", payload, socket) do
-    {:ok, player_id} = socket.assigns.player_id
+    player_id = socket.assigns.player_id
     chars = Repo.all from c in Character,
       join: w in Weapon, on: w.id == c.weapon_id,
       join: a in Armor, on: a.id == c.armor_id,
@@ -65,6 +65,8 @@ defmodule Server.CharacterChannel do
       endurance: char.endurance,
       luck: char.luck
     }
+
+
     Logger.info "welcoming #{inspect rec.name}"
 
     Game.Forest.enter(rec)
@@ -81,6 +83,15 @@ defmodule Server.CharacterChannel do
       message: View.render_to_string(VillageView, "loiter.html", %{}),
       actions: ["h", "i", "r", "w", "t", "f", "d"]
     }
+
+    socket |> assign(:name, char.name)
+
+    Server.Endpoint.broadcast("zone", "chat", %{
+      from: '',
+      message: "#{char.name} has come online.",
+      stamp: :os.system_time(:seconds),
+      opcode: "game.zone.broadcast"
+    })
     {:noreply, socket}
   end
 
@@ -199,6 +210,16 @@ defmodule Server.CharacterChannel do
         actions: ["l", "c", "d"]
       }
     {:noreply, socket}
+  end
+
+  def terminate(_, socket) do
+    Logger.info "terminating character session: #{socket.assigns.player_id}"
+    Server.Endpoint.broadcast("zone", "chat", %{
+      from: '',
+      message: "#{socket.assigns.name} has gone offline.",
+      stamp: :os.system_time(:seconds),
+      opcode: "game.zone.broadcast"
+    })
   end
 
 end

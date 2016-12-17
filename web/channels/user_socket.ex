@@ -25,8 +25,8 @@ defmodule Server.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(params, socket) do
-    validated_player_id = Phoenix.Token.verify(Server.Endpoint, "token", params["token"])
-    {:ok, assign(socket, :player_id, validated_player_id)}
+    {:ok, valid_id} = Phoenix.Token.verify(Server.Endpoint, "token", params["token"])
+    {:ok, assign(socket, :player_id, valid_id)}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -40,8 +40,7 @@ defmodule Server.UserSocket do
   #
   # Returning `nil` makes this socket anonymous.
   def id(socket) do
-    # "users_socket:#{socket.assigns.player_id}"
-    nil
+    "users_socket:#{socket.assigns.player_id}"
   end
 
 

@@ -5,6 +5,9 @@ defmodule Server.VillageChannel do
   alias Server.VillageView
   alias Server.Character
   alias Server.Repo
+  alias Server.Weapon
+  alias Server.Armor
+  alias Server.News
 
   def join("village", payload, socket) do
     if authorized?(socket, payload) do
@@ -68,23 +71,43 @@ defmodule Server.VillageChannel do
 
   def handle_in("game.zone.village.weapons.buy", _, socket) do
 
+
+    weapons = Repo.all(Weapon)
+
+
     push socket, "msg", %{
-      opcode: "game.zone.village.mail",
-      message: View.render_to_string(VillageView, "weapons-buy.html", %{}),
+      opcode: "game.zone.village.weapons.buy",
+      equipment: weapons,
+      message: View.render_to_string(VillageView, "weapons-buy.html", %{equipment: weapons}),
       actions: []
     }
 
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.weapons.purchase", _, socket) do
+  def handle_in("game.zone.village.weapons.purchase", payload, socket) do
+    weapon_payload = payload["weapon"]
 
-    push socket, "msg", %{
-      opcode: "game.zone.village.weapons.purchase",
-      message: View.render_to_string(VillageView, "weapons-purchase.html", %{}),
-      actions: []
-    }
+    weapon = Repo.get(Weapon, weapon_payload["id"])
+    char = Repo.get(Character, payload["id"])
 
+    if weapon.cost > char.gold do
+      push socket, "msg", %{
+        opcode: "game.zone.village.weapons.purchase",
+        message: View.render_to_string(VillageView, "weapons-purchase-broke.html", %{char: char, weapon: weapon}),
+        actions: ["space"]
+      }
+    else
+      char = %{char | gold: (char.gold - weapon.cost), weapon_id: weapon.id}
+      changeset = Character.buy_weapon(%Character{id: payload["id"]}, %{gold: char.gold, weapon_id: char.weapon_id})
+      Repo.update!(changeset)
+
+      push socket, "msg", %{
+        opcode: "game.zone.village.weapons.purchase",
+        message: View.render_to_string(VillageView, "weapons-purchase.html", %{}),
+        actions: ["space"]
+      }
+    end
     {:noreply, socket}
   end
 
