@@ -139,7 +139,7 @@ defmodule Server.CharacterChannel do
     changeset = Character.new_character(%Character{}, %{
       name: payload["name"],
       class_id: payload["class"],
-      player_id: payload["user_id"]
+      player_id: socket.assigns.player_id
     })
 
     case Repo.insert!(changeset) do
