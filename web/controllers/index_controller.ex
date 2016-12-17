@@ -2,6 +2,8 @@ defmodule Server.IndexController do
   use Server.Web, :controller
   alias Server.Router.Helpers
   alias Server.Player
+  alias Server.Repo
+
 
   require Logger
 
@@ -59,23 +61,27 @@ defmodule Server.IndexController do
     end
   end
 
-  def login(conn, %{"player" => %{"email" => email, "password" => password}}) do
-    Logger.info "attemping to login as #{inspect email}"
+  def login(conn, %{"player" => player_params}) do
+    Logger.info "attemping to login as #{inspect player_params}"
 
-      case Server.Repo.get_by(Player, email: email) do
-        user ->
-            conn = Server.Auth.login(conn, user)
+
+    case Repo.get_by Player, email: player_params["email"] do
+      player when player != nil ->
+        case Comeonin.Bcrypt.checkpw(player_params["password"], player.password) do
+          true ->
+            Logger.info "logging in as #{player}"
+            conn |> Server.Auth.login(player)
             redirect conn, to: "/play"
             conn |> halt
-
-        {:error, _} ->
-            conn |> put_flash(:error, "unable to log the user in, no record found")
-            conn |> put_flash(:error, "unable to find an account. Sorry.")
-            render conn, "login.html"
-
-        nil ->
-          conn |> put_flash(:info, "unable to log the user in, no record found")
-          render conn, "login.html"
+          false ->
+            Logger.info "unable to match passwords for the user."
+            conn |> put_flash(:error, "unable to log you in. no matching user for that username/password combo")
+            render conn, "login.html", changeset: Player.changeset(%Player{}, %{})
+        end
+      nil ->
+        Logger.info "unable to find a player, or player was nil."
+        conn |> put_flash(:info, "unable to log the user in, no record found")
+        render conn, "login.html", changeset: Player.changeset(%Player{}, %{})
       end
   end
 
