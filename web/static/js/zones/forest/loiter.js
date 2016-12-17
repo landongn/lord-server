@@ -29,7 +29,7 @@ export default {
     }
 
     handle_in(payload) {
-      const actions = payload.actions[i];
+      const actions = payload.actions;
       for (var i = 0; i < actions.length; i++) {
         Mousetrap.bind(actions[i], (e) => {
           const fn = `${e.key}KeyPressed`;
