@@ -69,7 +69,7 @@ defmodule Server.IndexController do
       player when player != nil ->
         case Comeonin.Bcrypt.checkpw(player_params["password"], player.password) do
           true ->
-            Logger.info "logging in as #{player}"
+            Logger.info "logging in"
             conn |> Server.Auth.login(player)
             redirect conn, to: "/play"
             conn |> halt
