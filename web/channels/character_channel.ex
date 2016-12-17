@@ -47,11 +47,11 @@ defmodule Server.CharacterChannel do
   def handle_in("game.zone.character.play", payload, socket) do
 
     char = Character
-      |> where(id: ^payload["id"])
+      |> where(id: ^payload["char_id"])
       |> Repo.one!
 
     rec = %{
-      id: payload["id"],
+      id: payload["char_id"],
       name: char.name,
       level: char.level,
       experience: char.experience,
