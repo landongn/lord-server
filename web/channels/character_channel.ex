@@ -48,7 +48,6 @@ defmodule Server.CharacterChannel do
 
     char = Character
       |> where(id: ^payload["id"])
-      |> select([:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :strength, :endurance, :luck])
       |> Repo.one!
 
     rec = %{
@@ -84,7 +83,8 @@ defmodule Server.CharacterChannel do
       actions: ["f", "k", "h", "i", "y", "w", "c", "p", "s", "a", "v", "t", "l", "d", "o", "q"]
     }
 
-    socket |> assign(:name, char.name)
+    socket = assign(socket, :name, char.name)
+    socket = assign(socket, :character_id, char.id)
 
     Server.Endpoint.broadcast("zone", "chat", %{
       from: '',
@@ -202,7 +202,7 @@ defmodule Server.CharacterChannel do
       join: k in Class, on: c.class_id == k.id,
       select: %{"name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => c.name, "id" => c.id},
       where: c.player_id == ^payload["user_id"]
-    
+
       push socket, "msg", %{
         message: View.render_to_string(CharacterView, "character-list.html", %{characters: chars}),
         opcode: "game.zone.character.delete",
@@ -216,7 +216,7 @@ defmodule Server.CharacterChannel do
     Logger.info "terminating character session: #{socket.assigns.player_id}"
     Server.Endpoint.broadcast("zone", "chat", %{
       from: '',
-      message: "#{socket.assigns.name} has gone offline.",
+      message: "#{socket.assigns.player_id} has gone offline.",
       stamp: :os.system_time(:seconds),
       opcode: "game.zone.broadcast"
     })

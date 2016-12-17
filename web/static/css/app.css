@@ -43,6 +43,10 @@ li.round-hidden {
     color: red;
 }
 
+.mob-damage {
+    color: white;
+}
+
 .fight-start {
     font-size: 1.5em;
 }
@@ -129,9 +133,14 @@ pre {
 span.action {
     color: violet;
     font-size: 1.2em;
+    cursor:pointer;
 }
 span.light {
     color: rgb(233, 235, 235, 1);
+}
+
+span.gold {
+    color: gold;
 }
 
 @keyframes blink {
@@ -316,4 +325,24 @@ section.weapon-option {
 }
 section.weapon-option span {
     margin-top: -3px;
+}
+
+
+section.forest-stats {
+    min-height: 100%;
+    display: flex;
+    margin: 25px;
+    flex-direction: row;
+}
+
+
+section.forest-stats > section {
+    display: flex;
+    flex-basis: calc(50%);
+    flex-direction: column;
+}
+
+
+section.vitals {
+
 }

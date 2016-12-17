@@ -26,7 +26,7 @@ export default {
 
     selectWeapon(i) {
       const wep = this.equipment[i];
-      this.game.handle_out('game.zone.village.weapons.purchase', 'village', {weapon: wep});
+      this.game.handle_out('game.zone.village.weapons.purchase', 'village', {weapon_id: wep.id});
     }
 
     handle_in(payload) {

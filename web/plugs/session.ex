@@ -9,8 +9,7 @@ defmodule Server.SessionPlug do
   def call(conn, _) do
     player = get_session(conn, :player_id)
     if player do
-        Logger.info "Returning player! #{inspect player}"
-        conn 
+        conn
         |> assign(:token, Phoenix.Token.sign(Server.Endpoint, "token", player))
         |> assign(:player_id, player)
     else

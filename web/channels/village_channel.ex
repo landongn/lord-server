@@ -83,10 +83,10 @@ defmodule Server.VillageChannel do
   end
 
   def handle_in("game.zone.village.weapons.purchase", payload, socket) do
-    weapon_payload = payload["weapon"]
+    weapon_payload = payload["weapon_id"]
 
-    weapon = Repo.get(Weapon, weapon_payload["id"])
-    char = Repo.get(Character, payload["id"])
+    weapon = Repo.get(Weapon, weapon_payload)
+    char = Repo.get(Character, payload["char_id"])
 
     if weapon.cost > char.gold do
       push socket, "msg", %{
@@ -96,12 +96,12 @@ defmodule Server.VillageChannel do
       }
     else
       char = %{char | gold: (char.gold - weapon.cost), weapon_id: weapon.id}
-      changeset = Character.buy_weapon(%Character{id: payload["id"]}, %{gold: char.gold, weapon_id: char.weapon_id})
+      changeset = Character.buy_weapon(%Character{id: payload["char_id"]}, %{gold: char.gold, weapon_id: char.weapon_id})
       Repo.update!(changeset)
 
       push socket, "msg", %{
         opcode: "game.zone.village.weapons.purchase",
-        message: View.render_to_string(VillageView, "weapons-purchase.html", %{}),
+        message: View.render_to_string(VillageView, "weapons-confirm-purchase.html", %{char: char, weapon: weapon}),
         actions: ["space"]
       }
     end
@@ -295,11 +295,14 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.healer.loiter", _payload, socket) do
+  def handle_in("game.zone.village.healer.loiter", payload, socket) do
+
+    char = Repo.get(Character, payload["char_id"])
+    missing_health = char.m_health - char.health
 
     push socket, "msg", %{
       opcode: "game.zone.village.healer.loiter",
-      message: View.render_to_string(VillageView, "healer-loiter.html", %{}),
+      message: View.render_to_string(VillageView, "healer-loiter.html", %{char: char, missing_health: missing_health}),
       actions: ["h", "a", "r"]
     }
 
@@ -313,7 +316,7 @@ defmodule Server.VillageChannel do
       true ->
         cost = round(round((char.m_health - char.health) * char.level))
         amount = round(char.m_health - char.health)
-        gold = round(char.gold - round((char.m_health - char.health) * char.level))
+        gold = round(char.gold - round((char.m_health - char.health) * round(char.level + 3)))
 
         char = Character.healer_full(char, %{gold: gold, health: char.m_health})
 

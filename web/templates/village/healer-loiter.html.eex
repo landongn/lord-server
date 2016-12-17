@@ -3,11 +3,11 @@
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
 <li>Entering the hut, the healer looks you up and down and gives you a toothless grin.</li>
 <li>"My Prices are the best in the village!", he shrieks.</li>
-<li></li>
+<li class="inner-thought">You are missing <%= @missing_health %> HP.  It will cost you <%= round(@char.level * 3) %> gold per HP to heal.</li>
 <li></li>
 <pre>
   <span data-command="h" class="action">(H)</span>eal Completely
-  <span data-command="r" class="action">(R)</span>eturn to Town                     
+  <span data-command="r" class="action">(R)</span>eturn to Town
 </section>
 <li class="command">
   Well? <span class="blink cursor">&#x2581;</span>

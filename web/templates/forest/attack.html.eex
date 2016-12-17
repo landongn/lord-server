@@ -1,6 +1,15 @@
 <li></li>
-<li>you hit <%= @mob.name %> for <%= @damage_dealt %> damage!</li>
-<li class="round-hidden"><span class="attack-stars">**</span><%= @mob.name %> hits with its <%= @mob.weapon %> for <span class="mob-damage"><%= @retaliation_suffered %></span> damage! <span class="attack-stars">**</span></li>
+<%= if @char_missed do %>
+  <li>you completely <span class="white">** MISS **<%= @mob.name %></span>!</li>
+<% else %>
+  <li>you hit <span class="white"><%= @mob.name %></span> for <span class="white"><%= @damage_dealt %></span> damage!</li>
+<% end %>
+
+<%= if @mob_missed do %>
+  <li class="round-hidden"><%= @mob.name %> <span class="white">**MISSES**</span> you entirely!</li>
+<% else %>
+  <li class="round-hidden"><span class="attack-stars">**</span><%= @mob.name %> hits with its <span class="white"><%= @mob.weapon %></span> for <span class="mob-damage"><%= @retaliation_suffered %></span> damage! <span class="attack-stars">**</span></li>
+<% end %>
 <li class="round-hidden"></li>
 <li class="round-hidden">Your Health : <span class="white"><%= @char.health %></span></li>
 <li class="round-hidden"><%= @mob.name %>'s Health : <span class="white"><%= @mob.health %></span></li>

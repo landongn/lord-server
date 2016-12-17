@@ -17,7 +17,20 @@ export default class Game {
         this.input = new Input(this);
         this.character = new Character(this);
         this.session = new Session({});
-        window.addEventListener('touchstart', (e) => {
+
+        window.addEventListener('mouseup', (e) => {
+            try {
+                const val = parseInt(e.target.dataset.command, 10);
+                if (isNaN(val)) {
+                    Mousetrap.trigger(e.target.dataset.command);
+                } else {
+                    Mousetrap.trigger(val);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        });
+        window.addEventListener('touchend', (e) => {
             console.log('e', e.target.dataset);
             try {
               const val = parseInt(e.target.dataset.command, 10);

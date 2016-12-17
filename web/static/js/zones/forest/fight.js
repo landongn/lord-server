@@ -53,9 +53,12 @@ export default {
           this.alreadyAttacking = true;
           console.log('game round: ', payload);
             this.game.audio.play('swing');
-            setTimeout(() => {
-              this.game.audio.play(payload.fight.mob.s_hit);
-            }, 50);
+            if (!payload.fight.char_missed) {
+              setTimeout(() => {
+                this.game.audio.play(payload.fight.mob.s_hit);
+              }, 50);
+            }
+
 
             setTimeout(() => {
               const el = document.querySelectorAll('.round-hidden');
@@ -72,10 +75,12 @@ export default {
 
               this.game.audio.play(payload.fight.mob.s_atk);
               setTimeout(() => {
-                this.game.character.getHit();
+                if (!payload.fight.mob_missed) {
+                  this.game.character.getHit();
+                }
               }, 250);
-            }, 1000); 
-        
+            }, 1000);
+
           break;
 
         case 'game.zone.forest.kill':

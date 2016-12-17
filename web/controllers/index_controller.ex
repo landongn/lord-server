@@ -15,7 +15,6 @@ defmodule Server.IndexController do
   end
 
   def play(conn, _) do
-    Logger.info "#{inspect conn}"
     if get_session(conn, :token) do
       render conn, "play.html"
     else
@@ -34,10 +33,10 @@ defmodule Server.IndexController do
   end
 
   def register(conn, %{"player" => %{"email" => email, "password" => password}}) do
-    changeset = Player.new_account(%Player{}, player)
+    changeset = Player.new_account(%Player{}, %{email: email, password: password})
 
     case Repo.insert(changeset) do
-      {:ok, user} ->
+      user ->
         conn
         |> put_flash(:info, "Account Created!")
         |> Server.Auth.login(user)
@@ -52,14 +51,8 @@ defmodule Server.IndexController do
   def login(conn, %{"player" => %{"email" => email, "password" => password}}) do
     Logger.info "attemping to login as #{inspect email}"
 
-      if !email do
-        conn
-        |> put_flash(:error, "an email address is required. Sorry.")
-        render conn, "login.html"
-      end
-
       case Server.Repo.get_by(Player, email: email) do
-        {:ok, user} ->
+        user ->
             conn = Server.Auth.login(conn, user)
             redirect conn, to: "/play"
             conn |> halt
