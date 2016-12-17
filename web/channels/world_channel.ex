@@ -36,7 +36,8 @@ defmodule Server.WorldChannel do
 
   def handle_in("game.client.world.news", _, socket) do
     posts = Repo.all from n in News,
-      limit: 10
+      limit: 10,
+      order_by: [desc: :id]
 
     push socket, "msg", %{
       message: View.render_to_string(WorldView, "news.html", %{posts: posts}),
