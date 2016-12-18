@@ -58,11 +58,14 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.weapons.loiter", _, socket) do
+  def handle_in("game.zone.village.weapons.loiter", payload, socket) do
+
+    char = Repo.get(Character, payload["char_id"])
+    weapon = Repo.get(Weapon, char.weapon_id)
 
     push socket, "msg", %{
       opcode: "game.zone.village.weapons.loiter",
-      message: View.render_to_string(VillageView, "weapons-loiter.html", %{}),
+      message: View.render_to_string(VillageView, "weapons-loiter.html", %{wep: weapon, char: char}),
       actions: ["b", "s" ,"r"]
     }
 
@@ -101,7 +104,7 @@ defmodule Server.VillageChannel do
 
       push socket, "msg", %{
         opcode: "game.zone.village.weapons.purchase",
-        message: View.render_to_string(VillageView, "weapons-confirm-purchase.html", %{char: char, weapon: weapon}),
+        message: View.render_to_string(VillageView, "weapons-purchase-confirm.html", %{char: char, weapon: weapon}),
         actions: ["space"]
       }
     end
