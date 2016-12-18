@@ -1,26 +1,30 @@
-
-    <nav class="navbar navbar-dark">
-      <div class="container">
-        <div class="navbar-xs" id="exCollapsingNavbar2">
-          <a class="navbar-brand" href="#">LORD</a>
-          <ul class="nav navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/play">Play</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signup">Sign up</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+<nav class="navbar navbar-dark">
+  <div class="container">
+    <div class="navbar-xs" id="exCollapsingNavbar2">
+      <a class="navbar-brand" href="#">LORD</a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item"><a href="/about" class="nav-link" id="href">About</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="/play">Play</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Log in</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Sign up</a>
+        </li>
+        <%= if assigns[:player_id] do %>
+        <li class="nav-item">
+          <a href="/logout" class="nav-link">Log out</a>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
 <!-- Begin page content -->
 <div class="container">
   <div class="mt-1">

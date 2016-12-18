@@ -25,8 +25,11 @@ defmodule Server.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(params, socket) do
-    {:ok, valid_id} = Phoenix.Token.verify(Server.Endpoint, "token", params["token"])
-    {:ok, assign(socket, :player_id, valid_id)}
+
+    case Phoenix.Token.verify(Server.Endpoint, "token", params["token"]) do
+      {:ok, valid_id} -> {:ok, assign(socket, :player_id, valid_id)}
+      {:error, :invalid} -> :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

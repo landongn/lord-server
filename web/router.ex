@@ -39,6 +39,7 @@ defmodule Server.Router do
   end
 
   scope "/cms", Server do
+    pipe_through :authenticated
     resources "/classes", ClassController
   end
 end
