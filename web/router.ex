@@ -20,7 +20,7 @@ defmodule Server.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Server.Plug.Authenticate, repo: Server.Repo
+    plug Server.AdminPlug, repo: Server.Repo
   end
 
   scope "/", Server do
@@ -36,10 +36,14 @@ defmodule Server.Router do
 
     post "/login", IndexController, :login
     post "/signup", IndexController, :register
+
+
+    get "/patchnotes", UpdateController, :index
   end
 
   scope "/cms", Server do
     pipe_through :authenticated
     resources "/classes", ClassController
+    resources "/updates", UpdateController
   end
 end

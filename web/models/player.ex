@@ -7,7 +7,10 @@ defmodule Server.Player do
     field :secret, :string
     field :password, :string
     field :email, :string
-
+    field :is_admin, :boolean, default: false
+    field :is_banned, :boolean, default: false
+    field :verified_account, :boolean, default: false
+    field :premium_member, :boolean, default: false
     timestamps()
   end
 

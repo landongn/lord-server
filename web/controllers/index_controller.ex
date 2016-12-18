@@ -4,11 +4,15 @@ defmodule Server.IndexController do
   alias Server.Player
   alias Server.Repo
 
+  alias Server.Update
 
   require Logger
 
   def index(conn, _params) do
-    render conn, "index.html"
+    updates = Repo.all from u in Update,
+      limit: 10
+
+    render conn, "index.html", %{updates: updates}
   end
 
   def login_form(conn, _params) do
@@ -64,7 +68,7 @@ defmodule Server.IndexController do
         conn |> put_flash(:error, "email already exists.  Did you want to login instead?")
         render(conn, "signup.html", changeset: Player.new_account(%Player{}, %{}))
     end
-    render(conn, "signup.html", changeset, Player.new_account(%Player{}, %{}))
+    render(conn, "signup.html", changeset: Player.new_account(%Player{}, %{}))
   end
 
   def login(conn, %{"player" => player_params}) do

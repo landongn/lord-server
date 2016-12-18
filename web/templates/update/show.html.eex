@@ -1,0 +1,18 @@
+<h2>Show update</h2>
+
+<ul>
+
+  <li>
+    <strong>Posted by:</strong>
+    <%= @update.posted_by %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @update.body %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: update_path(@conn, :edit, @update) %>
+<%= link "Back", to: update_path(@conn, :index) %>

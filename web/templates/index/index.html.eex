@@ -32,6 +32,14 @@
     <p class="lead">Play LORD in your browser, no special software necessary.
   </div>
 
+  <%= for post <- @updates do %>
+    <div class="row">
+      <article>
+        <aside class="col-xs-2"><%= post.posted_by %><p><%= post.inserted_at %></p></aside>
+        <p class="col-xs-10"><%= post.body %></p>
+      </article>
+    </div>
+  <% end %>
 </div>
 
 <footer class="footer">
