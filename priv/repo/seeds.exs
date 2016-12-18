@@ -240,6 +240,48 @@ Repo.insert!(%Server.Entity{
     weapon: "Makeshift Spear"
 })
 
+Repo.insert!(%Server.Entity{
+    name: "a black bear",
+    level: 2,
+    strength: 2,
+    endurance: 20,
+    s_atk: "bear_att",
+    s_die: "bear_die",
+    s_hit: "bear_hit",
+    s_miss: "bear_idl",
+    health: 45,
+    armor_value: 2,
+    damage: 2,
+    experience: 20,
+    m_health: 45,
+    m_mana: 25,
+    death_msg: "Blood pours out of the beast at an alarming rate as it falls to the ground, lifeless.",
+    kill_msg: "The beast swipes across your chest, taking a significant portion of your ribcage along with it.",
+    gold: 50,
+    weapon: "Bear Claw"
+})
+
+Repo.insert!(%Server.Entity{
+    name: "a Birdperson",
+    level: 2,
+    strength: 2,
+    endurance: 20,
+    s_atk: "aviakatt",
+    s_die: "aviakatt",
+    s_hit: "aviakhit",
+    s_miss: "aviakhit",
+    health: 80,
+    armor_value: 2,
+    damage: 2,
+    experience: 20,
+    m_health: 80,
+    m_mana: 25,
+    death_msg: "Birdperson takes a moment to look into your eye as your blade exits its gullet. \"Dick move.\", it says, as it slumps forward.",
+    kill_msg: "Birdperson laughs as you fumble to put your entrails back into the gaping wound in your stomach.",
+    gold: 50,
+    weapon: "Staff"
+})
+
 
 # Populate Classes
 Repo.delete_all Server.Class

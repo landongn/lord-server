@@ -179,16 +179,19 @@ defmodule Server.ForestChannel do
         else
           if mob.health <= 0 do
             #push victory
+
+            # reset health so death stuff doesn't damage chars
+            char = %{char | health: fight.char.health}
             Forest.battle_report(char.name, %{char: char, mob: mob})
             gemroll = roll 20
             gemdrop = false
             gemsfound = roll 5
             case roll 20 do
-              r when r > 17 ->
+              r when r >= 17 ->
                 gemdrop = true
                 char = %{char | gems: (char.gems + gemsfound), is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
               r when r < 17 ->
-                char = %{char | is_alive: false, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
+                char = %{char | is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
             end
 
             Logger.info "\n\n GEM DATA: \n #{inspect gemdrop} \n #{inspect gemsfound} \n #{inspect gemroll}"
