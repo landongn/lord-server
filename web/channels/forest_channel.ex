@@ -5,7 +5,7 @@ defmodule Server.ForestChannel do
   alias Server.ForestView
   alias Game.Forest
   alias Phoenix.View
-  
+
   alias Server.News
   alias Server.HealerView
 
@@ -13,6 +13,17 @@ defmodule Server.ForestChannel do
   alias Server.Armor
   alias Server.Weapon
   alias Server.Class
+
+  def roll(sides) do
+    case sides do
+      5 ->
+        Enum.random([1, 2, 3, 4, 5])
+      10 ->
+        Enum.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+      20 ->
+        Enum.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
+    end
+  end
 
   def join("forest", payload, socket) do
     if authorized?(socket, payload) do
@@ -30,9 +41,14 @@ defmodule Server.ForestChannel do
   end
 
   def handle_in("game.zone.forest.loiter", payload, socket) do
+
+    player = Repo.get(Character, payload["char_id"])
+    weapon = Repo.get(Weapon, player.weapon_id)
+    armor = Repo.get(Armor, player.armor_id)
+
     push socket, "msg", %{
       opcode: "game.zone.forest.loiter",
-      message: View.render_to_string(ForestView, "loiter.html", %{}),
+      message: View.render_to_string(ForestView, "loiter.html", %{char: player, weapon: weapon, armor: armor}),
       actions: ["l", "h", "r", "v"]
     }
     {:noreply, socket}
@@ -55,7 +71,10 @@ defmodule Server.ForestChannel do
     class = Repo.get(Class, char.class_id)
 
     push socket, "msg", %{
-      message: View.render_to_string(ForestView, "stats.html", %{char: char, class: class, armor: armor, weapon: weapon}),
+      message: View.render_to_string(ForestView, "stats.html", %{
+        char: char, class: class, armor: armor, weapon: weapon
+      }),
+
       opcode: "game.zone.forest.stats",
       char: char,
       actions: ["l", "h", "r", "v", "b"]
@@ -103,11 +122,26 @@ defmodule Server.ForestChannel do
         m_damage = mob.damage
         Logger.info "mob stats: #{m_str} #{m_def} #{m_health} #{m_armor} #{m_damage}"
         Logger.info "Setup finished\n\n"
-        damage_dealt = ((c_str * c_weapon) - (m_def * m_armor) * 1.4)
-        retaliation_suffered = ((m_str * m_damage) - (c_def * c_armor) * 0.03)
+        damage_dealt = round((c_str * c_weapon) - (m_def * m_armor) * Enum.random([0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0]))
+        retaliation_suffered = round((m_str * m_damage) - (c_def * c_armor) * Enum.random([-0.5, -1.0, -1.5]))
 
-        mob = %{mob | health: round(mob.health - damage_dealt)}
-        char = %{char | health: round(c_health - retaliation_suffered)}
+        missed_me = false
+        missed_them = false
+
+        if retaliation_suffered <= 0 do
+          missed_me = true
+        else
+          missed_me = false
+          char = %{char | health: round(c_health - retaliation_suffered)}
+        end
+
+        if damage_dealt <= 0 do
+          missed_them = true
+        else
+          mob = %{mob | health: round(mob.health - damage_dealt)}
+          missed_them = false
+        end
+
         Logger.info "round calculated"
         if char.health <= 0 do
           # push death
@@ -135,11 +169,30 @@ defmodule Server.ForestChannel do
             fight: %{char: char, mob: mob}
           }
 
+          Server.Endpoint.broadcast("zone", "chat", %{
+            from: '',
+            message: "#{mob.name} has slain #{char.name}.",
+            stamp: :os.system_time(:seconds),
+            opcode: "game.zone.broadcast"
+          })
+
         else
           if mob.health <= 0 do
             #push victory
             Forest.battle_report(char.name, %{char: char, mob: mob})
-            char = %{char | is_alive: false, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
+            gemroll = roll 20
+            gemdrop = false
+            gemsfound = roll 5
+            case roll 20 do
+              r when r > 17 ->
+                gemdrop = true
+                char = %{char | gems: (char.gems + gemsfound), is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
+              r when r < 17 ->
+                char = %{char | is_alive: false, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
+            end
+
+            Logger.info "\n\n GEM DATA: \n #{inspect gemdrop} \n #{inspect gemsfound} \n #{inspect gemroll}"
+
 
             changeset = News.changeset(%News{}, %{posted_by: mob.name, body: "#{char.name} has slain #{mob.name}."})
             Repo.insert!(changeset)
@@ -156,22 +209,22 @@ defmodule Server.ForestChannel do
             Logger.info "oh no, the mob has died!"
             push socket, "msg", %{
               opcode: "game.zone.forest.kill",
-              fight: %{char: char, mob: mob},
-              message: View.render_to_string(ForestView, "kill.html", %{char: char, mob: mob, damage_dealt: damage_dealt}),
+              fight: %{char: char, mob: mob, char_missed: missed_them, mob_missed: missed_me},
+              message: View.render_to_string(ForestView, "kill.html", %{char: char, mob: mob, damage_dealt: damage_dealt, gemsfound: gemsfound, gemdrop: gemdrop}),
               actions: ["space"]
             }
 
+            Server.Endpoint.broadcast("zone", "chat", %{
+              from: '',
+              message: "#{char.name} has slain #{mob.name}.",
+              stamp: :os.system_time(:seconds),
+              opcode: "game.zone.broadcast"
+            })
+
           else
             Logger.info("ROUND SUCCESS\n\n")
-            mobMissed = false
-            charMissed = false
-            if retaliation_suffered == 0 do
-              mobMissed = true
-            end
-            if damage_dealt == 0 do
-              charMissed = true
-            end
-            updatedFight = %{char: char, mob: mob, char_missed: charMissed, mob_missed: mobMissed,
+
+            updatedFight = %{char: char, mob: mob, char_missed: missed_them, mob_missed: missed_me,
             retaliation_suffered: retaliation_suffered, damage_dealt: damage_dealt}
 
             Forest.attack(char.id, updatedFight)

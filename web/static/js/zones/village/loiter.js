@@ -51,7 +51,7 @@ export default {
     }
 
     sKeyPressed() {
-      this.game.handle_out('game.zone.forest.loiter', 'forest');
+      this.game.handle_out('game.zone.fields.loiter', 'fields');
     }
 
     aKeyPressed() {
@@ -85,18 +85,15 @@ export default {
 
     handle_in(payload) {
 
-      switch(payload.opcode) {
-        case 'game.zone.village.loiter':
-          Mousetrap.reset();
-          const self = this;
-          for (var i = payload.actions.length - 1; i >= 0; i--) {
-            const action = payload.actions[i];
-            Mousetrap.bind(action, (e) => {
-              console.log('bound handler for ', `${action}KeyPressed`, action);
-              const fn = `${action}KeyPressed`;
-              self[fn] && self[fn]();
-            });
-          }
+      const self = this;
+      const actions = payload.actions;
+      for (var i = 0; i < actions.length; i++) {
+        const action = payload.actions[i];
+        console.log('bound handler for ', `${action}KeyPressed`, action);
+        Mousetrap.bind(action, (e) => {
+          const fn = `${action}KeyPressed`;
+          self[fn]();
+        });
       }
     }
   },

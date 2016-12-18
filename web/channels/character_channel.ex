@@ -10,7 +10,7 @@ defmodule Server.CharacterChannel do
   alias Server.Weapon
   alias Server.Armor
   alias Server.Class
-
+  alias Server.Presence
 
   def join("character", payload, socket) do
     if authorized?(socket, payload) do
@@ -28,7 +28,7 @@ defmodule Server.CharacterChannel do
   end
 
   def handle_in("game.zone.character.list", payload, socket) do
-    {:ok, player_id} = socket.assigns.player_id
+    player_id = socket.assigns.player_id
     chars = Repo.all from c in Character,
       join: w in Weapon, on: w.id == c.weapon_id,
       join: a in Armor, on: a.id == c.armor_id,
@@ -47,12 +47,11 @@ defmodule Server.CharacterChannel do
   def handle_in("game.zone.character.play", payload, socket) do
 
     char = Character
-      |> where(id: ^payload["id"])
-      |> select([:name, :level, :experience, :gold, :gems, :is_alive, :health, :defense, :strength, :endurance, :luck])
+      |> where(id: ^payload["char_id"])
       |> Repo.one!
 
     rec = %{
-      id: payload["id"],
+      id: payload["char_id"],
       name: char.name,
       level: char.level,
       experience: char.experience,
@@ -65,6 +64,8 @@ defmodule Server.CharacterChannel do
       endurance: char.endurance,
       luck: char.luck
     }
+
+
     Logger.info "welcoming #{inspect rec.name}"
 
     Game.Forest.enter(rec)
@@ -79,8 +80,18 @@ defmodule Server.CharacterChannel do
       opcode: "game.zone.village.loiter",
       char: rec,
       message: View.render_to_string(VillageView, "loiter.html", %{}),
-      actions: ["h", "i", "r", "w", "t", "f", "d"]
+      actions: ["f", "k", "h", "i", "y", "w", "c", "p", "s", "a", "v", "t", "l", "d", "o", "q"]
     }
+
+    socket = assign(socket, :name, char.name)
+    socket = assign(socket, :character_id, char.id)
+
+    Server.Endpoint.broadcast("zone", "chat", %{
+      from: '',
+      message: "#{char.name} has come online.",
+      stamp: :os.system_time(:seconds),
+      opcode: "game.zone.broadcast"
+    })
     {:noreply, socket}
   end
 
@@ -128,7 +139,7 @@ defmodule Server.CharacterChannel do
     changeset = Character.new_character(%Character{}, %{
       name: payload["name"],
       class_id: payload["class"],
-      player_id: payload["user_id"]
+      player_id: socket.assigns.player_id
     })
 
     case Repo.insert!(changeset) do
@@ -191,7 +202,7 @@ defmodule Server.CharacterChannel do
       join: k in Class, on: c.class_id == k.id,
       select: %{"name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => c.name, "id" => c.id},
       where: c.player_id == ^payload["user_id"]
-    
+
       push socket, "msg", %{
         message: View.render_to_string(CharacterView, "character-list.html", %{characters: chars}),
         opcode: "game.zone.character.delete",
@@ -199,6 +210,16 @@ defmodule Server.CharacterChannel do
         actions: ["l", "c", "d"]
       }
     {:noreply, socket}
+  end
+
+  def terminate(_, socket) do
+    Logger.info "terminating character session: #{socket.assigns.player_id}"
+    Server.Endpoint.broadcast("zone", "chat", %{
+      from: '',
+      message: "#{socket.assigns.player_id} has gone offline.",
+      stamp: :os.system_time(:seconds),
+      opcode: "game.zone.broadcast"
+    })
   end
 
 end

@@ -16,18 +16,22 @@ html, body {
     background-color:#000;
     color: #03C705;
     font-family: 'Classic Console';
-    font-size: 20px;
+    font-size: 1.1rem;
     -webkit-font-smoothing: antialiased;
 }
 
 #log {
-    background-color:#000;
-
-    margin: 0;
+    background-color: #000;
     padding: 5% 5% 10% 5%;
-    margin-bottom: 5%;
+    padding-bottom: 25%;
     font-size: 1.0em;
+    display: flex;
     overflow: hidden;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+    max-height: 74%;
+    position: relative;
 
 }
 
@@ -37,6 +41,10 @@ li.round-hidden {
 
 .attack-stars {
     color: red;
+}
+
+.mob-damage {
+    color: white;
 }
 
 .fight-start {
@@ -125,9 +133,14 @@ pre {
 span.action {
     color: violet;
     font-size: 1.2em;
+    cursor:pointer;
 }
 span.light {
     color: rgb(233, 235, 235, 1);
+}
+
+span.gold {
+    color: gold;
 }
 
 @keyframes blink {
@@ -161,17 +174,26 @@ section.chat {
     position: fixed;
     bottom: 0px;
     height: 25%;
+    max-height: 500px;
     padding: 0;
+    pointer-events: none;
     width: 100%;
     display: flex;
-    border-top: 1px solid rgba(25, 25, 25, 0.5);
-    background: rgba(25, 25, 25, 0.5);
+
+
     color: #eee;
     justify-content: flex-end;
     flex-direction: row;
+    transform: translate3d(0, 0, 0);
+    transition: translate 150ms ease-out;
 }
 
-section.chat input.chat-enter {
+section.chat.inactive {
+    transform: translate3d(0, -500px, 0);
+    transition: translate 150ms ease-out;
+}
+
+input.chat-enter {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -180,6 +202,7 @@ section.chat input.chat-enter {
     height: 2rem;
     left: 0;
     padding-left: 10px;
+
 }
 
 .chat-wrap {
@@ -194,7 +217,7 @@ span.username {
 }
 
 .chatlog {
-    width: 80%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -256,4 +279,70 @@ button[type=submit] {
     border: 1px solid rgba(25, 25, 25, 1);
     width: 104%;
     margin-top: 13px;
+}
+
+section.village-menu {
+    min-height: 100%;
+    display: flex;
+    margin: 25px;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+section.village-option {
+    display: flex;
+    flex-basis: calc(50% - 40px);
+    padding: 4px;
+}
+
+@media screen and (max-width: 730px) {
+    section.village-option {
+        display: flex;
+        flex-basis: 100%;
+        padding: 4px;
+    }
+}
+section.village-option span {
+    margin-top: -3px;
+}
+
+
+li.weapons {
+    color: gold;
+}
+
+section.weapon-menu {
+    min-height: 100%;
+    display: flex;
+    margin: 25px;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+section.weapon-option {
+    display: flex;
+    flex-basis: calc(25%);
+}
+section.weapon-option span {
+    margin-top: -3px;
+}
+
+
+section.forest-stats {
+    min-height: 100%;
+    display: flex;
+    margin: 25px;
+    flex-direction: row;
+}
+
+
+section.forest-stats > section {
+    display: flex;
+    flex-basis: calc(50%);
+    flex-direction: column;
+}
+
+
+section.vitals {
+
 }

@@ -5,6 +5,9 @@ defmodule Server.VillageChannel do
   alias Server.VillageView
   alias Server.Character
   alias Server.Repo
+  alias Server.Weapon
+  alias Server.Armor
+  alias Server.News
 
   def join("village", payload, socket) do
     if authorized?(socket, payload) do
@@ -60,7 +63,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.weapons.loiter",
       message: View.render_to_string(VillageView, "weapons-loiter.html", %{}),
-      actions: []
+      actions: ["b", "s" ,"r"]
     }
 
     {:noreply, socket}
@@ -68,23 +71,40 @@ defmodule Server.VillageChannel do
 
   def handle_in("game.zone.village.weapons.buy", _, socket) do
 
+    weapons = Repo.all(Weapon)
     push socket, "msg", %{
-      opcode: "game.zone.village.mail",
-      message: View.render_to_string(VillageView, "weapons-buy.html", %{}),
+      opcode: "game.zone.village.weapons.buy",
+      equipment: weapons,
+      message: View.render_to_string(VillageView, "weapons-buy.html", %{equipment: weapons}),
       actions: []
     }
 
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.weapons.purchase", _, socket) do
+  def handle_in("game.zone.village.weapons.purchase", payload, socket) do
+    weapon_payload = payload["weapon_id"]
 
-    push socket, "msg", %{
-      opcode: "game.zone.village.weapons.purchase",
-      message: View.render_to_string(VillageView, "weapons-purchase.html", %{}),
-      actions: []
-    }
+    weapon = Repo.get(Weapon, weapon_payload)
+    char = Repo.get(Character, payload["char_id"])
 
+    if weapon.cost > char.gold do
+      push socket, "msg", %{
+        opcode: "game.zone.village.weapons.purchase",
+        message: View.render_to_string(VillageView, "weapons-purchase-broke.html", %{char: char, weapon: weapon}),
+        actions: ["space"]
+      }
+    else
+      char = %{char | gold: (char.gold - weapon.cost), weapon_id: weapon.id}
+      changeset = Character.buy_weapon(%Character{id: payload["char_id"]}, %{gold: char.gold, weapon_id: char.weapon_id})
+      Repo.update!(changeset)
+
+      push socket, "msg", %{
+        opcode: "game.zone.village.weapons.purchase",
+        message: View.render_to_string(VillageView, "weapons-confirm-purchase.html", %{char: char, weapon: weapon}),
+        actions: ["space"]
+      }
+    end
     {:noreply, socket}
   end
 
@@ -115,20 +135,20 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.armor.loiter",
       message: View.render_to_string(VillageView, "armor-loiter.html", %{}),
-      actions: []
+      actions: ["b", "s", "r"]
     }
 
     {:noreply, socket}
   end
 
   def handle_in("game.zone.village.armor.buy", _, socket) do
-
+    armor = Repo.all(Armor)
     push socket, "msg", %{
-      opcode: "game.zone.village.mail",
-      message: View.render_to_string(VillageView, "armor-buy.html", %{}),
+      opcode: "game.zone.village.armor.buy",
+      equipment: armor,
+      message: View.render_to_string(VillageView, "armor-buy.html", %{equipment: armor}),
       actions: []
     }
-
     {:noreply, socket}
   end
 
@@ -275,11 +295,14 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.healer.loiter", _payload, socket) do
+  def handle_in("game.zone.village.healer.loiter", payload, socket) do
+
+    char = Repo.get(Character, payload["char_id"])
+    missing_health = char.m_health - char.health
 
     push socket, "msg", %{
       opcode: "game.zone.village.healer.loiter",
-      message: View.render_to_string(VillageView, "healer-loiter.html", %{}),
+      message: View.render_to_string(VillageView, "healer-loiter.html", %{char: char, missing_health: missing_health}),
       actions: ["h", "a", "r"]
     }
 
@@ -293,7 +316,7 @@ defmodule Server.VillageChannel do
       true ->
         cost = round(round((char.m_health - char.health) * char.level))
         amount = round(char.m_health - char.health)
-        gold = round(char.gold - round((char.m_health - char.health) * char.level))
+        gold = round(char.gold - round((char.m_health - char.health) * round(char.level + 3)))
 
         char = Character.healer_full(char, %{gold: gold, health: char.m_health})
 
@@ -303,7 +326,7 @@ defmodule Server.VillageChannel do
         push socket, "msg", %{
           opcode: "game.zone.village.healer.heal-all",
           message: View.render_to_string(VillageView, "healer-heal-all.html", %{amount: amount, cost: cost}),
-          actions: ["space"]
+          actions: ["space", "enter"]
         }
         push socket, "data", %{
           opcode: "game.client.character.update",
@@ -321,15 +344,6 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.healer.loiter", _payload, socket) do
 
-    push socket, "msg", %{
-      opcode: "game.zone.village.healer.heal-all",
-      message: View.render_to_string(VillageView, "healer-heal-all.html", %{}),
-      actions: ["h", "a", "r"]
-    }
-
-    {:noreply, socket}
-  end
 
 end

@@ -34,13 +34,16 @@ export default {
 
     handle_in(payload) {
 
+
       switch(payload.opcode) {
         case 'game.zone.forest.fight':
-          for (var i = payload.actions.length - 1; i >= 0; i--) {
-            Mousetrap.unbind(payload.actions[i]);
-            Mousetrap.bind(payload.actions[i], (e) => {
-              const fn = `${e.key}KeyPressed`;
-              this[fn] && this[fn]();
+          const actions = payload.actions;
+          for (var i = 0; i < actions.length; i++) {
+            const action = payload.actions[i];
+            console.log('bound handler for ', `${action}KeyPressed`, action);
+            Mousetrap.bind(action, (e) => {
+              const fn = `${action}KeyPressed`;
+              this[fn]();
             });
           }
           console.log('fight start: ', payload);
@@ -50,9 +53,12 @@ export default {
           this.alreadyAttacking = true;
           console.log('game round: ', payload);
             this.game.audio.play('swing');
-            setTimeout(() => {
-              this.game.audio.play(payload.fight.mob.s_hit);
-            }, 50);
+            if (!payload.fight.char_missed) {
+              setTimeout(() => {
+                this.game.audio.play(payload.fight.mob.s_hit);
+              }, 50);
+            }
+
 
             setTimeout(() => {
               const el = document.querySelectorAll('.round-hidden');
@@ -60,6 +66,7 @@ export default {
                 const itr = i;
                 setTimeout(() => {
                   el[itr].classList.remove('round-hidden');
+                  this.game.renderer.handleScroll();
                 }, (itr * 60));
               }
               setTimeout(() => {
@@ -68,10 +75,12 @@ export default {
 
               this.game.audio.play(payload.fight.mob.s_atk);
               setTimeout(() => {
-                this.game.character.getHit();
+                if (!payload.fight.mob_missed) {
+                  this.game.character.getHit();
+                }
               }, 250);
-            }, 1000); 
-        
+            }, 1000);
+
           break;
 
         case 'game.zone.forest.kill':

@@ -2,6 +2,8 @@ defmodule Server.IndexController do
   use Server.Web, :controller
   alias Server.Router.Helpers
   alias Server.Player
+  alias Server.Repo
+
 
   require Logger
 
@@ -15,13 +17,12 @@ defmodule Server.IndexController do
   end
 
   def play(conn, _) do
-    Logger.info "#{inspect conn}"
     if get_session(conn, :token) do
       render conn, "play.html"
     else
       redirect conn, to: "/login"
     end
-      
+
   end
 
   def about(conn, _) do
@@ -33,38 +34,54 @@ defmodule Server.IndexController do
     render conn, "signup.html", changeset: changeset
   end
 
-  def register(conn, %{"player" => player_params}) do
-    changeset = Player.new_account(%Player{}, player_params)
+  def register(conn, %{"player" => %{"email" => email, "password" => password, "name" => name}}) do
+    Logger.info "#{email}"
+    case Server.Repo.get_by Player, email: email do
+      nil ->
+        changeset = Player.new_account(%Player{}, %{
+          email: email, name: name, password: Comeonin.Bcrypt.hashpwsalt(password)
+        })
+        case Repo.insert(changeset) do
+          {:ok, user} ->
 
-    case Repo.insert(changeset) do
-      {:ok, _class} ->
-        conn
-        |> put_flash(:info, "Account Created!")
-        |> redirect(to: index_path(conn, :index))
-      {:error, changeset} ->
-        conn
-        |> put_flash(:error, "Cant create an account with those details.")
-        render(conn, "signup.html", changeset: changeset)
+            Logger.info "user registered: #{user.email}"
+            conn
+            |> Server.Auth.login(user)
+            |> redirect(to: index_path(conn, :play))
+          {:error, changeset} ->
+            Logger.info "user failed: #{changeset.changes.email}"
+            conn
+            |> put_flash(:error, "Cant create an account. Try a different email address")
+            render(conn, "signup.html", changeset: changeset)
+        end
+      existing ->
+        Logger.info "already exists: #{email}"
+        conn |> put_flash(:error, "email already exists.  Did you want to login instead?")
+        render(conn, "signup.html", changeset: Player.new_account(%Player{}, %{}))
     end
   end
 
-  def login(conn, %{"player" => player}) do
-    Logger.info "attemping to login as #{inspect player["email"]}"
+  def login(conn, %{"player" => player_params}) do
+    Logger.info "attemping to login as #{inspect player_params}"
 
-      case Server.Repo.get_by(Player, email: player["email"]) do
-        user ->
-            conn = Server.Auth.login(conn, user)
+
+    case Repo.get_by Player, email: player_params["email"] do
+      player when player != nil ->
+        case Comeonin.Bcrypt.checkpw(player_params["password"], player.password) do
+          true ->
+            Logger.info "logging in"
+            conn |> Server.Auth.login(player)
             redirect conn, to: "/play"
             conn |> halt
-
-        {:error, _} ->
-            conn |> put_flash(:error, "unable to log the user in, no record found")
-            conn |> put_flash(:error, "unable to find an account. Sorry.")
-            render conn, "login.html"
-
-        nil ->
-          conn |> put_flash(:info, "unable to log the user in, no record found")
-          render conn, "login.html"
+          false ->
+            Logger.info "unable to match passwords for the user."
+            conn |> put_flash(:error, "unable to log you in. no matching user for that username/password combo")
+            render conn, "login.html", changeset: Player.changeset(%Player{}, %{})
+        end
+      nil ->
+        Logger.info "unable to find a player, or player was nil."
+        conn |> put_flash(:info, "unable to log the user in, no record found")
+        render conn, "login.html", changeset: Player.changeset(%Player{}, %{})
       end
   end
 

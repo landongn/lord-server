@@ -7,7 +7,7 @@ defmodule Server.Auth do
   require Logger
 
   def login(conn, player) do
-    Logger.info "logging in: #{inspect player.email}"
+    Logger.info "logging in: #{inspect player}"
     token = Phoenix.Token.sign(Server.Endpoint, "token", player.id)
 
     conn
@@ -18,7 +18,7 @@ defmodule Server.Auth do
       |> configure_session(renew: true)
   end
 
- 
+
   def logout(conn) do
     configure_session(conn, drop: true)
   end

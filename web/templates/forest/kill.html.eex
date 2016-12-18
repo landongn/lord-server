@@ -5,6 +5,9 @@
 <%= @mob.death_msg %>
 <li></li>
 <li>You gain <span class="white"><%= @mob.experience %> experience!</span></li>
-<li><span class="gold">You find <%= @mob.gold %> gold</span> on the corpse.</li>
+<li>You find <span class="gold"><%= @mob.gold %> gold</span> on the corpse.</li>
+<% if @gemdrop == true do %>
+<li class="gem">YOU FIND <%= @gemsfound %> GEMS!</li>
+<% end %>
 <li><span class="action" data-command="space">-= MORE =-</span></li>
 <li></li>

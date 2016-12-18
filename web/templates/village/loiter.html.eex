@@ -1,23 +1,34 @@
 
 <li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Town Square</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li>The village bustles with activity.  You push your way through the mob...</li>
+<li>The village bustles with activity.  Thick smoke billows from a blacksmith near the square.</li>
+<li>You can find upgrades to your equipment at King Arthurs Weapons, or Abduls Armor.</li>
+<li>You can trade the bartender Gems in exchange for stat boosts.</li>
+<li>If you feel plucky, you can always go challenge your current master, [fpo]</li>
 <li></li>
+<li></li>
+<section class="village-menu">
+  <section class="village-option"><span data-command="f" class="action">(F)</span>orest</section>
+  <section class="village-option"><span data-command="s" class="action">(S)</span>laughter other players</section>
 
-  <li><span data-command="f" class="action">(F)</span>orest</li>
-  <li><span data-command="s" class="action">(S)</span>laughter other players</li>
-  <li><span data-command="k" class="action">(K)</span>ing Arthurs Weapons</li>
-  <li><span data-command="a" class="action">(A)</span>bduls Armour</li>
-  <li><span data-command="h" class="action">(H)</span>ealers Hut</li>
-  <li><span data-command="v" class="action">(V)</span>iew your stats</li>
-  <li><span data-command="i" class="action">(I)</span>nn</li>
-  <li><span data-command="t" class="action">(T)</span>urgons Warrior Training</li>
-  <li><span data-command="y" class="action">(Y)</span>e Old Bank</li>
-  <li><span data-command="l" class="action">(L)</span>ist Warriors</li>
-  <li><span data-command="w" class="action">(W)</span>rite Mail</li>
-  <li><span data-command="d" class="action">(D)</span>aily News</li>
-  <li><span data-command="p" class="action">(P)</span>eople Online</li>
-  <li><span data-command="q" class="action">(Q)</span>uit to Fields</li>
+  <section class="village-option"><span data-command="k" class="action">(K)</span>ing Arthurs Weapons</section>
+  <section class="village-option"><span data-command="a" class="action">(A)</span>bduls Armour</section>
+
+  <section class="village-option"><span data-command="h" class="action">(H)</span>ealers Hut</section>
+  <section class="village-option"><span data-command="v" class="action">(V)</span>iew your stats</section>
+
+  <section class="village-option"><span data-command="i" class="action">(I)</span>nn</section>
+  <section class="village-option"><span data-command="t" class="action">(T)</span>urgons Warrior Training</section>
+
+  <section class="village-option"><span data-command="y" class="action">(Y)</span>e Old Bank</section>
+  <section class="village-option"><span data-command="l" class="action">(L)</span>ist Warriors</section>
+
+  <section class="village-option"><span data-command="w" class="action">(W)</span>rite Mail</section>
+  <section class="village-option"><span data-command="d" class="action">(D)</span>aily News</section>
+  
+  <section class="village-option"><span data-command="p" class="action">(P)</span>eople Online</section>
+  <section class="village-option"><span data-command="q" class="action">(Q)</span>uit to Fields</section>
+</section>
 
 <li class="command">
   Where to? <span class="blink cursor">&#x2581;</span>

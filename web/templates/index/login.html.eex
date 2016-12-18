@@ -25,8 +25,8 @@
     width: 40%;
 ">
   <h2>Sign in to your Account</h2>
-  <%= get_flash(@conn, :error) %>
-  <%= get_flash(@conn, :info) %>
+  <h4> <%= get_flash(@conn, :error) %></h4>
+  <h4><%= get_flash(@conn, :info) %></h4>
     <%= form_for @changeset, index_path(@conn, :login), fn f -> %>
 
       <fieldset class="row">

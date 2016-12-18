@@ -1,9 +1,21 @@
 
-<li><span class="white">Legend Of The Red Dragon</span> - <span class="light"></span></li>
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">King Arthurs Weapons</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li></li>
-<li>I don't work yet! Sorry.</li>
-<li></li>
-<pre>
-  <span data-command="space" class="action">(R)eturn to town</span>
+<li class="weapons">The attendant scoots you toward one of their outfitting areas.</li>
+
+<li class="weapons">"Here is a selection of our finest weaponry.", the attendant says, before scuffling off to deal with another customer.</li>
+<section class="weapon-menu">
+    <%= for {wep, i} <- Enum.with_index(@equipment) do %>
+    <section class="weapon-option"><span data-command="<%= i+1 %>" class="action">(<%= i+1 %>)</span> <%= wep.name %></section>
+    <section class="weapon-option"><%= wep.cost %></section>
+    <% end %>
+</section>
+<li class="command">
+  What'll it be? <span class="blink cursor">&#x2581;</span>
+  <span class="command-options">
+      <span data-command="b" class="action">(B)</span>
+      <span data-command="s" class="action">(S)</span>
+      <span data-command="r" class="action">(R)</span>
+  </span>
+</li>
 </section>

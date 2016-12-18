@@ -31,5 +31,6 @@ export default class Connection {
     this.channels.zone.on('chat', resp => {
       this.game.update('chat', resp);
     });
+
   }
 }

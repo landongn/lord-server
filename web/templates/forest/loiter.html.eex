@@ -3,10 +3,27 @@
 <li>The strong stench of death permiates the air surrounding the forest.</li>
 <li>As you come to the fork in the path, you rest for a moment near the trunk of an imposing tree, which is littered with engravings and markings. </li>
 <li>Surveying the area, you think about what to do next.</li>
-<li class="inner-thought"><span data-command="l" class="action">(L)</span>ook for something to kill. </li>
-<li class="inner-thought"><span data-command="h" class="action">(H)</span>ealers hut. </li>
-<li class="inner-thought"><span data-command="v" class="action">(V)</span>iew your stats. </li>
-<li class="inner-thought"><span data-command="r" class="action">(R)</span>eturn to town.</li>
+
+<section class="forest-stats">
+  <section class="vitals">
+    <div>HP: <span class="white"><%= @char.health %>/<%= @char.m_health %></span></div>
+    <div>Mana: <span class="white"><%= @char.mana %>/<%= @char.m_mana %></span></div>
+    <div>STR: <span class="white"><%= @char.strength %></span></div>
+    <div>DEF: <span class="white"><%= @char.defense %></span></div>
+  </section>
+  <section class="equipment">
+    <section class="weapon">Current Weapon: </span> <span class="white"><%= @weapon.name %></span></section>
+    <section class="armor">Current Armor: </span> <span class="white"><%= @armor.name %></span></section>
+    <section class="armor">Gems: </span> <span class="white"><%= @char.gems %></span></section>
+
+  </section>
+</section>
+
+<section class="village-menu">
+  <section class="village-option"><span data-command="l" class="action">(L)</span>ook for something to kill. </section>
+  <section class="village-option"><span data-command="h" class="action">(H)</span>ealers hut. </section>
+  <section class="village-option"><span data-command="r" class="action">(R)</span>eturn to town.</section>
+</section>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <li class="command">
   Your Choice? <span class="blink cursor">&#x2581;</span>

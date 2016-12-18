@@ -6,6 +6,7 @@ export default class Chatbox {
         this.inputEl = document.querySelector('.chat-enter');
         this.gui = gui;
         this.game = game;
+
         this.inputEl.addEventListener('keypress', (e) => {
             if (e.keyCode !== 13) {
                 return;
@@ -42,5 +43,6 @@ export default class Chatbox {
         var temp = document.createElement('template');
         temp.innerHTML = `<li><span class="username">${data.from}</span>: ${data.message}</li>`;
         this.log.appendChild(temp.content);
+        this.log.scrollTop = this.log.scrollHeight;
     }
 }
