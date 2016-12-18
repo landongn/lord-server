@@ -13,13 +13,15 @@ defmodule Server.Mixfile do
      deps: deps()]
   end
 
+
+
   # Configuration for the OTP application.
   #
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Server, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :comeonin, :postgrex]]
+                    :phoenix_ecto, :comeonin, :postgrex, :timex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,7 +39,9 @@ defmodule Server.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
+     {:timex, "~> 3.0"},
      {:comeonin, "~> 3.0"},
+     {:number, "~> 0.5.0"},
      {:cowboy, "~> 1.0"}]
   end
 

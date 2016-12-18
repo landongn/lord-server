@@ -1,9 +1,13 @@
 
-<li><span class="white">Legend Of The Red Dragon</span> - <span class="light"></span></li>
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">King Arthurs Weapons</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li></li>
-<li>I don't work yet! Sorry.</li>
-<li></li>
-<pre>
-  <span data-command="space" class="action">(R)eturn to town</span>
+<li class="weapons">You take your new weapon from the smith and grip it with your hands.</li>
+<li>You feel far more dangerous than before.</li>
+<li><span class="action" data-command="space">-= CONTINUE =-</span></li>
+<li class="command">
+  Your ? <span class="blink cursor">&#x2581;</span>
+  <span class="command-options">
+      <span data-command="r" class="action">(R)</span>
+  </span>
+</li>
 </section>

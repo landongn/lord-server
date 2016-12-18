@@ -1,4 +1,3 @@
-
 import State from 'web/static/js/zones/base';
 
 
@@ -9,26 +8,22 @@ export default {
       this.game = game;
       this.id = id;
     }
+
     load() {
+      Mousetrap.bind('b', (e) => {
+        this.game.handle_out('game.zone.village.armor.buy', 'village');
+      });
 
+      Mousetrap.bind('s', (e) => {
+        this.game.handle_out('game.zone.village.armor.sell.offer', 'village');
+      });
+
+      Mousetrap.bind('r', (e) => {
+        this.game.handle_out('game.zone.village.loiter', 'village');
+      });
     }
 
-    out(place) {
-      this.game.handle_out(`game.zone.village.${place}`, 'village');
-    }
-
-    handle_in(payload) {
-      switch(payload.opcode) {
-        case 'game.zone.village.armor.loiter':
-          for (var i = payload.actions.length - 1; i >= 0; i--) {
-            console.log(payload.actions[i]);
-            Mousetrap.unbind(payload.actions[i]);
-            Mousetrap.bind(payload.actions[i], () => {
-              this[payload.actions[i] + 'KeyPressed'] && this[payload.actions[i] + 'KeyPressed']();
-            });
-          }
-      }
-    }
+    handle_in() {}
   },
   id: 'village.armor.loiter'
 }

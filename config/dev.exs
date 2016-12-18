@@ -16,7 +16,6 @@ config :server, Server.Endpoint,
   # watchers: [ node: [ "node_modules/webpack/bin/webpack.js",
                      # "--watch-stdin --progress --color", cd: Path.expand("../", __DIR__) ] ]
 
-
 # Watch static and templates for browser reloading.
 config :server, Server.Endpoint,
   live_reload: [

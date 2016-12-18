@@ -1,8 +1,9 @@
 
-<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">King Arthurs Weapons</span></li>
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Abduls Armor</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li class="weapons">You take your new weapon from the smith and grip it with your hands.</li>
-<li>You feel far more dangerous than before.</li>
+<li class="weapons">You reach to take your new amror from the armorsmith.</li>
+<li>"You must buy it, first!" blurts the smith. "You dont have enough gold for that armor. Try heading to the forest, or 'asking' other players for some coin..."</li>
+<br />
 <li><span class="action" data-command="space">-= CONTINUE =-</span></li>
 <li class="command">
   Your ? <span class="blink cursor">&#x2581;</span>

@@ -1,11 +1,11 @@
 
-<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">King Arthurs Weapons</span></li>
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Abduls Armor</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li class="weapons">You take your new weapon from the smith and grip it with your hands.</li>
-<li>You feel far more dangerous than before.</li>
+<li class="weapons">You take your new armor from the smith and slip it on.</li>
+<li>You feel far safer than before.</li>
 <li><span class="action" data-command="space">-= CONTINUE =-</span></li>
 <li class="command">
-  Your ? <span class="blink cursor">&#x2581;</span>
+  What's next? <span class="blink cursor">&#x2581;</span>
   <span class="command-options">
       <span data-command="r" class="action">(R)</span>
   </span>

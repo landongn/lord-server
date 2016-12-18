@@ -1,8 +1,20 @@
-<img class="centered" src="/images/intro1.png" alt="adapted by Landon Noss">
-<li>Welcome to the <span class="white">Legend of the Red Dragon</span>! Press enter, or touch purple text to get started.</li>
+<%# <img class="centered" src="/images/intro1.png" alt="adapted by Landon Noss"> %>
+<pre class="intro">
+&block;   &block;&block;&block;  &block;&block;&block;   &block;&block;&block;
+&block;   &block; &block;  &block;  &block;  &block;  &block;
+&block;   &block; &block;  &block; &block;   &block;  &block;
+&block;&block;  &block;&block;&block;  &block;  &block;  &block;&block;&block;   v0.1.1 - <a href="/patchnotes">latest patch notes</a>
+
+<span class="gradient-bar"><span>&block;</span><span>&block;</span><span>&block;</span><span>&block;</span><span>&block;</span>&block;&block;&block;&block;&block;&block;&block;&block;&block;</span>
+</pre>
+
+
+<li>Welcome to the <span class="white">Legend of the Red Dragon</span>! touch purple text to get started, or go retro and use your keyboard.</li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
-<li class="command">
-  Your Command? <span class="blink cursor">&#x2581;</span>
+<li class="middle action" data-command="e">(<span data-command="e" class="action">E</span>)nter the realm of the Dragon</li>
+<li class="middle action" data-command="i">(<span data-command="i" class="action">I</span>)nstructions</li>
+<li class="middle action" data-command="l">(<span data-command="l" class="action">L</span>)eaderboards</li>
+<li class="command middle">
+  Your Choice? <span class="blink cursor">&#x2581;</span>
   <span data-volitile data-command="enter" class="command-options">(Enter)</span>
-  <span class="menu">? for menu</span>
 </li>

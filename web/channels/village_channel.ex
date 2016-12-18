@@ -69,13 +69,16 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.weapons.buy", _, socket) do
-
+  def handle_in("game.zone.village.weapons.buy", payload, socket) do
+    char = Repo.get(Character, payload["char_id"])
+    equipped_weapon = Repo.get(Weapon, char.weapon_id)
     weapons = Repo.all(Weapon)
+
+
     push socket, "msg", %{
       opcode: "game.zone.village.weapons.buy",
       equipment: weapons,
-      message: View.render_to_string(VillageView, "weapons-buy.html", %{equipment: weapons}),
+      message: View.render_to_string(VillageView, "weapons-buy.html", %{equipped_weapon: equipped_weapon, char: char, equipment: weapons}),
       actions: []
     }
 
@@ -101,7 +104,7 @@ defmodule Server.VillageChannel do
 
       push socket, "msg", %{
         opcode: "game.zone.village.weapons.purchase",
-        message: View.render_to_string(VillageView, "weapons-confirm-purchase.html", %{char: char, weapon: weapon}),
+        message: View.render_to_string(VillageView, "weapons-purchase-confirm.html", %{char: char, weapon: weapon}),
         actions: ["space"]
       }
     end
@@ -141,24 +144,45 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.armor.buy", _, socket) do
+  def handle_in("game.zone.village.armor.buy", payload, socket) do
+    char = Repo.get(Character, payload["char_id"])
+    equipped_armor = Repo.get(Armor, char.armor_id)
     armor = Repo.all(Armor)
+
     push socket, "msg", %{
-      opcode: "game.zone.village.armor.buy",
       equipment: armor,
-      message: View.render_to_string(VillageView, "armor-buy.html", %{equipment: armor}),
+      opcode: "game.zone.village.armor.buy",
+      message: View.render_to_string(VillageView, "armor-purchase.html", %{equipped_armor: equipped_armor, char: char, equipment: armor}),
       actions: []
     }
+
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.armor.purchase", _, socket) do
+  def handle_in("game.zone.village.armor.purchase", payload, socket) do
 
-    push socket, "msg", %{
-      opcode: "game.zone.village.armor.purchase",
-      message: View.render_to_string(VillageView, "armor-purchase.html", %{}),
-      actions: []
-    }
+    armor_payload = payload["armor_id"]
+
+    armor = Repo.get(Armor, armor_payload)
+    char = Repo.get(Character, payload["char_id"])
+
+    if armor.cost > char.gold do
+      push socket, "msg", %{
+        opcode: "game.zone.village.armor.purchase",
+        message: View.render_to_string(VillageView, "amror-purchase-broke.html", %{char: char, armor: armor}),
+        actions: ["space"]
+      }
+    else
+      char = %{char | gold: (char.gold - armor.cost), armor_id: armor.id}
+      changeset = Character.buy_armor(%Character{id: payload["char_id"]}, %{gold: char.gold, armor_id: char.armor_id})
+      Repo.update!(changeset)
+
+      push socket, "msg", %{
+        opcode: "game.zone.village.armor.purchase",
+        message: View.render_to_string(VillageView, "armor-purchase-confirm.html", %{char: char, armor: armor}),
+        actions: ["space"]
+      }
+    end
 
     {:noreply, socket}
   end

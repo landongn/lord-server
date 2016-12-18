@@ -34,7 +34,8 @@ defmodule Server.CharacterChannel do
       join: a in Armor, on: a.id == c.armor_id,
       join: k in Class, on: k.id == c.class_id,
       select: %{"id" => c.id, "name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => k.name},
-      where: c.player_id == ^player_id
+      where: c.player_id == ^player_id,
+      where: c.is_alive == true
 
     push socket, "msg", %{
       opcode: "game.zone.character.list",

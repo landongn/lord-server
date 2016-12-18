@@ -35,6 +35,26 @@ html, body {
 
 }
 
+table {
+    text-align:center;
+}
+
+table > thead {
+    color: white;
+    font-size:28px;
+}
+
+tr {
+    padding: 10px;
+    margin: 10px;
+    min-width: 5rem;
+}
+
+td {
+    margin: 10px;
+    min-width: 5rem;
+}
+
 li.round-hidden {
     visibility: hidden;
 }
@@ -123,13 +143,51 @@ span.menu {
     color: rgba(25, 25, 25, 1);
 }
 
+pre.forest {
+    font-size: 26px;
+    color: white;
+}
+
+pre > a {
+    font-size: 16px;
+    color: violet;
+}
+pre > a:hover {
+    color: purple;
+}
+
+li.middle {
+    text-align: center;
+}
 pre {
-    font-size: 1em;
     overflow: hidden;
     color: lightgreen;
     padding: 0;
+    margin:0;
+    letter-spacing: 0;
+    line-height: 14px;
     font-family: "Classic Console";
 }
+
+pre.intro {
+    color:white;
+}
+
+span.gradient-bar {
+
+}
+
+.gradient-bar:nth-child(1) {
+    color:rgb(0, 180, 0);
+}
+.gradient-bar:nth-child(2) {
+    color:rgb(0, 0, 0);
+}
+
+.gradient-bar:nth-child(3) {
+    color:rgb(0, 23, 0);
+}
+
 span.action {
     color: violet;
     font-size: 1.2em;
@@ -321,7 +379,7 @@ section.weapon-menu {
 
 section.weapon-option {
     display: flex;
-    flex-basis: calc(25%);
+    flex-basis: calc(35%);
 }
 section.weapon-option span {
     margin-top: -3px;
@@ -345,4 +403,9 @@ section.forest-stats > section {
 
 section.vitals {
 
+}
+
+.weapon-option > span.gold {
+    text-align: right;
+    min-width: 10rem;
 }
