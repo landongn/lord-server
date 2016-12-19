@@ -194,6 +194,7 @@ defmodule Server.ForestChannel do
             level: char.level,
             is_alive: char.is_alive
           })
+
           Repo.update!(changeset)
           Logger.info "oh no, the mob has died!"
           push socket, "msg", %{

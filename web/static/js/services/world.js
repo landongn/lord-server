@@ -15,6 +15,9 @@ import ArmorSellConfirmState from 'web/static/js/zones/village/armorSellConfirm'
 import ArmorSellOfferState from 'web/static/js/zones/village/armorSellOffer';
 
 import InnBardState from 'web/static/js/zones/village/innBard';
+import InnStatsState from 'web/static/js/zones/village/innStats';
+import InnMessageboardState from 'web/static/js/zones/village/innMessageboard';
+import InnNewsState from 'web/static/js/zones/village/innNews';
 import InnBartenderState from 'web/static/js/zones/village/innBartender';
 import InnLoiterState from 'web/static/js/zones/village/innLoiter';
 import InnRoomAskState from 'web/static/js/zones/village/innRoomAsk';
@@ -65,6 +68,9 @@ export default class World {
       [ArmorSellOfferState.id]: new ArmorSellOfferState.cls(game, ArmorSellOfferState),
 
       [InnBardState.id]: new InnBardState.cls(game, InnBardState),
+      [InnStatsState.id]: new InnStatsState.cls(game, InnStatsState),
+      [InnNewsState.id]: new InnNewsState.cls(game, InnNewsState),
+      [InnMessageboardState.id]: new InnMessageboardState.cls(game, InnMessageboardState),
       [InnBartenderState.id]: new InnBartenderState.cls(game, InnBartenderState),
       [InnLoiterState.id]: new InnLoiterState.cls(game, InnLoiterState),
       [InnRoomAskState.id]: new InnRoomAskState.cls(game, InnRoomAskState),
@@ -156,16 +162,6 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
-      case 'game.zone.village.loiter':
-        this.changeState(VillageLoiterState);
-        this.zone && this.zone.handle_in(payload);
-        return payload.message;
-
-      case 'game.zone.village.inn.loiter':
-        this.changeState(InnLoiterState);
-        this.zone && this.zone.handle_in(payload);
-        return payload.message;
-
       case 'game.zone.forest.loiter':
         this.changeState(ForestLoiterState);
         this.zone && this.zone.handle_in(payload);
@@ -173,6 +169,12 @@ export default class World {
 
       case 'game.zone.forest.fight':
         this.changeState(ForestFightState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      /* #### Village #### */
+      case 'game.zone.village.loiter':
+        this.changeState(VillageLoiterState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
@@ -217,6 +219,12 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
+      /* ### Inn ### */
+      case 'game.zone.village.inn.loiter':
+        this.changeState(InnLoiterState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
       case 'game.zone.village.inn.bard':
         this.changeState(InnBardState);
         this.zone && this.zone.handle_in(payload);
@@ -242,7 +250,7 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
-      case 'game.zone.village.room.confirm':
+      case 'game.zone.village.inn.room.confirm':
         this.changeState(InnRoomConfirmState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;

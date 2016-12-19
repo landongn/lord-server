@@ -21,5 +21,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.news'
+  id: 'village.inn.news'
 }

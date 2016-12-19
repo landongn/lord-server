@@ -13,13 +13,27 @@ export default {
 
     }
 
-    fKeyPressed(e) {}
-    tKeyPressed(e) {}
-    cKeyPressed(e) {}
-    dKeyPressed(e) {}
-    gKeyPressed(e) {}
-    hKeyPressed(e) {}
-    vKeyPressed(e) {}
+    fKeyPressed(e) {
+      this.game.handle_out('game.zone.village.inn.violet', 'village');
+    }
+    tKeyPressed(e) {
+      this.game.handle_out('game.zone.village.inn.bartender', 'village');
+    }
+    cKeyPressed(e) {
+      this.game.handle_out('game.zone.village.inn.messageboard', 'village');
+    }
+    dKeyPressed(e) {
+      this.game.handle_out('game.zone.village.inn.news', 'village');
+    }
+    gKeyPressed(e) {
+      this.game.handle_out('game.zone.village.inn.room.ask', 'village');
+    }
+    hKeyPressed(e) {
+      this.game.handle_out('game.zone.village.inn.bard', 'village');
+    }
+    vKeyPressed(e) {
+      this.game.handle_out('game.zone.village.inn.stats', 'village');
+    }
 
     rKeyPressed(e) {
       this.game.handle_out('game.zone.village.loiter', 'village');
