@@ -1,9 +1,24 @@
 
-<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Abdul's Armor Emporium</span></li>
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Abduls Armor</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li></li>
-<li>I don't work yet! Sorry.</li>
-<li></li>
-<pre>
-  <span data-command="space" class="action">(R)eturn to town</span>
+<li class="weapons">The armorsmth looks at your current armor and smiles, plucking some lint from the shoulder. "A fine specimen.  Perhaps you'd be interested in something more solid?"</li>
+
+<li class="inner-thought">You have <%= @equipped_armor.name %> equipped.</li>
+
+<li class="inner-thought">You can afford to spend <span class="gold"><%= Number.Delimit.number_to_delimited(@char.gold, precision: 0)%></span> gold.</li>
+
+<section class="weapon-menu">
+    <%= for {armor, i} <- Enum.with_index(@equipment) do %>
+    <section class="weapon-option"><span data-command="<%= i+1 %>" class="action">(<%= i+1 %>)</span> <%= armor.name %></section>
+    <section class="weapon-option"><span class="gold"><%= Number.Delimit.number_to_delimited(armor.cost, precision: 0) %></span></section>
+    <% end %>
+</section>
+<li class="command">
+  What'll it be? <span class="blink cursor">&#x2581;</span>
+  <span class="command-options">
+      <span data-command="b" class="action">(B)</span>
+      <span data-command="s" class="action">(S)</span>
+      <span data-command="r" class="action">(R)</span>
+  </span>
+</li>
 </section>

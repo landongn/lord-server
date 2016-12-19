@@ -8,6 +8,10 @@ defmodule Server.WorldChannel do
   alias Server.WorldView
   alias Server.News
   alias Server.CharacterView
+  alias Server.Character
+  alias Server.Armor
+  alias Server.Weapon
+  alias Server.Class
 
   def join("world:system", payload, socket) do
     if authorized?(socket, payload) do
@@ -32,6 +36,37 @@ defmodule Server.WorldChannel do
       actions: ["enter"]
     }
     {:noreply, socket}
+  end
+
+  def handle_in("game.client.world.leaderboards", _, socket) do
+
+    chars = Repo.all from(c in Character,
+      join: w in Weapon, on: w.id == c.weapon_id,
+      join: a in Armor, on: a.id == c.armor_id,
+      join: k in Class, on: k.id == c.class_id,
+      select: %{
+        "id" => c.id,
+        "name" => c.name,
+        "level" => c.level,
+        "gold" => c.gold,
+        "experience" => c.experience,
+        "armor" => a.name,
+        "weapon" => w.name,
+        "class" => k.name
+      },
+      order_by: [desc: c.experience])
+
+    push socket, "msg", %{
+      message: View.render_to_string(WorldView, "leaderboards.html", %{chars: chars}),
+      opcode: "game.client.motd",
+      actions: ["enter"]
+    }
+
+    {:noreply, socket}
+  end
+
+  def handle_in("game.client.world.instructions", _, socket) do
+
   end
 
   def handle_in("game.client.world.news", _, socket) do

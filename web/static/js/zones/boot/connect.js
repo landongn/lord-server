@@ -11,16 +11,30 @@ export default {
 
       handle_in(payload) {
         console.log('boot.connect, in: ', payload);
+
       }
 
       load() {
         setTimeout(() => {
-          // this.game.audio.play('thunder1');
-          // this.game.audio.play(`crow0${Math.floor(Math.random() * 4) + 1}`);
+          this.game.audio.play('thunder1');
+          this.game.audio.play(`crow0${Math.floor(Math.random() * 4) + 1}`);
         }, Math.floor(Math.random() * 2000) + 1000);
         Mousetrap.bind('enter', () => {
           this.game.handle_out('game.client.world.news', 'world');
         });
+        Mousetrap.bind('e', () => {
+          this.game.handle_out('game.client.world.news', 'world');
+        });
+        Mousetrap.bind('i', () => {
+          this.game.handle_out('game.client.world.instructions', 'world');
+        });
+        Mousetrap.bind('l', () => {
+          this.game.handle_out('game.client.world.leaderboards', 'world');
+        });
+        Mousetrap.bind('space', () => {
+          this.game.handle_out('game.client.world.news', 'world');
+        });
+
       }
 
     },

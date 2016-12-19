@@ -26,27 +26,29 @@
   </div>
 </nav>
 
-<div class="container" style="
-    margin: 10% auto;
-    width: 40%;
-">
-  <h2>Sign in to your Account</h2>
-  <h4> <%= get_flash(@conn, :error) %></h4>
-  <h4><%= get_flash(@conn, :info) %></h4>
-    <%= form_for @changeset, index_path(@conn, :login), fn f -> %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Posted by</th>
+      <th>Body</th>
 
-      <fieldset class="row">
-          <label class="col-xs-5" for="email">Email Address</label>
-          <%= text_input f, :email, class: "col-xs-7", id: "email", placeholder: "Email Address" %>
-      </fieldset>
-      <fieldset class="row">
-      <label class="col-xs-5" for="password">Password</label>
-      <%= text_input f, :password, type: "password", class: "col-xs-7", id: "password" %>
-      <br />
-      </fieldset>
-      <%= submit "Log in" %>
-    <% end %>
-  </div>
-</div>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for update <- @updates do %>
+    <tr>
+      <td><%= update.posted_by %></td>
+      <td><%= update.body %></td>
 
+      <td class="text-right">
+        <%= link "Show", to: update_path(@conn, :show, update), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: update_path(@conn, :edit, update), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: update_path(@conn, :delete, update), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
 
+<%= link "New update", to: update_path(@conn, :new) %>

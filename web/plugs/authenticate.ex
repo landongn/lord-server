@@ -1,18 +1,26 @@
-defmodule Server.Plug.Authenticate do
+defmodule Server.AdminPlug do
   @behaviour Plug
   import Plug.Conn
-  import Phoenix.Controller, only: [put_flash: 3, redirect: 2]
+
+  import Phoenix.Controller
+
+  alias Server.Repo
+  alias Server.Player
+  require Logger
 
   def init(opts), do: opts
 
   def call(conn, _) do
-    if conn.assigns.token do
-      conn
+    player = get_session(conn, :player_id)
+    if player do
+      p = Repo.get(Player, player)
+      if p.is_admin === true do
+        conn
+      else
+        conn |> Phoenix.Controller.redirect(to: "/login")
+      end
     else
-      conn
-      |> put_flash(:error, "You must be logged in to access that page.")
-      |> redirect(to: Server.Router.Helpers.index_path(conn, :login_form))
-      |> halt()
+      conn |> Phoenix.Controller.redirect(to: "/login")
     end
   end
 end

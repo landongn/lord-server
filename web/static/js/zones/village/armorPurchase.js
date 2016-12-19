@@ -2,7 +2,7 @@ import State from 'web/static/js/zones/base';
 
 
 export default {
-  cls: class WeaponPurchaseState extends State {
+  cls: class ArmorPurchaseState extends State {
     constructor(game, id) {
       super();
       this.game = game;
@@ -21,5 +21,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.weapons.purchase'
+  id: 'village.armor.purchase'
 }

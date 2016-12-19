@@ -1,11 +1,11 @@
 
-<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">King Arthurs Weapons</span></li>
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Abduls Armor</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-
-<li class="weapons">The weaponsmith looks up at you and grunts.  "Whaddya want?"</li>
+<li class="weapons">The armorsmith greets you as you enter.</li>
+<li>"Welcome! Please, let me know if you have any questions.", he warmly says through a vipers smile.</li>
 <section class="village-menu">
-    <section class="village-option"><span data-command="b" class="action">(B)</span>rowse weapons</section>
-    <section class="village-option"><span data-command="s" class="action">(S)</span>ell your current weapon</section>
+    <section class="village-option"><span data-command="b" class="action">(B)</span>rowse armor</section>
+    <section class="village-option"><span data-command="s" class="action">(S)</span>ell your current armor</section>
     <section class="village-option"><span data-command="r" class="action">(R)</span>eturn to town</section>
 </section>
 <li class="command">

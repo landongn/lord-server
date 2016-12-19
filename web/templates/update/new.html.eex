@@ -1,0 +1,6 @@
+<h2>New update</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: update_path(@conn, :create) %>
+
+<%= link "Back", to: update_path(@conn, :index) %>

@@ -113,20 +113,28 @@ defmodule Server.ForestChannel do
         c_health = char.health
         c_armor = charArmor.defense
         c_weapon = charWeapon.damage
-        Logger.info "char stats: #{c_str} #{c_def} #{c_health} #{c_armor} #{c_weapon}"
+        Logger.info "char stats: STR #{c_str} DEF #{c_def} HEALTH #{c_health} ARM #{c_armor} DAM #{c_weapon}"
 
         m_str = mob.strength
         m_def = mob.defense
         m_health = mob.health
         m_armor = mob.defense
         m_damage = mob.damage
-        Logger.info "mob stats: #{m_str} #{m_def} #{m_health} #{m_armor} #{m_damage}"
+        Logger.info "mob stats: STR #{m_str} DEF #{m_def} HEALTH #{m_health} ARM #{m_armor} DAM #{m_damage}"
         Logger.info "Setup finished\n\n"
-        damage_dealt = round((c_str * c_weapon) - (m_def * m_armor) * Enum.random([0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0]))
-        retaliation_suffered = round((m_str * m_damage) - (c_def * c_armor) * Enum.random([-0.5, -1.0, -1.5]))
+
+        mob_base_damage = roll 10
+        char_base_damage = roll 10
+
+
+        damage_dealt = round((c_str * c_weapon) - (m_def * m_armor) * roll 5)
+        retaliation_suffered = round(mob_base_damage * (m_str * m_damage) - (c_def * c_armor) * roll 5)
 
         missed_me = false
         missed_them = false
+
+        Logger.info "Mob attack: #{retaliation_suffered}"
+        Logger.info "Char Attack: #{damage_dealt}"
 
         if retaliation_suffered <= 0 do
           missed_me = true

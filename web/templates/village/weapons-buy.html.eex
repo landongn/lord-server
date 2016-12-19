@@ -1,13 +1,16 @@
 
 <li><span class="white">Legend Of The Red Dragon</span> - <span class="light">King Arthurs Weapons</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li class="weapons">The attendant scoots you toward one of their outfitting areas.</li>
+<li class="weapons">The smith grunts satisfyingly and waves his stubby arm toward the rack of gleaming, polished weapons.</li>
 
-<li class="weapons">"Here is a selection of our finest weaponry.", the attendant says, before scuffling off to deal with another customer.</li>
+<li class="inner-thought">You have <%= @equipped_weapon.name %> equipped.</li>
+
+<li class="inner-thought">You can afford to spend <span class="gold"><%= Number.Delimit.number_to_delimited(@char.gold, precision: 0)%></span> gold.</li>
+
 <section class="weapon-menu">
     <%= for {wep, i} <- Enum.with_index(@equipment) do %>
     <section class="weapon-option"><span data-command="<%= i+1 %>" class="action">(<%= i+1 %>)</span> <%= wep.name %></section>
-    <section class="weapon-option"><%= wep.cost %></section>
+    <section class="weapon-option"><span class="gold"><%= Number.Delimit.number_to_delimited(wep.cost, precision: 0) %></span></section>
     <% end %>
 </section>
 <li class="command">

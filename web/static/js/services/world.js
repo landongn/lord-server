@@ -9,6 +9,8 @@ import CharacterValidateState from 'web/static/js/zones/character/validate';
 import CharacterDeleteState from 'web/static/js/zones/character/delete';
 
 import ArmorLoiterState from 'web/static/js/zones/village/armorLoiter';
+import ArmorBuyState from 'web/static/js/zones/village/armorBuy';
+import ArmorPurchaseState from 'web/static/js/zones/village/armorPurchase';
 import ArmorSellConfirmState from 'web/static/js/zones/village/armorSellConfirm';
 import ArmorSellOfferState from 'web/static/js/zones/village/armorSellOffer';
 
@@ -57,6 +59,8 @@ export default class World {
       [CharacterDeleteState.id]: new CharacterDeleteState.cls(game, CharacterDeleteState.id),
 
       [ArmorLoiterState.id]: new ArmorLoiterState.cls(game, ArmorLoiterState),
+      [ArmorBuyState.id]: new ArmorBuyState.cls(game, ArmorBuyState),
+      [ArmorPurchaseState.id]: new ArmorPurchaseState.cls(game, ArmorPurchaseState),
       [ArmorSellConfirmState.id]: new ArmorSellConfirmState.cls(game, ArmorSellConfirmState),
       [ArmorSellOfferState.id]: new ArmorSellOfferState.cls(game, ArmorSellOfferState),
 
@@ -196,6 +200,16 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
+      case 'game.zone.village.armor.buy':
+        this.changeState(ArmorBuyState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
+      case 'game.zone.village.armor.purchase':
+        this.changeState(ArmorPurchaseState);
+        this.zone && this.zone.handle_in(payload);
+        return payload.message;
+
       case 'game.zone.village.armor.sell.confirm':
         this.changeState(ArmorSellConfirmState);
         this.zone && this.zone.handle_in(payload);
@@ -281,17 +295,17 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
-      case 'game.zone.weapons.purchase':
+      case 'game.zone.village.weapons.purchase':
         this.changeState(WeaponsPurchaseState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
-      case 'game.zone.weapons.sell.confirm':
+      case 'game.zone.village.weapons.sell.confirm':
         this.changeState(WeaponsSellConfirmState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
-      case 'game.zone.weapons.sell.offer':
+      case 'game.zone.village.weapons.sell.offer':
         this.changeState(WeaponsSellOfferState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
