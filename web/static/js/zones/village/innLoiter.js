@@ -10,16 +10,25 @@ export default {
     }
 
     load() {
-      Mousetrap.bind(['space', 'enter'], (e) => {
-        this.spaceKeyPressed(e);
-      });
+
     }
 
     spaceKeyPressed(e) {
       this.game.handle_out('game.zone.village.loiter', 'village');
     }
 
-    handle_in() {}
+    handle_in() {
+        const self = this;
+        const actions = payload.actions;
+        for (var i = 0; i < actions.length; i++) {
+          const action = payload.actions[i];
+          Mousetrap.bind(action, (e) => {
+            const fn = `${action}KeyPressed`;
+            self[fn]();
+          });
+        }
+      }
+    }
   },
   id: 'village.inn.loiter'
 }

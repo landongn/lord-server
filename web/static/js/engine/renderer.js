@@ -25,7 +25,6 @@ export default class Renderer {
     }
 
     clear() {
-        console.log('clearing');
         this.element.innerHTML = '';
     }
 

@@ -16,7 +16,6 @@ export default {
     }
 
     delete(i) {
-      console.log(i);
       this.game.handle_out('game.zone.character.delete-confirm', 'character', {id: this.characters[i].id});
       Mousetrap.reset();
     }

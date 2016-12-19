@@ -1,6 +1,7 @@
 defmodule Server.ForestChannel do
   use Server.Web, :channel
 
+  alias Server.Combat
   require Logger
   alias Server.ForestView
   alias Game.Forest
@@ -107,57 +108,82 @@ defmodule Server.ForestChannel do
         mob = fight.mob
         charArmor = Repo.get(Server.Armor, char.armor_id)
         charWeapon = Repo.get(Server.Weapon, char.weapon_id)
-        Logger.info "associations loaded\n\n"
         c_str = char.strength
         c_def = char.defense
         c_health = char.health
         c_armor = charArmor.defense
         c_weapon = charWeapon.damage
-        Logger.info "char stats: STR #{c_str} DEF #{c_def} HEALTH #{c_health} ARM #{c_armor} DAM #{c_weapon}"
 
         m_str = mob.strength
         m_def = mob.defense
         m_health = mob.health
         m_armor = mob.defense
         m_damage = mob.damage
-        Logger.info "mob stats: STR #{m_str} DEF #{m_def} HEALTH #{m_health} ARM #{m_armor} DAM #{m_damage}"
-        Logger.info "Setup finished\n\n"
 
         mob_base_damage = roll 10
         char_base_damage = roll 10
 
+        charStats = %{
+          strength: c_str,
+          defense: c_def,
+          health: c_health,
+          armor: c_armor,
+          weapon: c_weapon,
+          level: char.level
+        }
 
-        damage_dealt = round((c_str * c_weapon) - (m_def * m_armor) * roll 5)
-        retaliation_suffered = round(mob_base_damage * (m_str * m_damage) - (c_def * c_armor) * roll 5)
+        mobStats = %{
+          strength: m_str,
+          defense: m_def,
+          health: m_health,
+          armor: m_armor,
+          weapon: m_damage,
+          level: mob.level
+        }
+
+        {charStats, mobStats, damage_dealt} = Combat.attack(charStats, mobStats)
+        {mobStats, charStats, retaliation_suffered} = Combat.attack(mobStats, charStats)
 
         missed_me = false
         missed_them = false
 
-        Logger.info "Mob attack: #{retaliation_suffered}"
-        Logger.info "Char Attack: #{damage_dealt}"
 
         if retaliation_suffered <= 0 do
           missed_me = true
         else
           missed_me = false
-          char = %{char | health: round(c_health - retaliation_suffered)}
         end
 
         if damage_dealt <= 0 do
           missed_them = true
         else
-          mob = %{mob | health: round(mob.health - damage_dealt)}
           missed_them = false
         end
 
-        Logger.info "round calculated"
-        if char.health <= 0 do
-          # push death
-          char = %{char | is_alive: false, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
-          Logger.info "oh no, the character died!"
-          Forest.battle_report(char.id, %{char: char, mob: mob})
+        char = %{char | health: charStats.health}
+        mob = %{mob | health: mobStats.health}
 
-          changeset = Server.News.changeset(%Server.News{}, %{posted_by: mob.name, body: "#{mob.name} has murdered #{char.name} in cold blood."})
+        if mob.health <= 0 do
+          #push victory
+          # reset health so death stuff doesn't damage chars
+          char = %{char | health: fight.char.health}
+          Forest.battle_report(char.name, %{char: char, mob: mob})
+          gemroll = roll 20
+          gemdrop = false
+          gemsfound = roll 5
+          case roll 20 do
+            r when r >= 17 ->
+              gemdrop = true
+              char = %{char | gems: (char.gems + gemsfound),
+              is_alive: true,
+              experience: round(char.experience + mob.experience),
+              gold: round(char.gold + mob.gold)}
+
+            r when r < 17 ->
+              char = %{char | is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
+          end
+
+          changeset = News.changeset(%News{}, %{posted_by: mob.name, body: "#{char.name} has slain #{mob.name}."})
           Repo.insert!(changeset)
 
           changeset = Character.battle_report(%Character{id: char.id}, %{
@@ -169,43 +195,33 @@ defmodule Server.ForestChannel do
             is_alive: char.is_alive
           })
           Repo.update!(changeset)
-
+          Logger.info "oh no, the mob has died!"
           push socket, "msg", %{
-            opcode: "game.zone.forest.killed",
-            message: View.render_to_string(ForestView, "killed.html", %{char: char, mob: mob, retaliation_suffered: retaliation_suffered}),
-            actions: ["space"],
-            fight: %{char: char, mob: mob}
+            opcode: "game.zone.forest.kill",
+            fight: %{char: char, mob: mob, char_missed: missed_them, mob_missed: missed_me},
+            message: View.render_to_string(ForestView, "kill.html", %{char: char, mob: mob, damage_dealt: damage_dealt, gemsfound: gemsfound, gemdrop: gemdrop}),
+            actions: ["space"]
           }
 
           Server.Endpoint.broadcast("zone", "chat", %{
             from: '',
-            message: "#{mob.name} has slain #{char.name}.",
+            message: "#{char.name} has slain #{mob.name}.",
             stamp: :os.system_time(:seconds),
             opcode: "game.zone.broadcast"
           })
-
         else
-          if mob.health <= 0 do
-            #push victory
 
-            # reset health so death stuff doesn't damage chars
-            char = %{char | health: fight.char.health}
-            Forest.battle_report(char.name, %{char: char, mob: mob})
-            gemroll = roll 20
-            gemdrop = false
-            gemsfound = roll 5
-            case roll 20 do
-              r when r >= 17 ->
-                gemdrop = true
-                char = %{char | gems: (char.gems + gemsfound), is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
-              r when r < 17 ->
-                char = %{char | is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
-            end
+          if char.health <= 0 do
+            # push death
+            char = %{char | is_alive: false,
+              experience: round(char.experience + mob.experience),
+              gold: round(char.gold + mob.gold),
+              health: charStats.health}
 
-            Logger.info "\n\n GEM DATA: \n #{inspect gemdrop} \n #{inspect gemsfound} \n #{inspect gemroll}"
+            Logger.info "oh no, the character died!"
+            Forest.battle_report(char.id, %{char: char, mob: mob})
 
-
-            changeset = News.changeset(%News{}, %{posted_by: mob.name, body: "#{char.name} has slain #{mob.name}."})
+            changeset = Server.News.changeset(%Server.News{}, %{posted_by: mob.name, body: "#{mob.name} has murdered #{char.name} in cold blood."})
             Repo.insert!(changeset)
 
             changeset = Character.battle_report(%Character{id: char.id}, %{
@@ -217,29 +233,30 @@ defmodule Server.ForestChannel do
               is_alive: char.is_alive
             })
             Repo.update!(changeset)
-            Logger.info "oh no, the mob has died!"
+
             push socket, "msg", %{
-              opcode: "game.zone.forest.kill",
-              fight: %{char: char, mob: mob, char_missed: missed_them, mob_missed: missed_me},
-              message: View.render_to_string(ForestView, "kill.html", %{char: char, mob: mob, damage_dealt: damage_dealt, gemsfound: gemsfound, gemdrop: gemdrop}),
-              actions: ["space"]
+              opcode: "game.zone.forest.killed",
+              message: View.render_to_string(ForestView, "killed.html", %{char: char, mob: mob, retaliation_suffered: retaliation_suffered}),
+              actions: ["space"],
+              fight: %{char: char, mob: mob}
             }
 
             Server.Endpoint.broadcast("zone", "chat", %{
               from: '',
-              message: "#{char.name} has slain #{mob.name}.",
+              message: "#{mob.name} has slain #{char.name}.",
               stamp: :os.system_time(:seconds),
               opcode: "game.zone.broadcast"
             })
 
           else
-            Logger.info("ROUND SUCCESS\n\n")
-
-            updatedFight = %{char: char, mob: mob, char_missed: missed_them, mob_missed: missed_me,
-            retaliation_suffered: retaliation_suffered, damage_dealt: damage_dealt}
+            char = %{char | health: charStats.health}
+            mob = %{mob | health: mobStats.health}
+            updatedFight = %{char: char, mob: mob, char_missed: missed_them,
+            mob_missed: missed_me, retaliation_suffered: retaliation_suffered,
+            damage_dealt: damage_dealt}
 
             Forest.attack(char.id, updatedFight)
-            Logger.info("Updated Records")
+
             push socket, "msg", %{
               opcode: "game.zone.forest.round",
               fight: updatedFight,
@@ -248,10 +265,10 @@ defmodule Server.ForestChannel do
             }
           end
         end
+
       :error ->
         Logger.info "\n unable to lookup fight for thock\n"
     end
-    Logger.info("All done\n\n")
     {:noreply, socket}
   end
 

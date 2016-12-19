@@ -20,10 +20,8 @@ export default {
     }
 
     play(i) {
-      console.log(i, this.characters[i]);
       const char_id = this.characters[i].id || false;
       if (!char_id) { console.error("internal problem with ID mismatch"); return; }
-      console.log('\n CHAR ID: ', char_id);
       this.game.handle_out('game.zone.character.play', 'character', {char_id: char_id});
       Mousetrap.reset();
       Mousetrap.bind('b', () => {
@@ -32,7 +30,6 @@ export default {
     }
 
     handle_in(payload) {
-      console.log("payload for character list: ", payload);
       this.characters = payload.characters;
       for (var i = 0; i < payload.characters.length; i++) {
         Mousetrap.bind(i+1+'', (e) => {

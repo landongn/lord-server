@@ -1,4 +1,4 @@
-<img class="centered" src="/images/forest.png" style="max-width: 50%;">
+<img class="centered" src="/images/forest.png" style="max-width: 75%;">
 
 <li>The strong stench of death permiates the air surrounding the forest.</li>
 <li>As you come to the fork in the path, you rest for a moment near the trunk of an imposing tree, which is littered with engravings and markings. </li>
@@ -14,7 +14,8 @@
   <section class="equipment">
     <section class="weapon">Current Weapon: </span> <span class="white"><%= @weapon.name %></span></section>
     <section class="armor">Current Armor: </span> <span class="white"><%= @armor.name %></span></section>
-    <section class="armor">Gems: </span> <span class="white"><%= @char.gems %></span></section>
+    <section class="armor">Gems: </span> <span class="white"><%= Number.Delimit.number_to_delimited(@char.gems, precision: 0) %></span></section>
+    <section class="armor">Gold: </span> <span class="white"><%= Number.Delimit.number_to_delimited(@char.gold, precision: 0) %></span></section>
 
   </section>
 </section>

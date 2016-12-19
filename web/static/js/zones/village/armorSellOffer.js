@@ -21,7 +21,6 @@ export default {
       switch(payload.opcode) {
         case 'game.zone.village.armor.sell.offer':
           for (var i = payload.actions.length - 1; i >= 0; i--) {
-            console.log(payload.actions[i]);
             Mousetrap.unbind(payload.actions[i]);
             Mousetrap.bind(payload.actions[i], () => {
               this[payload.actions[i] + 'KeyPressed'] && this[payload.actions[i] + 'KeyPressed']();

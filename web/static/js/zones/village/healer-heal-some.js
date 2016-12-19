@@ -15,7 +15,6 @@ export default {
     }
 
    handle_in(payload) {
-      console.log('healer in: ', payload);
       Mousetrap.bind(['enter', 'space'], (e) => {
         this.spaceKeyPressed(e);
       });

@@ -409,3 +409,9 @@ section.vitals {
     text-align: right;
     min-width: 10rem;
 }
+span.dead {
+    color: red;
+}
+span.alive {
+    color: white;
+}

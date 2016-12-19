@@ -8,7 +8,6 @@ export default class Session {
     }
 
     update(payload) {
-        console.log("session update: ", payload);
         this.id = payload.user_id;
         this.token = payload.token;
     }

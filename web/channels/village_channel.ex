@@ -8,6 +8,7 @@ defmodule Server.VillageChannel do
   alias Server.Weapon
   alias Server.Armor
   alias Server.News
+  alias Server.Class
 
   def join("village", payload, socket) do
     if authorized?(socket, payload) do
@@ -172,12 +173,12 @@ defmodule Server.VillageChannel do
     if armor.cost > char.gold do
       push socket, "msg", %{
         opcode: "game.zone.village.armor.purchase",
-        message: View.render_to_string(VillageView, "amror-purchase-broke.html", %{char: char, armor: armor}),
+        message: View.render_to_string(VillageView, "armor-purchase-broke.html", %{char: char, armor: armor}),
         actions: ["space"]
       }
     else
       char = %{char | gold: (char.gold - armor.cost), armor_id: armor.id}
-      changeset = Character.buy_armor(%Character{id: payload["char_id"]}, %{gold: char.gold, armor_id: char.armor_id})
+      changeset = Character.buy_armor(%Character{id: payload["char_id"]}, %{gold: char.gold, armor_id: armor.id})
       Repo.update!(changeset)
 
       push socket, "msg", %{
@@ -267,12 +268,30 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.leaderboards", _, socket) do
+  def handle_in("game.zone.village.players.list", _, socket) do
+
+    chars = Repo.all from(c in Character,
+      join: w in Weapon, on: w.id == c.weapon_id,
+      join: a in Armor, on: a.id == c.armor_id,
+      join: k in Class, on: k.id == c.class_id,
+      select: %{
+        "id" => c.id,
+        "name" => c.name,
+        "level" => c.level,
+        "gold" => c.gold,
+        "is_alive" => c.is_alive,
+        "experience" => c.experience,
+        "armor" => a.name,
+        "weapon" => w.name,
+        "class" => k.name
+      },
+      order_by: [desc: c.experience],
+      limit: 100)
 
     push socket, "msg", %{
       opcode: "game.zone.village.leaderboards",
-      message: View.render_to_string(VillageView, "players-leaderboards.html", %{}),
-      actions: []
+      message: View.render_to_string(VillageView, "player-leaderboards.html", %{chars: chars}),
+      actions: ["enter"]
     }
 
     {:noreply, socket}

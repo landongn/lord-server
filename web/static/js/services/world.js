@@ -100,11 +100,9 @@ export default class World {
   }
 
   update(payload) {
-    console.log("world:update", payload);
   }
 
   changeState(zone = {}) {
-    console.log("changing state to : ", zone);
       this.game.renderer.clear();
 
       if (this.zone) {
@@ -119,7 +117,6 @@ export default class World {
 
   /* SERIOUS DRAGONS EXIST BELOW */
   event(payload) {
-    console.log("socket in: ", payload.opcode);
     switch (payload.opcode) {
       case 'game.client.connect':
         this.game.gui.status(payload);
@@ -250,7 +247,7 @@ export default class World {
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 
-      case 'game.zone.village.leaderboard':
+      case 'game.zone.village.leaderboards':
         this.changeState(VillageLeaderboardState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;

@@ -1,9 +1,46 @@
+<%# <img class="centered" src="/images/intro1.png" alt="adapted by Landon Noss"> %>
+<pre class="intro">
+&block;   &block;&block;&block;  &block;&block;&block;   &block;&block;&block;
+&block;   &block; &block;  &block;  &block;  &block;  &block;
+&block;   &block; &block;  &block; &block;   &block;  &block;
+&block;&block;  &block;&block;&block;  &block;  &block;  &block;&block;&block;   v0.1.1 - <a href="/patchnotes">latest patch notes</a>
 
-<li><span class="white">Legend Of The Red Dragon</span> - <span class="light"></span></li>
-<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li></li>
-<li>I don't work yet! Sorry.</li>
-<li></li>
-<pre>
-  <span data-command="space" class="action">(R)eturn to town</span>
-</section>
+<span class="gradient-bar"><span>&block;</span><span>&block;</span><span>&block;</span><span>&block;</span><span>&block;</span>&block;&block;&block;&block;&block;&block;&block;&block;&block;</span>
+</pre>
+
+
+<li><span class="white">Legend of the Red Dragon</span></li>
+<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
+<table>
+    <thead>
+        <tr>
+            <td>Rank</td>
+            <td>Experience</td>
+            <td>Name</td>
+            <td>Class</td>
+            <td>Level</td>
+            <td>Weapon</td>
+            <td>Armor</td>
+            <td>Gold</td>
+            <td>Alive?</td>
+        </tr>
+    </thead>
+    <%= for {char, i} <- Enum.with_index(@chars) do %>
+        <tr>
+            <td><%= i+1 %></td>
+            <td><%= char["experience"] %></td>
+            <td><%= char["name"] %></td>
+            <td><%= char["class"] %></td>
+            <td><%= char["level"] %></td>
+            <td><%= char["weapon"] %></td>
+            <td><%= char["armor"] %></td>
+            <td><%= Number.Delimit.number_to_delimited(char["gold"], precision: 0) %></td>
+            <td><%= if char["is_alive"] do %><span class="alive">Alive</span><% else %> <span class="dead"> DEAD </span><% end %></td>
+        </tr>
+    <% end %>
+</table>
+<li class="middle action" data-command="l">(<span data-command="r" class="action">R</span>)eturn to menu</li>
+<li class="command middle">
+  Your Choice? <span class="blink cursor">&#x2581;</span>
+  <span data-volitile data-command="r" class="command-options">(R)</span>
+</li>

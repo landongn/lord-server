@@ -30,8 +30,7 @@ export default class Game {
                 console.log(err);
             }
         });
-        window.addEventListener('touchend', (e) => {
-            console.log('e', e.target.dataset);
+        window.addEventListener('touchstart', (e) => {
             try {
               const val = parseInt(e.target.dataset.command, 10);
               if (isNaN(val)) {
@@ -80,7 +79,6 @@ export default class Game {
         if (!decoratedPayload.char_id) {
             decoratedPayload.char_id = this.character.id || '';
         }
-        console.log("\n handle out\n ",opcode, channel, decoratedPayload);
         this.connection.channels[channel].push(opcode, decoratedPayload);
     }
 }

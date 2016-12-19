@@ -15,7 +15,6 @@ export default {
     }
 
     out(place) {
-      console.log('out to', place);
       this.game.handle_out(`game.zone.forest.${place}`, 'forest');
     }
 
@@ -40,7 +39,6 @@ export default {
           const actions = payload.actions;
           for (var i = 0; i < actions.length; i++) {
             const action = payload.actions[i];
-            console.log('bound handler for ', `${action}KeyPressed`, action);
             Mousetrap.bind(action, (e) => {
               const fn = `${action}KeyPressed`;
               this[fn]();
@@ -51,7 +49,6 @@ export default {
 
         case 'game.zone.forest.round':
           this.alreadyAttacking = true;
-          console.log('game round: ', payload);
             this.game.audio.play('swing');
             if (!payload.fight.char_missed) {
               setTimeout(() => {
@@ -106,7 +103,6 @@ export default {
           });
 
         default:
-          console.log('unbound forest state', payload.opcode);
           break;
       }
     }

@@ -35,7 +35,7 @@ export default {
     }
 
     handle_in(payload) {
-      console.log(payload.opcode);
+
       switch(payload.opcode) {
 
         case 'game.zone.character.confirm':

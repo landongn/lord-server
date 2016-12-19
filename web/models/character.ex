@@ -1,5 +1,6 @@
 defmodule Server.Character do
   use Server.Web, :model
+  require Logger
 
   schema "characters" do
     #book keeping

@@ -6,6 +6,9 @@
         <ul class="chat-wrap"></ul>
     </section>
 </section>
+<div class="mute-button">
+
+</div>
 <input type="text" class="chat-enter" placeholder="press enter to chat" />
 </div>
 

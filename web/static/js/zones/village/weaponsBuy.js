@@ -34,8 +34,9 @@ export default {
       this.equipment = payload.equipment;
       for (let i = 0; i < equipment.length; i++) {
         const key = i+1+'';
+        const it = i;
         Mousetrap.bind(key, (e) => {
-          this.selectWeapon(i-1);
+          this.selectWeapon(i);
         });
       }
     }

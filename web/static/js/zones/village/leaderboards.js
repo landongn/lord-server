@@ -10,7 +10,13 @@ export default {
     }
 
     load() {
-      Mousetrap.bind(['space', 'enter'], (e) => {
+      Mousetrap.bind(['space'], (e) => {
+        this.spaceKeyPressed(e);
+      });
+      Mousetrap.bind(['enter'], (e) => {
+        this.spaceKeyPressed(e);
+      });
+      Mousetrap.bind('r', (e) => {
         this.spaceKeyPressed(e);
       });
     }

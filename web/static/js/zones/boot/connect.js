@@ -10,7 +10,6 @@ export default {
       }
 
       handle_in(payload) {
-        console.log('boot.connect, in: ', payload);
 
       }
 

@@ -3,6 +3,7 @@ export default class SoundManager {
     this.game = game;
     this.ctx = null;
     this.isMuted = false;
+    this.muteEl = document.querySelector('.mute-button');
     try {
       const ctor = window.AudioContext || window.webkitAudioContext;
       this.ctx = new ctor();
@@ -65,7 +66,6 @@ export default class SoundManager {
   }
 
   load(k, shouldLoop = false, ismp3 = false) {
-    console.log('loading ', k, shouldLoop, ismp3)
     const request = new XMLHttpRequest();
     if (ismp3 === true) { request.open('GET', `/effects/${k}.mp3`, true); }
                   else  { request.open('GET', `/effects/${k}.wav`, true); }
