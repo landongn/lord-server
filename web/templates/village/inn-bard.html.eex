@@ -1,0 +1,15 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">The Inn </span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li>The Bard looks you over as you sit down next to him.  He beams a smile and gives you a friendly nod.</li>
+<li><span data-command="a" class="action">(A)</span>sk the Bard to sing</li>
+<li><span data-command="r" class="action">(R)</span>eturn to Bar</li>
+
+
+<li class="command">
+  <span class="action">The Red Dragon Inn</span>
+  <span class="command-options">(A, R)</span>
+</li>
+
+<li>Your Command, Squire?:  <span class="blink cursor">&#x2581;</span></li>
+

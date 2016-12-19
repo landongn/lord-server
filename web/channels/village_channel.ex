@@ -313,7 +313,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.inn.loiter",
       message: View.render_to_string(VillageView, "inn-loiter.html", %{}),
-      actions: []
+      actions: ["c", "d", "f", "g", "t", "v", "h", "r"]
     }
 
     {:noreply, socket}

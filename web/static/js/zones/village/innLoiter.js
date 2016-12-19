@@ -13,11 +13,19 @@ export default {
 
     }
 
-    spaceKeyPressed(e) {
+    fKeyPressed(e) {}
+    tKeyPressed(e) {}
+    cKeyPressed(e) {}
+    dKeyPressed(e) {}
+    gKeyPressed(e) {}
+    hKeyPressed(e) {}
+    vKeyPressed(e) {}
+
+    rKeyPressed(e) {
       this.game.handle_out('game.zone.village.loiter', 'village');
     }
 
-    handle_in() {
+    handle_in(payload) {
       const self = this;
       const actions = payload.actions;
       for (var i = 0; i < actions.length; i++) {

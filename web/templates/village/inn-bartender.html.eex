@@ -1,0 +1,16 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">The Inn</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li>THe bartender escorts you into a back room. <span class="action">"I have heard yer name before kid... What do you want to talk about?"</span></li>
+<li><span data-command="v" class="action">(V)</span>iolet<li>
+<li><span data-command="g" class="action">(G)</span>ems<li>
+<li><span data-command="b" class="action">(B)</span>ribe<li>
+<li><span data-command="r" class="action">(R)</span>eturn to bar<li>
+
+<li class="command">
+  <span class="action">The Red Dragon Inn</span>
+  <span class="command-options">(V, G, B, R)</span>
+</li>
+
+<li><span class="action">"Well?"</span> the bartender inquires.  <span class="blink cursor">&#x2581;</span></li>
+

@@ -162,7 +162,7 @@ export default class World {
         return payload.message;
 
       case 'game.zone.village.inn.loiter':
-        this.changeState(VillageInnLoiterState);
+        this.changeState(InnLoiterState);
         this.zone && this.zone.handle_in(payload);
         return payload.message;
 

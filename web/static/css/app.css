@@ -350,7 +350,7 @@ section.village-menu {
 section.village-option {
     display: flex;
     flex-basis: calc(50% - 40px);
-    padding: 4px;
+    padding: 0;
 }
 
 @media screen and (max-width: 730px) {

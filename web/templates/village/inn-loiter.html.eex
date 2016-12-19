@@ -1,0 +1,27 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">The Inn</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li>You enter the inn and are immediately hailed by several of the patrons. You respond with a wave and scan the room. The room is filled with smoke from the torches that line the walls.  Oaken tables and chairs are scattered across the room.  You smile as the well-rounded Violet brushes by you...</li>
+<li></li>
+<li></li>
+<section class="village-menu">
+  <section class="village-option"><span data-command="c" class="action">(C)</span>onverse with the patrons</section>
+  <section class="village-option"><span data-command="d" class="action">(D)</span>aily News</section>
+
+  <section class="village-option"><span data-command="f" class="action">(F)</span>lirt with Violet</section>
+  <section class="village-option"><span data-command="t" class="action">(T)</span>alk to the Bartender</section>
+
+  <section class="village-option"><span data-command="g" class="action">(G)</span>et a Room</section>
+  <section class="village-option"><span data-command="v" class="action">(V)</span>iew your stats</section>
+
+  <section class="village-option"><span data-command="h" class="action">(H)</span>ear Seth Able the Bard</section>
+  <section class="village-option"><span data-command="r" class="action">(R)</span>eturn to Town</section>
+</section>
+
+<li class="command">
+  <span class="action">The Red Dragon Inn</span>
+  <span class="command-options">(C, D, F, T, G, V, H, R)</span>
+</li>
+
+<li>Your Command, Squire?:  <span class="blink cursor">&#x2581;</span></li>
+

@@ -14,10 +14,6 @@ export default {
       }
 
       load() {
-        setTimeout(() => {
-          this.game.audio.play('thunder1');
-          this.game.audio.play(`crow0${Math.floor(Math.random() * 4) + 1}`);
-        }, Math.floor(Math.random() * 2000) + 1000);
         Mousetrap.bind('enter', () => {
           this.game.handle_out('game.client.world.news', 'world');
         });
