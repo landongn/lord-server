@@ -15,5 +15,5 @@ export default {
 
     },
 
-    id: 'game.zone.world.news'
+    id: 'game.client.world.news'
 }

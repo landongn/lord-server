@@ -52,5 +52,5 @@ export default {
       }
     }
   },
-  id: 'village.inn.loiter'
+  id: 'game.zone.village.inn.loiter'
 }

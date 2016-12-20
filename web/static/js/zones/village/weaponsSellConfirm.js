@@ -22,5 +22,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.weapons.sell.confirm'
+  id: 'game.zone.village.weapons.sell.confirm'
 }

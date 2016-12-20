@@ -21,5 +21,5 @@ export default {
       });
     }
   },
-  id: 'village.healer.heal-some'
+  id: 'game.zone.village.healer.heal-some'
 }

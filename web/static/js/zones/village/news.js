@@ -22,5 +22,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.news'
+  id: 'game.zone.village.news'
 }

@@ -34,6 +34,15 @@ defmodule Server.WorldChannel do
   end
 
 
+  def handle_in("game.client.world.connect", _, socket) do
+    msg = View.render_to_string(WorldView, "motd.html", %{})
+    push socket, "msg", %{
+      message: msg,
+      opcode: "game.client.connect",
+      actions: ["enter", "space", "e", "i", "l"]
+    }
+    {:noreply, socket}
+  end
   def handle_in("game.client.world.leaderboards", _, socket) do
 
     chars = Repo.all from(c in Character,
@@ -54,15 +63,19 @@ defmodule Server.WorldChannel do
 
     push socket, "msg", %{
       message: View.render_to_string(WorldView, "leaderboards.html", %{chars: chars}),
-      opcode: "game.zone.world.leaderboards",
-      actions: ["enter"]
+      opcode: "game.client.world.leaderboards",
+      actions: ["enter", "r", "space"]
     }
 
     {:noreply, socket}
   end
 
   def handle_in("game.client.world.instructions", _, socket) do
-
+    push socket, "msg", %{
+      message: View.render_to_string(WorldView, "instructions.html", %{}),
+      opcode: "game.client.world.instructions",
+      actions: ["enter", "r", "space"]
+    }
     {:noreply, socket}
   end
 
@@ -73,7 +86,7 @@ defmodule Server.WorldChannel do
 
     push socket, "msg", %{
       message: View.render_to_string(WorldView, "news.html", %{posts: posts}),
-      opcode: "game.zone.world.news",
+      opcode: "game.client.world.news",
       actions: ["enter", "space"]
     }
     {:noreply, socket}

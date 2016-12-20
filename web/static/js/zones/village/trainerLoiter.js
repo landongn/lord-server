@@ -22,5 +22,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.trainer.loiter'
+  id: 'game.zone.village.trainer.loiter'
 }

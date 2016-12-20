@@ -27,5 +27,5 @@ export default {
       }
     }
   },
-  id: 'village.inn.messageboard'
+  id: 'game.zone.village.inn.messageboard'
 }

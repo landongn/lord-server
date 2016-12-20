@@ -42,5 +42,5 @@ export default {
       }
     }
   },
-  id: 'village.armor.buy'
+  id: 'game.zone.village.armor.buy'
 }

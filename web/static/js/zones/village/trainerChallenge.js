@@ -22,5 +22,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.trainer.challenge'
+  id: 'game.zone.village.trainer.challenge'
 }

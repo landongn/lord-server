@@ -29,6 +29,7 @@ import VillageLeaderboardState from '../zones/village/leaderboards';
 import VillageNewsState from '../zones/village/news';
 import VillagePlayersOnlineState from '../zones/village/players-online';
 import VillageLoiterState from '../zones/village/loiter';
+import VillageStatsState from '../zones/village/stats';
 
 import TrainerChallengeState from '../zones/village/trainerChallenge';
 import TrainerFailState from '../zones/village/trainerFail';
@@ -84,7 +85,7 @@ export default class World {
       [VillageNewsState.id]: new VillageNewsState.cls(game, VillageNewsState.id),
       [VillagePlayersOnlineState.id]: new VillagePlayersOnlineState.cls(game, VillagePlayersOnlineState.id),
       [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
-
+      [VillageStatsState.id]: new VillageStatsState.cls(game, VillageStatsState.id),
       [TrainerChallengeState.id]: new TrainerChallengeState.cls(game, TrainerChallengeState.id),
       [TrainerFailState.id]: new TrainerFailState.cls(game, TrainerFailState.id),
       [TrainerLoiterState.id]: new TrainerLoiterState.cls(game, TrainerLoiterState.id),
@@ -132,6 +133,7 @@ export default class World {
       this.zone.handle_in ? this.zone.handle_in(payload) : void(0);
       return payload.message;
     } else {
+      this.zone.handle_in ? this.zone.handle_in(payload) : void(0);
       return payload.message;
     }
 

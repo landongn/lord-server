@@ -10,7 +10,13 @@ export default {
       }
 
       spaceKeyPressed() {
-        this.game.handle_out('game.zone.character.select', 'character');
+        this.game.handle_out('game.client.world.news', 'world');
+      }
+      rKeyPressed() {
+        this.game.handle_out('game.client.world.connect', 'world');
+      }
+      enterKeyPressed() {
+        this.game.handle_out('game.client.world.news', 'world');
       }
 
     },

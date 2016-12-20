@@ -36,5 +36,5 @@ export default {
       }
     }
   },
-  id: 'village.healer.loiter'
+  id: 'game.zone.village.healer.loiter'
 }

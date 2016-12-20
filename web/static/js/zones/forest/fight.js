@@ -37,14 +37,6 @@ export default {
 
       switch(payload.opcode) {
         case 'game.zone.forest.fight':
-          const actions = payload.actions;
-          for (var i = 0; i < actions.length; i++) {
-            const action = payload.actions[i];
-            Mousetrap.bind(action, (e) => {
-              const fn = `${action}KeyPressed`;
-              this[fn]();
-            });
-          }
           console.log('fight start: ', payload);
           break;
 
@@ -108,5 +100,5 @@ export default {
       }
     }
   },
-  id: 'forest.fight'
+  id: 'game.zone.forest.fight'
 }

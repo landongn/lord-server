@@ -26,5 +26,5 @@ export default {
       }
     }
   },
-  id: 'village.inn.stats'
+  id: 'game.zone.village.inn.stats'
 }

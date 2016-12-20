@@ -11,7 +11,10 @@ export default {
 
       load() {}
       spaceKeyPressed() {
-        this.game.handle_out('game.zone.world.news', 'world');
+        this.game.handle_out('game.client.world.connect', 'world');
+      }
+      rKeyPressed() {
+        this.game.handle_out('game.client.world.connect', 'world');
       }
     },
 

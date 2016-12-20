@@ -28,5 +28,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.leaderboards'
+  id: 'game.zone.village.leaderboards'
 }

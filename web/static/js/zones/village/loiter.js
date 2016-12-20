@@ -58,7 +58,7 @@ export default {
     }
 
     vKeyPressed() {
-      this.game.handle_out('game.zone.character.stats', 'character');
+      this.game.handle_out('game.zone.village.stats', 'village');
     }
 
     tKeyPressed() {

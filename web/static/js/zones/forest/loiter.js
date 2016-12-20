@@ -42,5 +42,5 @@ export default {
       }
     }
   },
-  id: 'forest.loiter'
+  id: 'game.zone.forest.loiter'
 }

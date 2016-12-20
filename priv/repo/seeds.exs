@@ -288,3 +288,27 @@ Repo.delete_all Server.Class
 Repo.insert!(%Server.Class{id: 1, name: "Death Knight", description: ""})
 Repo.insert!(%Server.Class{id: 2, name: "Thief", description: ""})
 Repo.insert!(%Server.Class{id: 3, name: "Wizard", description: ""})
+
+Repo.delete_all Server.Master
+Repo.insert!(%Server.Master{
+    id: 1,
+    name: "Halder",
+    weapon: "Short Sword",
+    rank: 1,
+    health: 50,
+    m_health: 50,
+    armor: 5,
+    damage: 4,
+    defense: 10,
+    strength: 10,
+    s_atk: "spid_att",
+    s_die: "spid_die",
+    s_hit: "spid_hit",
+    s_miss: "spid_wlk",
+    welcome_message: "",
+    challenge_message: "",
+    talk_message: "",
+    player_defeat: "",
+    master_defeat: ""
+})
+Repo.delete_all Server.Level

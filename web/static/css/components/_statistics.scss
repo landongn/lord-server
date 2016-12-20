@@ -1,0 +1,21 @@
+.stats-menu {
+  min-height: 100%;
+  display: flex;
+  margin: 25px;
+  flex-wrap: wrap;
+  flex-direction: row;
+  .stats-option {
+    display: flex;
+    flex-basis: calc(50%);
+    span {
+      padding: 5px;
+    }
+    span.stat-name {
+      color: rgba(10, 100, 10, 1);
+
+    }
+    span.statistic {
+      color: lightgreen;
+    }
+  }
+}

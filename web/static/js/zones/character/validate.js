@@ -53,5 +53,5 @@ export default {
       }
     }
   },
-  id: 'character.validate'
+  id: 'game.zone.character.validate'
 }

@@ -1,0 +1,75 @@
+<li><span class="white"><%= @char.name %>'s Stats</span></li>
+<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
+<section class="stats-menu">
+  <section class="stats-option">
+      <span class="stat-name">Class:</span>
+      <span class="statistic"><%= @class.name %></span>
+  </section>
+
+  <section class="stats-option">
+      <span class="stat-name">Level:</span>
+      <span class="statistic"><%= @char.level %></span>
+  </section>
+
+  <section class="stats-option">
+      <span class="stat-name">Experience:</span>
+      <span class="statistic"><%= @char.experience %></span>
+  </section>
+
+    <section class="stats-option">
+      <span class="stat-name">Endurance:</span>
+      <span class="statistic"><%= @char.endurance %></span>
+  </section>
+
+    <section class="stats-option">
+      <span class="stat-name">Strength:</span>
+      <span class="statistic"><%= @char.strength %></span>
+  </section>
+
+    <section class="stats-option">
+      <span class="stat-name">Weapon:</span>
+      <span class="statistic"><%= @weapon.name %></span>
+  </section>
+
+    <section class="stats-option">
+      <span class="stat-name">defense:</span>
+      <span class="statistic"><%= @char.defense %></span>
+  </section>
+
+  <section class="stats-option">
+      <span class="stat-name">Armor:</span>
+      <span class="statistic"><%= @armor.name %></span>
+  </section>
+
+    <section class="stats-option">
+      <span class="stat-name">Gold on hand:</span>
+      <span class="statistic"><%= @char.gold %></span>
+  </section>
+
+    <section class="stats-option">
+      <span class="stat-name">Gold in Bank:</span>
+      <span class="statistic"><%= @char.banked_gold %></span>
+  </section>
+
+    <section class="stats-option">
+      <span class="stat-name">Gems:</span>
+      <span class="statistic"><%= @char.gems %></span>
+  </section>
+
+    <section class="stats-option">
+      <span class="stat-name">Attractiveness:</span>
+      <span class="statistic"><%= @char.attractiveness %></span>
+  </section>
+    <section class="stats-option">
+      <span class="stat-name">Luck:</span>
+      <span class="statistic"><%= @char.luck %></span>
+  </section>
+  <section class="stats-option"></section>
+
+</section>
+
+<li class="middle action" data-command="l">(<span data-command="r" class="action">R</span>)eturn to town</li>
+<li class="command middle">
+  Your Choice? <span class="blink cursor">&#x2581;</span>
+  <span data-volitile data-command="r" class="command-options">(R)</span>
+</li>

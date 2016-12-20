@@ -10,21 +10,18 @@ export default {
       this.id = id;
     }
 
-    load() {
-      Mousetrap.bind('b', (e) => {
-        this.game.handle_out('game.zone.village.weapons.buy', 'village');
-      });
-
-      Mousetrap.bind('s', (e) => {
-        this.game.handle_out('game.zone.village.weapons.sell.offer', 'village');
-      });
-
-      Mousetrap.bind('r', (e) => {
-        this.game.handle_out('game.zone.village.loiter', 'village');
-      });
+    bKeyPressed() {
+      this.game.handle_out('game.zone.village.weapons.buy', 'village');
     }
+    sKeyPressed() {
+      this.game.handle_out('game.zone.village.weapons.sell.offer', 'village');
+    }
+    rKeyPressed() {
+      this.game.handle_out('game.zone.village.loiter', 'village');
+    }
+
 
     handle_in() {}
   },
-  id: 'village.weapons.loiter'
+  id: 'game.zone.village.weapons.loiter'
 }

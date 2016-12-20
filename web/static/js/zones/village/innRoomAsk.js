@@ -22,5 +22,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.inn.room.ask'
+  id: 'game.zone.village.inn.room.ask'
 }

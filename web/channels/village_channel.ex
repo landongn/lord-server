@@ -48,12 +48,31 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
+  def handle_in("game.zone.village.stats", payload, socket) do
+    char = Repo.get(Character, payload["char_id"])
+    wep = Repo.get(Weapon, char.weapon_id)
+    armor = Repo.get(Armor, char.armor_id)
+    class = Repo.get(Class, char.class_id)
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.stats",
+      message: View.render_to_string(VillageView, "stats.html", %{
+        char: char,
+        weapon: wep,
+        armor: armor,
+        class: class
+      }),
+      actions: ["r"]
+    }
+    {:noreply, socket}
+  end
+
   def handle_in("game.zone.village.mail", _, socket) do
 
     push socket, "msg", %{
       opcode: "game.zone.village.mail",
       message: View.render_to_string(VillageView, "write-mail.html", %{}),
-      actions: []
+      actions: ["r"]
     }
 
     {:noreply, socket}
@@ -120,7 +139,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.weapons.sell.offer",
       message: View.render_to_string(VillageView, "weapons-sell-offer.html", %{}),
-      actions: []
+      actions: ["n", "c"]
     }
 
     {:noreply, socket}
@@ -131,7 +150,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.weapons.sell.confirm",
       message: View.render_to_string(VillageView, "weapons-sell-confirm.html", %{}),
-      actions: []
+      actions: ["space", "enter"]
     }
 
     {:noreply, socket}
@@ -196,7 +215,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.armor.sell.offer",
       message: View.render_to_string(VillageView, "armor-sell-offer.html", %{}),
-      actions: []
+      actions: ["n", "c"]
     }
 
     {:noreply, socket}
@@ -218,7 +237,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.mail",
       message: View.render_to_string(VillageView, "trainer-loiter.html", %{}),
-      actions: []
+      actions: ["q", "a", "v", "r"]
     }
 
     {:noreply, socket}
@@ -229,7 +248,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.trainer.talk",
       message: View.render_to_string(VillageView, "trainer-talk.html", %{}),
-      actions: []
+      actions: ["space", "r"]
     }
 
     {:noreply, socket}
@@ -240,7 +259,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.trainer.challenge",
       message: View.render_to_string(VillageView, "trainer-challenge.html", %{}),
-      actions: []
+      actions: ["space"]
     }
 
     {:noreply, socket}
@@ -251,7 +270,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.trainer.defeat",
       message: View.render_to_string(VillageView, "trainer-defeat.html", %{}),
-      actions: []
+      actions: ["space"]
     }
 
     {:noreply, socket}
@@ -262,7 +281,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.trainer.fail",
       message: View.render_to_string(VillageView, "trainer-fail.html", %{}),
-      actions: []
+      actions: ["space"]
     }
 
     {:noreply, socket}
@@ -291,7 +310,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.leaderboards",
       message: View.render_to_string(VillageView, "player-leaderboards.html", %{chars: chars}),
-      actions: ["enter"]
+      actions: ["enter", "space"]
     }
 
     {:noreply, socket}
@@ -302,7 +321,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.news.read",
       message: View.render_to_string(VillageView, "news-read.html", %{}),
-      actions: []
+      actions: ["space"]
     }
 
     {:noreply, socket}
@@ -342,7 +361,7 @@ defmodule Server.VillageChannel do
   end
 
   def handle_in("game.zone.village.inn.bartender", payload, socket) do
-    
+
     push socket, "msg", %{
       opcode: "game.zone.village.inn.bartender",
       message: View.render_to_string(VillageView, "inn-bartender.html", %{}),
@@ -352,7 +371,7 @@ defmodule Server.VillageChannel do
   end
 
   def handle_in("game.zone.village.inn.stats", payload, socket) do
-    
+
     push socket, "msg", %{
       opcode: "game.zone.village.inn.stats",
       message: View.render_to_string(VillageView, "inn-stats.html", %{}),
@@ -361,8 +380,10 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
+
+
   def handle_in("game.zone.village.inn.bard", payload, socket) do
-    
+
     push socket, "msg", %{
       opcode: "game.zone.village.inn.bard",
       message: View.render_to_string(VillageView, "inn-bard.html", %{}),
@@ -372,7 +393,7 @@ defmodule Server.VillageChannel do
   end
 
   def handle_in("game.zone.village.inn.messageboard", payload, socket) do
-    
+
     push socket, "msg", %{
       opcode: "game.zone.village.inn.messageboard",
       message: View.render_to_string(VillageView, "inn-messageboard.html", %{}),

@@ -22,5 +22,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.trainer.fail'
+  id: 'game.zone.village.trainer.fail'
 }

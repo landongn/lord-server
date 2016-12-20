@@ -22,5 +22,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'village.inn.bard'
+  id: 'game.zone.village.inn.bard'
 }

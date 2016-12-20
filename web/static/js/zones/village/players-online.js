@@ -14,5 +14,5 @@ export default {
 
 
   },
-  id: 'village.players.online'
+  id: 'game.zone.village.players.online'
 }
