@@ -331,3 +331,12 @@ Repo.insert!(%Server.Level{
     health: 30,
     endurance: 20,
 })
+
+Repo.delete_all Server.Skill
+Repo.insert!(%Server.Skill{
+    name: "Warcry",
+    attack_message: "You let loose a shriking warcry!",
+    class_id: 1,
+    damage_modifier: 10,
+    mana_cost: 10,
+})
