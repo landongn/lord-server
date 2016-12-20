@@ -40,6 +40,7 @@ defmodule Server.CharacterChannel do
     push socket, "msg", %{
       opcode: "game.zone.character.list",
       characters: chars,
+      actions: [],
       message: View.render_to_string(CharacterView, "character-list.html", %{characters: chars})
     }
     {:noreply, socket}
@@ -99,6 +100,7 @@ defmodule Server.CharacterChannel do
   def handle_in("game.zone.character.create", _payload, socket) do
     push socket, "msg", %{
       opcode: "game.zone.character.new",
+      actions: ["space"],
       message: View.render_to_string(CharacterView, "new-character.html", %{})
     }
     {:noreply, socket}

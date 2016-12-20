@@ -10,29 +10,22 @@ export default {
         this.hasIdent = false;
       }
 
-      handle_in(payload) {
-
+      enterKeyPressed() {
+        this.game.handle_out('game.client.world.news', 'world');
       }
 
-      load() {
-        Mousetrap.bind('enter', () => {
-          this.game.handle_out('game.client.world.news', 'world');
-        });
-        Mousetrap.bind('e', () => {
-          this.game.handle_out('game.client.world.news', 'world');
-        });
-        Mousetrap.bind('i', () => {
-          this.game.handle_out('game.client.world.instructions', 'world');
-        });
-        Mousetrap.bind('l', () => {
-          this.game.handle_out('game.client.world.leaderboards', 'world');
-        });
-        Mousetrap.bind('space', () => {
-          this.game.handle_out('game.client.world.news', 'world');
-        });
-
+      eKeyPressed() {
+        this.game.handle_out('game.client.world.news', 'world');
       }
-
+      iKeyPressed() {
+        this.game.handle_out('game.client.world.instructions', 'world');
+      }
+      lKeyPressed() {
+        this.game.handle_out('game.client.world.leaderboards', 'world');
+      }
+      spaceKeyPressed() {
+        this.game.handle_out('game.client.world.news', 'world');
+      }
     },
 
     id: 'game.client.connect'

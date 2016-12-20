@@ -14,12 +14,10 @@ export default {
     }
 
     out(place) {
-      console.log('out to', place);
       this.game.handle_out(`game.zone.village.${place}`, 'village');
     }
 
     fKeyPressed() {
-      console.log('f touch');
       this.game.handle_out('game.zone.forest.loiter', 'forest');
     }
 
@@ -82,20 +80,6 @@ export default {
     qKeyPressed() {
       this.game.handle_out('game.zone.character.quit-fields', 'characters');
     }
-
-
-    handle_in(payload) {
-
-      const self = this;
-      const actions = payload.actions;
-      for (var i = 0; i < actions.length; i++) {
-        const action = payload.actions[i];
-        Mousetrap.bind(action, (e) => {
-          const fn = `${action}KeyPressed`;
-          self[fn]();
-        });
-      }
-    }
   },
-  id: 'village.loiter'
+  id: 'game.zone.village.loiter'
 }

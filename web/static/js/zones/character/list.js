@@ -1,8 +1,5 @@
 import State from '../base';
 
-
-
-
 export default {
   cls: class CharacterListState extends State {
     constructor(game, id) {

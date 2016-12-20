@@ -113,22 +113,23 @@ export default class World {
 
   changeState(zone_id) {
     console.log('flipping to state ', zone_id);
-      this.game.renderer.clear();
+    this.game.renderer.clear();
 
-      if (this.zone) {
-        this.zone.unload();
-      }
+    if (this.zone) {
+      this.zone.unload();
+    }
 
-      if (this.zones[zone_id]) {
-          this.zone = this.zones[zone_id];
-          this.zone.load();
-      }
+    if (this.zones[zone_id]) {
+        this.zone = this.zones[zone_id];
+        this.zone.load();
+    }
   }
 
   event(payload) {
     if (this.zones[payload.opcode]) {
       this.changeState(payload.opcode);
-      this.zone && this.zone.handle_in(payload);
+      this.zone.bindKeys(payload);
+      this.zone.handle_in ? this.zone.handle_in(payload) : void(0);
       return payload.message;
     } else {
       return payload.message;

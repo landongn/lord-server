@@ -9,11 +9,8 @@ export default {
         this.id = id;
       }
 
-
-      load() {
-        Mousetrap.bind('space', () => {
-          this.game.handle_out('game.zone.character.select', 'character');
-        });
+      spaceKeyPressed() {
+        this.game.handle_out('game.zone.character.select', 'character');
       }
 
     },
