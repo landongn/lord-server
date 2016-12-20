@@ -1,11 +1,11 @@
-import Renderer from 'web/static/js/engine/renderer';
-import Connection from 'web/static/js/engine/connection';
-import World from 'web/static/js/services/world';
-import Gui from 'web/static/js/ui/gui';
-import Input from 'web/static/js/engine/input';
-import Character from 'web/static/js/mechanics/character';
-import Session from 'web/static/js/mechanics/session';
-import SoundManager from 'web/static/js/engine/audio';
+import Renderer from './engine/renderer';
+import Connection from './engine/connection';
+import World from './services/world';
+import Gui from './ui/gui';
+import Input from './engine/input';
+import Character from './mechanics/character';
+import Session from './mechanics/session';
+import SoundManager from './engine/audio';
 
 
 export default class Game {

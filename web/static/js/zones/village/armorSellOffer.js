@@ -1,5 +1,6 @@
 
-import State from 'web/static/js/zones/base';
+import State from '../base';
+
 
 
 export default {

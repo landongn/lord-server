@@ -1,52 +1,52 @@
-import ConnectState from 'web/static/js/zones/world/connect';
-import WelcomeNewsState from 'web/static/js/zones/world/welcome_news';
-import WorldLeaderboardState from 'web/static/js/zones/world/leaderboards';
-import WorldInstructionsState from 'web/static/js/zones/world/instructions';
+import ConnectState from '../zones/world/connect';
+import WelcomeNewsState from '../zones/world/welcome_news';
+import WorldLeaderboardState from '../zones/world/leaderboards';
+import WorldInstructionsState from '../zones/world/instructions';
 
-import CharacterSelectState from 'web/static/js/zones/character/select';
-import CharacterCreateState from 'web/static/js/zones/character/create';
-import CharacterListState from 'web/static/js/zones/character/list';
-import CharacterValidateState from 'web/static/js/zones/character/validate';
-import CharacterDeleteState from 'web/static/js/zones/character/delete';
+import CharacterSelectState from '../zones/character/select';
+import CharacterCreateState from '../zones/character/create';
+import CharacterListState from '../zones/character/list';
+import CharacterValidateState from '../zones/character/validate';
+import CharacterDeleteState from '../zones/character/delete';
 
-import ArmorLoiterState from 'web/static/js/zones/village/armorLoiter';
-import ArmorBuyState from 'web/static/js/zones/village/armorBuy';
-import ArmorPurchaseState from 'web/static/js/zones/village/armorPurchase';
-import ArmorSellConfirmState from 'web/static/js/zones/village/armorSellConfirm';
-import ArmorSellOfferState from 'web/static/js/zones/village/armorSellOffer';
+import ArmorLoiterState from '../zones/village/armorLoiter';
+import ArmorBuyState from '../zones/village/armorBuy';
+import ArmorPurchaseState from '../zones/village/armorPurchase';
+import ArmorSellConfirmState from '../zones/village/armorSellConfirm';
+import ArmorSellOfferState from '../zones/village/armorSellOffer';
 
-import InnBardState from 'web/static/js/zones/village/innBard';
-import InnStatsState from 'web/static/js/zones/village/innStats';
-import InnMessageboardState from 'web/static/js/zones/village/innMessageboard';
-import InnNewsState from 'web/static/js/zones/village/innNews';
-import InnBartenderState from 'web/static/js/zones/village/innBartender';
-import InnLoiterState from 'web/static/js/zones/village/innLoiter';
-import InnRoomAskState from 'web/static/js/zones/village/innRoomAsk';
-import InnVioletState from 'web/static/js/zones/village/innViolet';
-import InnRoomConfirmState from 'web/static/js/zones/village/inRoomConfirm';
+import InnBardState from '../zones/village/innBard';
+import InnStatsState from '../zones/village/innStats';
+import InnMessageboardState from '../zones/village/innMessageboard';
+import InnNewsState from '../zones/village/innNews';
+import InnBartenderState from '../zones/village/innBartender';
+import InnLoiterState from '../zones/village/innLoiter';
+import InnRoomAskState from '../zones/village/innRoomAsk';
+import InnVioletState from '../zones/village/innViolet';
+import InnRoomConfirmState from '../zones/village/inRoomConfirm';
 
-import VillageLeaderboardState from 'web/static/js/zones/village/leaderboards';
-import VillageNewsState from 'web/static/js/zones/village/news';
-import VillagePlayersOnlineState from 'web/static/js/zones/village/players-online';
-import VillageLoiterState from 'web/static/js/zones/village/loiter';
+import VillageLeaderboardState from '../zones/village/leaderboards';
+import VillageNewsState from '../zones/village/news';
+import VillagePlayersOnlineState from '../zones/village/players-online';
+import VillageLoiterState from '../zones/village/loiter';
 
-import TrainerChallengeState from 'web/static/js/zones/village/trainerChallenge';
-import TrainerFailState from 'web/static/js/zones/village/trainerFail';
-import TrainerLoiterState from 'web/static/js/zones/village/trainerLoiter';
-import TrainerTalkState from 'web/static/js/zones/village/trainerTalk';
+import TrainerChallengeState from '../zones/village/trainerChallenge';
+import TrainerFailState from '../zones/village/trainerFail';
+import TrainerLoiterState from '../zones/village/trainerLoiter';
+import TrainerTalkState from '../zones/village/trainerTalk';
 
-import WeaponsBuyState from 'web/static/js/zones/village/weaponsBuy';
-import WeaponsLoiterState from 'web/static/js/zones/village/weaponsLoiter';
-import WeaponsPurchaseState from 'web/static/js/zones/village/weaponsPurchase';
-import WeaponsSellConfirmState from 'web/static/js/zones/village/weaponsSellConfirm';
-import WeaponsSellOfferState from 'web/static/js/zones/village/weaponsSellOffer';
+import WeaponsBuyState from '../zones/village/weaponsBuy';
+import WeaponsLoiterState from '../zones/village/weaponsLoiter';
+import WeaponsPurchaseState from '../zones/village/weaponsPurchase';
+import WeaponsSellConfirmState from '../zones/village/weaponsSellConfirm';
+import WeaponsSellOfferState from '../zones/village/weaponsSellOffer';
 
-import HealerLoiterState from 'web/static/js/zones/village/healer-loiter';
-import HealerHealAllState from 'web/static/js/zones/village/healer-heal-all';
-import HealerHealFullState from 'web/static/js/zones/village/healer-heal-full';
+import HealerLoiterState from '../zones/village/healer-loiter';
+import HealerHealAllState from '../zones/village/healer-heal-all';
+import HealerHealFullState from '../zones/village/healer-heal-full';
 
-import ForestLoiterState from 'web/static/js/zones/forest/loiter';
-import ForestFightState from 'web/static/js/zones/forest/fight';
+import ForestLoiterState from '../zones/forest/loiter';
+import ForestFightState from '../zones/forest/fight';
 
 export default class World {
   constructor(game) {
@@ -112,6 +112,7 @@ export default class World {
   }
 
   changeState(zone_id) {
+    console.log('flipping to state ', zone_id);
       this.game.renderer.clear();
 
       if (this.zone) {

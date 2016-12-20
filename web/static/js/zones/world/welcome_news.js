@@ -1,4 +1,5 @@
-import State from 'web/static/js/zones/base';
+import State from '../base';
+
 
 export default {
     cls: class WelcomeNewsState extends State {
@@ -8,6 +9,7 @@ export default {
         this.id = id;
       }
 
+      handle_in(payload) {}
 
       load() {
         Mousetrap.bind('space', () => {
