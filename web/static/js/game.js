@@ -2,7 +2,6 @@ import Renderer from './engine/renderer';
 import Connection from './engine/connection';
 import World from './services/world';
 import Gui from './ui/gui';
-import Input from './engine/input';
 import Character from './mechanics/character';
 import Session from './mechanics/session';
 import SoundManager from './engine/audio';
@@ -14,7 +13,6 @@ export default class Game {
         this.connection = new Connection(this);
         this.world = new World(this);
         this.gui = new Gui(this);
-        this.input = new Input(this);
         this.character = new Character(this);
         this.session = new Session({});
 

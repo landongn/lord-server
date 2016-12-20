@@ -8,7 +8,8 @@
     display: flex;
     flex-basis: calc(50%);
     span {
-      padding: 5px;
+      padding: 0px;
+      margin-left: 5px;
     }
     span.stat-name {
       color: rgba(10, 100, 10, 1);

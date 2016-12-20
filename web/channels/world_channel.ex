@@ -35,9 +35,8 @@ defmodule Server.WorldChannel do
 
 
   def handle_in("game.client.world.connect", _, socket) do
-    msg = View.render_to_string(WorldView, "motd.html", %{})
     push socket, "msg", %{
-      message: msg,
+      message: View.render_to_string(WorldView, "motd.html", %{}),
       opcode: "game.client.connect",
       actions: ["enter", "space", "e", "i", "l"]
     }

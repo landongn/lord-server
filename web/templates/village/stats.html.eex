@@ -13,7 +13,7 @@
 
   <section class="stats-option">
       <span class="stat-name">Experience:</span>
-      <span class="statistic"><%= @char.experience %></span>
+      <span class="statistic"><%= Number.Delimit.number_to_delimited(@char.experience, precision: 0) %></span>
   </section>
 
     <section class="stats-option">
@@ -43,28 +43,31 @@
 
     <section class="stats-option">
       <span class="stat-name">Gold on hand:</span>
-      <span class="statistic"><%= @char.gold %></span>
+      <span class="statistic"><%= Number.Delimit.number_to_delimited(@char.gold, precision: 0) %></span>
   </section>
 
     <section class="stats-option">
       <span class="stat-name">Gold in Bank:</span>
-      <span class="statistic"><%= @char.banked_gold %></span>
+      <span class="statistic"><%= Number.Delimit.number_to_delimited(@char.banked_gold, precision: 0) %></span>
   </section>
 
     <section class="stats-option">
       <span class="stat-name">Gems:</span>
-      <span class="statistic"><%= @char.gems %></span>
+      <span class="statistic"><%= Number.Delimit.number_to_delimited(@char.gems, precision: 0) %></span>
   </section>
 
     <section class="stats-option">
       <span class="stat-name">Attractiveness:</span>
       <span class="statistic"><%= @char.attractiveness %></span>
   </section>
-    <section class="stats-option">
-      <span class="stat-name">Luck:</span>
-      <span class="statistic"><%= @char.luck %></span>
+  <section class="stats-option">
+    <span class="stat-name">Luck:</span>
+    <span class="statistic"><%= @char.luck %></span>
   </section>
-  <section class="stats-option"></section>
+  <section class="stats-option">
+    <span class="stat-name">Current Master:</span>
+    <span class="statistic"><%= @master.name %></span>
+  </section>
 
 </section>
 
