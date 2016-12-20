@@ -311,4 +311,23 @@ Repo.insert!(%Server.Master{
     player_defeat: "",
     master_defeat: ""
 })
+
 Repo.delete_all Server.Level
+Repo.insert!(%Server.Level{
+    rank: 1,
+    minimum: 3000,
+    class_id: 1,
+    str: 3,
+    def: 3,
+    health: 20,
+    endurance: 10,
+})
+Repo.insert!(%Server.Level{
+    rank: 2,
+    minimum: 10000,
+    class_id: 1,
+    str: 3,
+    def: 3,
+    health: 30,
+    endurance: 20,
+})
