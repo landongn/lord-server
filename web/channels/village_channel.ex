@@ -9,6 +9,9 @@ defmodule Server.VillageChannel do
   alias Server.Armor
   alias Server.News
   alias Server.Class
+  alias Server.Master
+  alias Server.Skill
+
 
   def join("village", payload, socket) do
     if authorized?(socket, payload) do
@@ -53,6 +56,10 @@ defmodule Server.VillageChannel do
     wep = Repo.get(Weapon, char.weapon_id)
     armor = Repo.get(Armor, char.armor_id)
     class = Repo.get(Class, char.class_id)
+    master = Repo.get_by(Master, rank: char.level)
+    skills = Repo.all from(s in Skill,
+      where: s.class_id == ^char.class_id,
+      where: s.rank >= ^char.level)
 
     push socket, "msg", %{
       opcode: "game.zone.village.stats",
@@ -60,7 +67,9 @@ defmodule Server.VillageChannel do
         char: char,
         weapon: wep,
         armor: armor,
-        class: class
+        class: class,
+        skills: skills,
+        master: master
       }),
       actions: ["r"]
     }

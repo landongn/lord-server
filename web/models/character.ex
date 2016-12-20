@@ -28,6 +28,7 @@ defmodule Server.Character do
     field :defense, :integer, default: 3
     field :strength, :integer, default: 10
     field :luck, :integer, default: 1
+    field :banked_gold, :integer, default: 0
 
     # uhhh
     field :married, :boolean, default: false

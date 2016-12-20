@@ -301,7 +301,7 @@ Repo.insert!(%Server.Master{
     damage: 4,
     defense: 10,
     strength: 10,
-    s_atk: "spid_att",
+    s_att: "spid_att",
     s_die: "spid_die",
     s_hit: "spid_hit",
     s_miss: "spid_wlk",

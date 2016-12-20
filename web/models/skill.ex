@@ -7,7 +7,8 @@ defmodule Server.Skill do
     field :class_id, :integer
     field :damage_modifier, :integer
     field :mana_cost, :integer
-
+    field :rank, :integer
+    
     timestamps()
   end
 

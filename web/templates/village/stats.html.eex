@@ -32,7 +32,7 @@
   </section>
 
     <section class="stats-option">
-      <span class="stat-name">defense:</span>
+      <span class="stat-name">Defense:</span>
       <span class="statistic"><%= @char.defense %></span>
   </section>
 
