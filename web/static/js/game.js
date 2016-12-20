@@ -50,8 +50,6 @@ export default class Game {
         if (hasMessage) {
             this.renderer.render(message);
         }
-        const el = document.querySelector('.command-options')
-
     }
 
     update(system, payload) {

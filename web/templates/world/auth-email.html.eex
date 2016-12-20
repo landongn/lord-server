@@ -1,5 +1,0 @@
-<li>Your Email Address:
-    <span class="action-input">
-        <input class="action action-input-email-address" type="text" name="email-address" />
-    </span>
-</li>

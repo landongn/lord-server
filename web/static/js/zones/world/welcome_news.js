@@ -17,5 +17,5 @@ export default {
 
     },
 
-    id: 'boot.news'
+    id: 'game.zone.world.news'
 }

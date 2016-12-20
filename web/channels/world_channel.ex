@@ -15,7 +15,7 @@ defmodule Server.WorldChannel do
 
   def join("world:system", payload, socket) do
     if authorized?(socket, payload) do
-      msg = View.render_to_string(WorldView, "welcome_message.html", %{})
+      msg = View.render_to_string(WorldView, "motd.html", %{})
       {:ok, %{message: msg, opcode: "game.client.connect", actions: ["enter"]}, socket}
     else
       {:error, %{reason: "unauthorized"}}
@@ -29,14 +29,6 @@ defmodule Server.WorldChannel do
     end
   end
 
-  def handle_in("motd", _, socket) do
-    push socket, "msg", %{
-      message: View.render_to_string(WorldView, "motd.html", %{}),
-      opcode: "game.client.motd",
-      actions: ["enter"]
-    }
-    {:noreply, socket}
-  end
 
   def handle_in("game.client.world.leaderboards", _, socket) do
 
@@ -58,7 +50,7 @@ defmodule Server.WorldChannel do
 
     push socket, "msg", %{
       message: View.render_to_string(WorldView, "leaderboards.html", %{chars: chars}),
-      opcode: "game.client.motd",
+      opcode: "game.zone.world.leaderboards",
       actions: ["enter"]
     }
 
@@ -66,7 +58,7 @@ defmodule Server.WorldChannel do
   end
 
   def handle_in("game.client.world.instructions", _, socket) do
-
+    {:noreply, socket}
   end
 
   def handle_in("game.client.world.news", _, socket) do

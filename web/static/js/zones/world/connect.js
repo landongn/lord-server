@@ -34,5 +34,5 @@ export default {
 
     },
 
-    id: 'boot.connect'
+    id: 'game.client.connect'
 }

@@ -1,6 +1,0 @@
-<li>I've never seen that email address.  Give me a password and we'll get started: 
-    <span class="action-input">
-        <input type="hidden" value=<%= @email %> />
-        <input class="action action-input-password-register" type="password" name="password-register" />
-    </span>
-</li>

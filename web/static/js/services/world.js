@@ -1,6 +1,7 @@
-import ConnectState from 'web/static/js/zones/boot/connect';
-import IdentState from 'web/static/js/zones/boot/ident';
-import WelcomeNewsState from 'web/static/js/zones/boot/welcome_news';
+import ConnectState from 'web/static/js/zones/world/connect';
+import WelcomeNewsState from 'web/static/js/zones/world/welcome_news';
+import WorldLeaderboardState from 'web/static/js/zones/world/leaderboards';
+import WorldInstructionsState from 'web/static/js/zones/world/instructions';
 
 import CharacterSelectState from 'web/static/js/zones/character/select';
 import CharacterCreateState from 'web/static/js/zones/character/create';
@@ -50,10 +51,12 @@ import ForestFightState from 'web/static/js/zones/forest/fight';
 export default class World {
   constructor(game) {
     this.game = game;
+
     this.zones = {
       [ConnectState.id]: new ConnectState.cls(game, ConnectState.id),
-      [IdentState.id]: new IdentState.cls(game, IdentState.id),
       [WelcomeNewsState.id]: new WelcomeNewsState.cls(game, WelcomeNewsState.id),
+      [WorldLeaderboardState.id]: new WorldLeaderboardState.cls(game, WorldLeaderboardState.id),
+      [WorldInstructionsState.id]: new WorldInstructionsState.cls(game, WorldInstructionsState.id),
 
       [CharacterSelectState.id]: new CharacterSelectState.cls(game, CharacterSelectState.id),
       [CharacterCreateState.id]: new CharacterCreateState.cls(game, CharacterCreateState.id),
@@ -61,37 +64,37 @@ export default class World {
       [CharacterValidateState.id]: new CharacterValidateState.cls(game, CharacterValidateState.id),
       [CharacterDeleteState.id]: new CharacterDeleteState.cls(game, CharacterDeleteState.id),
 
-      [ArmorLoiterState.id]: new ArmorLoiterState.cls(game, ArmorLoiterState),
-      [ArmorBuyState.id]: new ArmorBuyState.cls(game, ArmorBuyState),
-      [ArmorPurchaseState.id]: new ArmorPurchaseState.cls(game, ArmorPurchaseState),
-      [ArmorSellConfirmState.id]: new ArmorSellConfirmState.cls(game, ArmorSellConfirmState),
-      [ArmorSellOfferState.id]: new ArmorSellOfferState.cls(game, ArmorSellOfferState),
+      [ArmorLoiterState.id]: new ArmorLoiterState.cls(game, ArmorLoiterState.id),
+      [ArmorBuyState.id]: new ArmorBuyState.cls(game, ArmorBuyState.id),
+      [ArmorPurchaseState.id]: new ArmorPurchaseState.cls(game, ArmorPurchaseState.id),
+      [ArmorSellConfirmState.id]: new ArmorSellConfirmState.cls(game, ArmorSellConfirmState.id),
+      [ArmorSellOfferState.id]: new ArmorSellOfferState.cls(game, ArmorSellOfferState.id),
 
-      [InnBardState.id]: new InnBardState.cls(game, InnBardState),
-      [InnStatsState.id]: new InnStatsState.cls(game, InnStatsState),
-      [InnNewsState.id]: new InnNewsState.cls(game, InnNewsState),
-      [InnMessageboardState.id]: new InnMessageboardState.cls(game, InnMessageboardState),
-      [InnBartenderState.id]: new InnBartenderState.cls(game, InnBartenderState),
-      [InnLoiterState.id]: new InnLoiterState.cls(game, InnLoiterState),
-      [InnRoomAskState.id]: new InnRoomAskState.cls(game, InnRoomAskState),
-      [InnVioletState.id]: new InnVioletState.cls(game, InnVioletState),
-      [InnRoomConfirmState.id]: new InnRoomConfirmState.cls(game, InnRoomConfirmState),
+      [InnBardState.id]: new InnBardState.cls(game, InnBardState.id),
+      [InnStatsState.id]: new InnStatsState.cls(game, InnStatsState.id),
+      [InnNewsState.id]: new InnNewsState.cls(game, InnNewsState.id),
+      [InnMessageboardState.id]: new InnMessageboardState.cls(game, InnMessageboardState.id),
+      [InnBartenderState.id]: new InnBartenderState.cls(game, InnBartenderState.id),
+      [InnLoiterState.id]: new InnLoiterState.cls(game, InnLoiterState.id),
+      [InnRoomAskState.id]: new InnRoomAskState.cls(game, InnRoomAskState.id),
+      [InnVioletState.id]: new InnVioletState.cls(game, InnVioletState.id),
+      [InnRoomConfirmState.id]: new InnRoomConfirmState.cls(game, InnRoomConfirmState.id),
 
-      [VillageLeaderboardState.id]: new VillageLeaderboardState.cls(game, VillageLeaderboardState),
-      [VillageNewsState.id]: new VillageNewsState.cls(game, VillageNewsState),
-      [VillagePlayersOnlineState.id]: new VillagePlayersOnlineState.cls(game, VillagePlayersOnlineState),
-      [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState),
+      [VillageLeaderboardState.id]: new VillageLeaderboardState.cls(game, VillageLeaderboardState.id),
+      [VillageNewsState.id]: new VillageNewsState.cls(game, VillageNewsState.id),
+      [VillagePlayersOnlineState.id]: new VillagePlayersOnlineState.cls(game, VillagePlayersOnlineState.id),
+      [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
 
-      [TrainerChallengeState.id]: new TrainerChallengeState.cls(game, TrainerChallengeState),
-      [TrainerFailState.id]: new TrainerFailState.cls(game, TrainerFailState),
-      [TrainerLoiterState.id]: new TrainerLoiterState.cls(game, TrainerLoiterState),
-      [TrainerTalkState.id]: new TrainerTalkState.cls(game, TrainerTalkState),
+      [TrainerChallengeState.id]: new TrainerChallengeState.cls(game, TrainerChallengeState.id),
+      [TrainerFailState.id]: new TrainerFailState.cls(game, TrainerFailState.id),
+      [TrainerLoiterState.id]: new TrainerLoiterState.cls(game, TrainerLoiterState.id),
+      [TrainerTalkState.id]: new TrainerTalkState.cls(game, TrainerTalkState.id),
 
-      [WeaponsBuyState.id]: new WeaponsBuyState.cls(game, WeaponsBuyState),
-      [WeaponsLoiterState.id]: new WeaponsLoiterState.cls(game, WeaponsLoiterState),
-      [WeaponsPurchaseState.id]: new WeaponsPurchaseState.cls(game, WeaponsPurchaseState),
-      [WeaponsSellConfirmState.id]: new WeaponsSellConfirmState.cls(game, WeaponsSellConfirmState),
-      [WeaponsSellOfferState.id]: new WeaponsSellOfferState.cls(game, WeaponsSellOfferState),
+      [WeaponsBuyState.id]: new WeaponsBuyState.cls(game, WeaponsBuyState.id),
+      [WeaponsLoiterState.id]: new WeaponsLoiterState.cls(game, WeaponsLoiterState.id),
+      [WeaponsPurchaseState.id]: new WeaponsPurchaseState.cls(game, WeaponsPurchaseState.id),
+      [WeaponsSellConfirmState.id]: new WeaponsSellConfirmState.cls(game, WeaponsSellConfirmState.id),
+      [WeaponsSellOfferState.id]: new WeaponsSellOfferState.cls(game, WeaponsSellOfferState.id),
 
       [HealerLoiterState.id]: new HealerLoiterState.cls(game, HealerLoiterState.id),
       [HealerHealAllState.id]: new HealerHealAllState.cls(game, HealerHealAllState.id),
@@ -108,21 +111,30 @@ export default class World {
   update(payload) {
   }
 
-  changeState(zone = {}) {
+  changeState(zone_id) {
       this.game.renderer.clear();
 
       if (this.zone) {
         this.zone.unload();
       }
 
-      if (this.zones[zone.id || zone]) {
-          this.zone = this.zones[zone.id || zone];
+      if (this.zones[zone_id]) {
+          this.zone = this.zones[zone_id];
           this.zone.load();
       }
   }
 
-  /* SERIOUS DRAGONS EXIST BELOW */
   event(payload) {
+    if (this.zones[payload.opcode]) {
+      this.changeState(payload.opcode);
+      this.zone && this.zone.handle_in(payload);
+      return payload.message;
+    }
+    return payload.message;
+  }
+
+  /* SERIOUS DRAGONS EXIST BELOW */
+  event_old(payload) {
     switch (payload.opcode) {
       case 'game.client.connect':
         this.game.gui.status(payload);
