@@ -101,13 +101,11 @@ defmodule Game.Forest do
   """
   def handle_call({:spawn, id, level}, _from, state) do
 
-    min = level - 1
-    max = level + 5
+
     choices = Repo.all Entity,
       select: [:name, :level, :gold, :experience, :armor, :weapon, :health, :defense,
                :s_hit, :s_atk, :s_die, :s_miss],
-      where: :level >= min,
-      where: :level <= max
+      where: :level == level
 
     mob = Enum.random(choices)
     character = Repo.get_by Character, id: id

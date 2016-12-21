@@ -57,7 +57,7 @@ export default {
 
           break;
 
-        case 'game.zone.village.trainer.kill':
+        case 'game.zone.village.trainer.win':
           this.game.audio.play('swing');
           this.game.audio.play('flshhit2');
           this.game.audio.play(payload.fight.mob.s_die);
@@ -68,7 +68,7 @@ export default {
           });
           break;
 
-        case 'game.zone.village.trainer.killed':
+        case 'game.zone.village.trainer.lose':
           Mousetrap.unbind('a');
           Mousetrap.unbind('r');
           this.game.audio.play(payload.fight.mob.s_atk);

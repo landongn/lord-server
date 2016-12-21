@@ -174,14 +174,14 @@ defmodule Server.ForestChannel do
           gemdrop = false
           gemsfound = 1
           case roll 100 do
-            r when r >= 80 ->
+            r when r >= 98 ->
               gemdrop = true
               char = %{char | gems: (char.gems + gemsfound),
               is_alive: true,
               experience: round(char.experience + mob.experience),
               gold: round(char.gold + mob.gold)}
 
-            r when r < 80 ->
+            r when r < 97 ->
               char = %{char | is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
           end
 

@@ -43,7 +43,7 @@ defmodule Server.Combat do
   end
 
   def armor_class(_attacker, defender) do
-    armor_class = defender.defense * round((defender.defense + defender.armor) * defender.level)
+    armor_class = defender.level * round((defender.defense + defender.armor))
     Logger.info "combat.armor_class: defender armor class is: #{armor_class}"
     armor_class
   end

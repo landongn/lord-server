@@ -585,14 +585,15 @@ defmodule Server.VillageChannel do
           changeset = News.changeset(%News{}, %{posted_by: mob.name, body: "#{char.name} has defeated #{mob.name} in a duel! #{char.name} has become level #{char.level + 1}!"})
           Repo.insert!(changeset)
 
-          new_level = Repo.get(Level, char.level + 1)
+          new_level = Repo.get_by(Level, rank: char.level + 1)
           character = Repo.get(Character, char.id)
 
           changeset = Character.defeat_master(%Character{id: char.id}, %{
             level: new_level.rank,
             health: (character.m_health + new_level.health),
-            strength: (character.strength + new_level.strength),
-            defense: (character.defense + new_level.defense),
+            m_health: (character.m_health + new_level.health),
+            strength: (character.strength + new_level.str),
+            defense: (character.defense + new_level.def),
             endurance: (character.endurance + new_level.endurance),
             mana: (character.mana + new_level.mana),
             reputation: (character.reputation + new_level.reputation)

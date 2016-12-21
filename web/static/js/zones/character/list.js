@@ -18,7 +18,7 @@ export default {
     }
 
     play(i) {
-      const char_id = this.characters[i].id || false;
+      const char_id = i;
       if (!char_id) { console.error("internal problem with ID mismatch"); return; }
       this.game.handle_out('game.zone.character.play', 'character', {char_id: char_id});
       Mousetrap.reset();
@@ -30,8 +30,9 @@ export default {
     handle_in(payload) {
       this.characters = payload.characters;
       for (var i = 0; i < payload.characters.length; i++) {
+        const id = this.characters[i].id;
         Mousetrap.bind(i+1+'', (e) => {
-          this.play(i-1);
+          this.play(id);
         });
       }
     }
