@@ -10,6 +10,7 @@
     <meta property="og:type" content="video.game" />
     <meta property="og:url" content="http://www.thelegendofthereddragon.com/" />
     <meta property="og:image" content="http://www.thelegendofthereddragon.com/images/intro.png" />
+    <script>this.top.location !== this.location && (this.top.location = this.location);</script>
 
     <title>LORD - Legend of the Red Dragon</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
