@@ -286,6 +286,27 @@ defmodule Server.ForestChannel do
   end
 
   def handle_in("game.zone.forest.run-away", payload, socket) do
+    charId = payload["id"]
+
+    case Forest.lookup(charId) do
+      {:ok, fight} ->
+        char = fight.char
+        mob = fight.mob
+        Forest.battle_report(char.id, %{char: char, mob: mob})
+
+        changeset = Server.News.changeset(%Server.News{}, %{posted_by: mob.name, body: "#{char.name} ran away from #{mob.name} after being beaten nearly to death."})
+        Repo.insert!(changeset)
+
+        changeset = Character.battle_report(%Character{id: char.id}, %{
+          gold: char.gold,
+          experience: char.experience,
+          gems: char.gems,
+          health: char.health,
+          level: char.level,
+          is_alive: char.is_alive
+        })
+        Repo.update!(changeset)
+    end
     push socket, "msg", %{
       message: View.render_to_string(ForestView, "loiter.html", %{}),
       opcode: "game.zone.forest.loiter",
