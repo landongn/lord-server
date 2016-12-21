@@ -99,7 +99,7 @@ defmodule Server.CharacterChannel do
 
   def handle_in("game.zone.character.create", _payload, socket) do
     push socket, "msg", %{
-      opcode: "game.zone.character.new",
+      opcode: "game.zone.character.create",
       actions: ["space"],
       message: View.render_to_string(CharacterView, "new-character.html", %{})
     }
