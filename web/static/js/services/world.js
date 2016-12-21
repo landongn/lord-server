@@ -6,7 +6,6 @@ import WorldInstructionsState from '../zones/world/instructions';
 import CharacterSelectState from '../zones/character/select';
 import CharacterCreateState from '../zones/character/create';
 import CharacterListState from '../zones/character/list';
-import CharacterValidateState from '../zones/character/validate';
 import CharacterDeleteState from '../zones/character/delete';
 
 import ArmorLoiterState from '../zones/village/armorLoiter';
@@ -62,7 +61,6 @@ export default class World {
       [CharacterSelectState.id]: new CharacterSelectState.cls(game, CharacterSelectState.id),
       [CharacterCreateState.id]: new CharacterCreateState.cls(game, CharacterCreateState.id),
       [CharacterListState.id]: new CharacterListState.cls(game, CharacterListState.id),
-      [CharacterValidateState.id]: new CharacterValidateState.cls(game, CharacterValidateState.id),
       [CharacterDeleteState.id]: new CharacterDeleteState.cls(game, CharacterDeleteState.id),
 
       [ArmorLoiterState.id]: new ArmorLoiterState.cls(game, ArmorLoiterState.id),
@@ -133,6 +131,7 @@ export default class World {
       this.zone.handle_in ? this.zone.handle_in(payload) : void(0);
       return payload.message;
     } else {
+      this.zone.bindKeys(payload);
       this.zone.handle_in ? this.zone.handle_in(payload) : void(0);
       return payload.message;
     }

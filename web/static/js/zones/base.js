@@ -8,6 +8,7 @@ export default class State {
 
   bindKeys(payload) {
     const self = this;
+    if (!payload || !payload.actions || !payload.actions.length) {return;}
     const actions = payload.actions;
     for (var i = 0; i < actions.length; i++) {
       const action = payload.actions[i];

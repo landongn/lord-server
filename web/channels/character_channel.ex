@@ -110,7 +110,7 @@ defmodule Server.CharacterChannel do
     push socket, "msg", %{
       message: View.render_to_string(CharacterView, "character-select.html", %{}),
       opcode: "game.zone.character.select",
-      actions: []
+      actions: ["l", "c", "d"]
     }
     {:noreply, socket}
   end
@@ -118,19 +118,26 @@ defmodule Server.CharacterChannel do
   def handle_in("game.zone.character.validate", payload, socket) do
 
     case Repo.get_by Character, name: payload["name"] do
-      struct ->
+      nil ->
         push socket, "msg", %{
-          message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"], char: struct}),
+          message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"]}),
           opcode: "game.zone.character.confirm",
           name: payload["name"],
           actions: ["k", "d", "l", "b"]
         }
-      nil ->
+      struct ->
         push socket, "msg", %{
           message: "",
           opcode: "game.zone.character.name-reject",
           name: payload["name"],
-          actions: []
+          actions: ["k", "d", "l", "b"]
+        }
+      :error ->
+        push socket, "msg", %{
+          message: "",
+          opcode: "game.zone.character.name-reject",
+          name: payload["name"],
+          actions: ["k", "d", "l", "b"]
         }
     end
     {:noreply, socket}
@@ -152,26 +159,26 @@ defmodule Server.CharacterChannel do
             push socket, "msg", %{
               message: View.render_to_string(CharacterView, "character-birth-dk.html", %{character: record}),
               opcode: "game.zone.character.birth",
-              actions: []
+              actions: ["h"]
             }
           2 ->
             push socket, "msg", %{
               message: View.render_to_string(CharacterView, "character-birth-mystic.html", %{character: record}),
               opcode: "game.zone.character.birth",
-              actions: []
+              actions: ["h"]
             }
           3 ->
             push socket, "msg", %{
               message: View.render_to_string(CharacterView, "character-birth-thief.html", %{character: record}),
               opcode: "game.zone.character.birth",
-              actions: []
+              actions: ["h"]
             }
         end
       :error ->
         push socket, "msg", %{
           message: View.render_to_string(CharacterView, "character-name-reject.html", %{}),
           opcode: "game.zone.character.invalid-character",
-          actions: []
+          actions: ["r"]
         }
     end
 
@@ -204,7 +211,7 @@ defmodule Server.CharacterChannel do
       join: a in Armor, on: c.armor_id == a.id,
       join: k in Class, on: c.class_id == k.id,
       select: %{"name" => c.name, "level" => c.level, "gold" => c.gold, "armor" => a.name, "weapon" => w.name, "class" => c.name, "id" => c.id},
-      where: c.player_id == ^payload["user_id"]
+      where: c.player_id == ^socket.assigns.player_id
 
       push socket, "msg", %{
         message: View.render_to_string(CharacterView, "character-list.html", %{characters: chars}),

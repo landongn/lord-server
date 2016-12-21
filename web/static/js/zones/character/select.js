@@ -10,6 +10,9 @@ export default {
       this.characterCount = 0;
       this.id = id;
     }
+
+    bindKeys() {} // virtual override i guess
+
     load() {
       Mousetrap.bind('c', () => {
         this.createCharacter();
