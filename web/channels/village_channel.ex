@@ -12,9 +12,22 @@ defmodule Server.VillageChannel do
   alias Server.Master
   alias Server.Skill
   alias Server.Level
-  alias Server.Forest
+  alias Game.Forest
   alias Server.Combat
 
+
+  require Logger
+
+  def roll(sides) do
+    case sides do
+      5 ->
+        Enum.random([1, 2, 3, 4, 5])
+      10 ->
+        Enum.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+      20 ->
+        Enum.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
+    end
+  end
 
   def join("village", payload, socket) do
     if authorized?(socket, payload) do
@@ -505,9 +518,6 @@ defmodule Server.VillageChannel do
         m_health = mob.health
         m_armor = mob.defense
         m_damage = mob.damage
-
-        mob_base_damage = roll 10
-        char_base_damage = roll 10
 
         charStats = %{
           strength: c_str,
