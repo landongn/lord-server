@@ -29,8 +29,12 @@ export default class Renderer {
     }
 
     handleScroll() {
+        if (document.body.scrollIntoView) {
+            document.querySelector("li:last-child").scrollIntoView()
+        } else {
+            document.body.scrollTop = this.element.scrollHeight;
+        }
 
-        document.body.scrollTop = this.element.scrollHeight;
     }
 
     handleBufferCleanup() {

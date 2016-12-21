@@ -1,8 +1,5 @@
 import State from '../base';
 
-
-
-
 export default {
   cls: class CharacterCreate extends State {
     constructor(game, id) {
@@ -11,18 +8,6 @@ export default {
       this.id = id;
       this.nameElement = null;
       this.characterName = null;
-    }
-    load() {
-
-      Mousetrap.bind('b', () => {
-        this.game.handle_out('game.zone.character.select', 'character');
-      });
-
-      Mousetrap.bind('enter', () => {
-        if (this.nameElement) {
-          this.characterName = this.nameElement.value;
-        }
-      });
     }
 
     configureNameField() {

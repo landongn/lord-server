@@ -10,10 +10,20 @@ export default {
       this.id = id;
     }
 
-    load() {
-      Mousetrap.bind(['space', 'enter'], (e) => {
-        this.spaceKeyPressed(e);
-      });
+    vKeyPressed() {
+      this.game.handle_out('game.zone.village.inn.bartender.violet', 'village');
+    }
+
+    gKeyPressed() {
+      this.game.handle_out('game.zone.village.inn.bartender.gems', 'village');
+    }
+
+    bKeyPressed() {
+      this.game.handle_out('game.zone.village.inn.bartender.bribe', 'village');
+    }
+
+    rKeyPressed() {
+      this.game.handle_out('game.zone.village.inn.loiter', 'village');
     }
 
     spaceKeyPressed(e) {
