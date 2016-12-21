@@ -142,7 +142,7 @@ defmodule Server.CharacterChannel do
           }
         end
     rescue
-      RuntimeError ->
+      Ecto.MultipleResultsError ->
         push socket, "msg", %{
           message: "",
           opcode: "game.zone.character.name-reject",
