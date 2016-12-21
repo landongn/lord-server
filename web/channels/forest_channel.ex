@@ -23,6 +23,8 @@ defmodule Server.ForestChannel do
         Enum.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
       20 ->
         Enum.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
+      100 ->
+        round(:rand.uniform() * 100)
     end
   end
 
@@ -168,18 +170,18 @@ defmodule Server.ForestChannel do
           # reset health so death stuff doesn't damage chars
           char = %{char | health: fight.char.health}
           Forest.battle_report(char.name, %{char: char, mob: mob})
-          gemroll = roll 20
+          gemroll = roll 100
           gemdrop = false
-          gemsfound = roll 5
-          case roll 20 do
-            r when r >= 17 ->
+          gemsfound = 1
+          case roll 100 do
+            r when r >= 80 ->
               gemdrop = true
               char = %{char | gems: (char.gems + gemsfound),
               is_alive: true,
               experience: round(char.experience + mob.experience),
               gold: round(char.gold + mob.gold)}
 
-            r when r < 17 ->
+            r when r < 80 ->
               char = %{char | is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
           end
 
