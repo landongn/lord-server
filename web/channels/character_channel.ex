@@ -117,22 +117,32 @@ defmodule Server.CharacterChannel do
 
   def handle_in("game.zone.character.validate", payload, socket) do
 
-    case Repo.get_by Character, name: payload["name"] do
-      nil ->
-        push socket, "msg", %{
-          message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"]}),
-          opcode: "game.zone.character.confirm",
-          name: payload["name"],
-          actions: ["k", "d", "l", "b"]
-        }
-      struct ->
-        push socket, "msg", %{
-          message: "",
-          opcode: "game.zone.character.name-reject",
-          name: payload["name"],
-          actions: ["k", "d", "l", "b"]
-        }
-      :error ->
+    try do
+      case Repo.get_by Character, name: payload["name"] do
+        nil ->
+          push socket, "msg", %{
+            message: View.render_to_string(CharacterView, "character-confirm.html", %{name: payload["name"]}),
+            opcode: "game.zone.character.confirm",
+            name: payload["name"],
+            actions: ["k", "d", "l", "b"]
+          }
+        struct ->
+          push socket, "msg", %{
+            message: "",
+            opcode: "game.zone.character.name-reject",
+            name: payload["name"],
+            actions: ["k", "d", "l", "b"]
+          }
+        :error ->
+          push socket, "msg", %{
+            message: "",
+            opcode: "game.zone.character.name-reject",
+            name: payload["name"],
+            actions: ["k", "d", "l", "b"]
+          }
+        end
+    rescue
+      RuntimeError ->
         push socket, "msg", %{
           message: "",
           opcode: "game.zone.character.name-reject",
@@ -140,6 +150,7 @@ defmodule Server.CharacterChannel do
           actions: ["k", "d", "l", "b"]
         }
     end
+
     {:noreply, socket}
 
   end
