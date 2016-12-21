@@ -8,21 +8,21 @@ import CharacterCreateState from '../zones/character/create';
 import CharacterListState from '../zones/character/list';
 import CharacterDeleteState from '../zones/character/delete';
 
-import ArmorLoiterState from '../zones/village/armorLoiter';
-import ArmorBuyState from '../zones/village/armorBuy';
-import ArmorPurchaseState from '../zones/village/armorPurchase';
-import ArmorSellConfirmState from '../zones/village/armorSellConfirm';
-import ArmorSellOfferState from '../zones/village/armorSellOffer';
+import ArmorLoiterState from '../zones/village/armor/armorLoiter';
+import ArmorBuyState from '../zones/village/armor/armorBuy';
+import ArmorPurchaseState from '../zones/village/armor/armorPurchase';
+import ArmorSellConfirmState from '../zones/village/armor/armorSellConfirm';
+import ArmorSellOfferState from '../zones/village/armor/armorSellOffer';
 
-import InnBardState from '../zones/village/innBard';
-import InnStatsState from '../zones/village/innStats';
-import InnMessageboardState from '../zones/village/innMessageboard';
-import InnNewsState from '../zones/village/innNews';
-import InnBartenderState from '../zones/village/innBartender';
-import InnLoiterState from '../zones/village/innLoiter';
-import InnRoomAskState from '../zones/village/innRoomAsk';
-import InnVioletState from '../zones/village/innViolet';
-import InnRoomConfirmState from '../zones/village/inRoomConfirm';
+import InnBardState from '../zones/village/inn/innBard';
+import InnStatsState from '../zones/village/inn/innStats';
+import InnMessageboardState from '../zones/village/inn/innMessageboard';
+import InnNewsState from '../zones/village/inn/innNews';
+import InnBartenderState from '../zones/village/inn/innBartender';
+import InnLoiterState from '../zones/village/inn/innLoiter';
+import InnRoomAskState from '../zones/village/inn/innRoomAsk';
+import InnVioletState from '../zones/village/inn/innViolet';
+import InnRoomConfirmState from '../zones/village/inn/inRoomConfirm';
 
 import VillageLeaderboardState from '../zones/village/leaderboards';
 import VillageNewsState from '../zones/village/news';
@@ -30,21 +30,22 @@ import VillagePlayersOnlineState from '../zones/village/players-online';
 import VillageLoiterState from '../zones/village/loiter';
 import VillageStatsState from '../zones/village/stats';
 
-import TrainerChallengeState from '../zones/village/trainerChallenge';
-import TrainerFailState from '../zones/village/trainerFail';
-import TrainerLoiterState from '../zones/village/trainerLoiter';
-import TrainerQuestionState from '../zones/village/trainerQuestion';
-import TrainerFightState from '../zones/village/trainerFight';
+import TrainerChallengeState from '../zones/village/trainer/trainerChallenge';
+import TrainerFailState from '../zones/village/trainer/trainerFail';
+import TrainerWinState from '../zones/village/trainer/trainerWin';
+import TrainerLoiterState from '../zones/village/trainer/trainerLoiter';
+import TrainerQuestionState from '../zones/village/trainer/trainerQuestion';
+import TrainerFightState from '../zones/village/trainer/trainerFight';
 
-import WeaponsBuyState from '../zones/village/weaponsBuy';
-import WeaponsLoiterState from '../zones/village/weaponsLoiter';
-import WeaponsPurchaseState from '../zones/village/weaponsPurchase';
-import WeaponsSellConfirmState from '../zones/village/weaponsSellConfirm';
-import WeaponsSellOfferState from '../zones/village/weaponsSellOffer';
+import WeaponsBuyState from '../zones/village/weapons/weaponsBuy';
+import WeaponsLoiterState from '../zones/village/weapons/weaponsLoiter';
+import WeaponsPurchaseState from '../zones/village/weapons/weaponsPurchase';
+import WeaponsSellConfirmState from '../zones/village/weapons/weaponsSellConfirm';
+import WeaponsSellOfferState from '../zones/village/weapons/weaponsSellOffer';
 
-import HealerLoiterState from '../zones/village/healer-loiter';
-import HealerHealAllState from '../zones/village/healer-heal-all';
-import HealerHealFullState from '../zones/village/healer-heal-full';
+import HealerLoiterState from '../zones/village/healer/healer-loiter';
+import HealerHealAllState from '../zones/village/healer/healer-heal-all';
+import HealerHealFullState from '../zones/village/healer/healer-heal-full';
 
 import ForestLoiterState from '../zones/forest/loiter';
 import ForestFightState from '../zones/forest/fight';
@@ -92,7 +93,7 @@ export default class World {
       [TrainerFailState.id]: new TrainerFailState.cls(game, TrainerFailState.id),
       [TrainerLoiterState.id]: new TrainerLoiterState.cls(game, TrainerLoiterState.id),
       [TrainerQuestionState.id]: new TrainerQuestionState.cls(game, TrainerQuestionState.id),
-
+      [TrainerWinState.id]: new TrainerWinState.cls(game, TrainerWinState.id),
       [WeaponsBuyState.id]: new WeaponsBuyState.cls(game, WeaponsBuyState.id),
       [WeaponsLoiterState.id]: new WeaponsLoiterState.cls(game, WeaponsLoiterState.id),
       [WeaponsPurchaseState.id]: new WeaponsPurchaseState.cls(game, WeaponsPurchaseState.id),

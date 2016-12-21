@@ -1,9 +1,9 @@
-import State from '../base';
+import State from '../../base';
 
 
 
 export default {
-  cls: class InnVioletState extends State {
+  cls: class InnRoomConfirmState extends State {
     constructor(game, id) {
       super();
       this.game = game;
@@ -22,5 +22,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'game.zone.village.inn.violet'
+  id: 'game.zone.village.inn.room.confirm'
 }

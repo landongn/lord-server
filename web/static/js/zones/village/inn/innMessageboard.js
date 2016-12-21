@@ -1,4 +1,4 @@
-import State from '../base';
+import State from '../../base';
 
 
 
@@ -14,6 +14,7 @@ export default {
 
     }
 
+
     handle_in(payload) {
       const self = this;
       const actions = payload.actions;
@@ -26,5 +27,5 @@ export default {
       }
     }
   },
-  id: 'game.zone.village.inn.stats'
+  id: 'game.zone.village.inn.messageboard'
 }

@@ -56,7 +56,7 @@ defmodule Server.Combat do
     ac = armor_class(attacker, defender)
     Logger.info "combat.attack: ap no to_hit #{round((attacker.strength + attacker.weapon) * attacker.level)}"
 
-    attack_power = round((attacker.strength + attacker.weapon) ) * round(to_hit * 0.02)
+    attack_power = round((attacker.strength + attacker.weapon) ) * round(to_hit * 0.025)
     Logger.info "combat.attack: attack_power #{attack_power}"
 
     damage_inflicted = attack_power - ac

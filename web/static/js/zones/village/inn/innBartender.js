@@ -1,4 +1,4 @@
-import State from '../base';
+import State from '../../base';
 
 
 
@@ -30,7 +30,6 @@ export default {
       this.game.handle_out('game.zone.village.loiter', 'village');
     }
 
-    handle_in() {}
   },
   id: 'game.zone.village.inn.bartender'
 }

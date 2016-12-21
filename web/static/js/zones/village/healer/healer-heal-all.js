@@ -1,9 +1,9 @@
-import State from '../base';
+import State from '../../base';
 
 
 
 export default {
-  cls: class InnLoiterState extends State {
+  cls: class HealerHealAllState extends State {
     constructor(game, id) {
       super();
       this.game = game;
@@ -11,9 +11,14 @@ export default {
     }
 
     load() {
-
+      Mousetrap.bind(['space', 'enter'], (e) => {
+        this.spaceKeyPressed(e);
+      });
     }
 
+    spaceKeyPressed(e) {
+      this.game.handle_out('game.zone.village.loiter', 'village');
+    }
 
     handle_in(payload) {
       const self = this;
@@ -27,5 +32,5 @@ export default {
       }
     }
   },
-  id: 'game.zone.village.inn.messageboard'
+  id: 'game.zone.village.healer.heal-all'
 }

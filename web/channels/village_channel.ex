@@ -402,6 +402,16 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.inn.bartender",
       message: View.render_to_string(VillageView, "inn-bartender.html", %{}),
+      actions: ["v", "g", "b", "r"]
+    }
+    {:noreply, socket}
+  end
+
+   def handle_in("game.zone.village.inn.bartender.gems", payload, socket) do
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.inn.bartender",
+      message: View.render_to_string(VillageView, "inn-bartender-gems.html", %{}),
       actions: []
     }
     {:noreply, socket}

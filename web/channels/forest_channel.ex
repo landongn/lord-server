@@ -181,7 +181,7 @@ defmodule Server.ForestChannel do
               experience: round(char.experience + mob.experience),
               gold: round(char.gold + mob.gold)}
 
-            r when r < 97 ->
+            r when r <= 97 ->
               char = %{char | is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
           end
 

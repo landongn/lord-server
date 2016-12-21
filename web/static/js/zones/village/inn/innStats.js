@@ -1,18 +1,17 @@
-import State from '../base';
+import State from '../../base';
 
 
 
 export default {
-  cls: class HealerHealFullState extends State {
+  cls: class InnLoiterState extends State {
     constructor(game, id) {
       super();
       this.game = game;
       this.id = id;
     }
-    load() {}
 
-    spaceKeyPressed() {
-      this.game.handle_out('game.zone.village.loiter', 'village');
+    load() {
+
     }
 
     handle_in(payload) {
@@ -27,5 +26,5 @@ export default {
       }
     }
   },
-  id: 'game.zone.village.healer.heal-full'
+  id: 'game.zone.village.inn.stats'
 }

@@ -1,9 +1,9 @@
-import State from '../base';
+import State from '../../base';
 
 
 
 export default {
-  cls: class WeaponsBuyState extends State {
+  cls: class ArmorBuyState extends State {
     constructor(game, id) {
       super();
       this.game = game;
@@ -13,11 +13,11 @@ export default {
 
     load() {
       Mousetrap.bind('b', (e) => {
-        this.game.handle_out('game.zone.village.weapons.buy', 'village');
+        this.game.handle_out('game.zone.village.armor.buy', 'village');
       });
 
       Mousetrap.bind('s', (e) => {
-        this.game.handle_out('game.zone.village.weapons.sell.offer', 'village');
+        this.game.handle_out('game.zone.village.armor.sell.offer', 'village');
       });
 
       Mousetrap.bind('r', (e) => {
@@ -26,8 +26,8 @@ export default {
     }
 
     selectWeapon(i) {
-      const wep = this.equipment[i];
-      this.game.handle_out('game.zone.village.weapons.purchase', 'village', {weapon_id: wep.id});
+      const armor = this.equipment[i];
+      this.game.handle_out('game.zone.village.armor.purchase', 'village', {armor_id: armor.id});
     }
 
     handle_in(payload) {
@@ -42,5 +42,5 @@ export default {
       }
     }
   },
-  id: 'game.zone.village.weapons.buy'
+  id: 'game.zone.village.armor.buy'
 }

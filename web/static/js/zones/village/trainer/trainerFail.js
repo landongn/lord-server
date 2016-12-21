@@ -1,13 +1,19 @@
-import State from '../base';
+import State from '../../base';
 
 
 
 export default {
-  cls: class ArmorPurchaseState extends State {
+  cls: class TrainerFailState extends State {
     constructor(game, id) {
       super();
       this.game = game;
       this.id = id;
+    }
+
+    load() {
+      Mousetrap.bind(['space', 'enter'], (e) => {
+        this.spaceKeyPressed(e);
+      });
     }
 
     spaceKeyPressed(e) {
@@ -16,5 +22,5 @@ export default {
 
     handle_in() {}
   },
-  id: 'game.zone.village.armor.purchase'
+  id: 'game.zone.village.trainer.fail'
 }

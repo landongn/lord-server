@@ -6,7 +6,7 @@ defmodule Game.Forest do
   alias Server.Repo
   alias Server.Character
   alias Server.Entity
-
+  import Ecto.Query
   def start_link(initial_state) do
    GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)
   end
@@ -101,14 +101,15 @@ defmodule Game.Forest do
   """
   def handle_call({:spawn, id, level}, _from, state) do
 
+    character = Repo.get_by Character, id: id
 
-    choices = Repo.all Entity,
+    choices = Repo.all from e in Entity,
       select: [:name, :level, :gold, :experience, :armor, :weapon, :health, :defense,
                :s_hit, :s_atk, :s_die, :s_miss],
-      where: :level == level
+      where: e.level == ^character.level
 
     mob = Enum.random(choices)
-    character = Repo.get_by Character, id: id
+
     encounter = %{
         mob: mob,
         char: character
