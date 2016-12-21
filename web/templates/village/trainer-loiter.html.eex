@@ -1,9 +1,12 @@
 
-<li><span class="white">Legend Of The Red Dragon</span> - <span class="light"></span></li>
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Turgons Warrior Training</span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li></li>
-<li>I don't work yet! Sorry.</li>
-<li></li>
-<pre>
-  <span data-command="space" class="action">(R)eturn to town</span>
-</section>
+<li>You enter the mighty Training Center.  Hundreds of warriors, young, as well as old, are sparring.  Every few seconds, you hear someone shriek in pain.  Obviously some novice who let his guard down.</li>
+<li><span data-command="q" class="action">(Q)</span>uestion your master</li>
+<li><span data-command="c" class="action">(C)</span>hallenge your master to a duel</li>
+<li><span data-command="r" class="action">(R)</span>eturn to Town</li>
+
+<li class="command">
+  What'll it be? <span class="blink cursor">&#x2581;</span>
+  <span class="command-options">(Q, C, R)</span>
+</li>

@@ -301,15 +301,81 @@ Repo.insert!(%Server.Master{
     damage: 4,
     defense: 10,
     strength: 10,
-    s_att: "spid_att",
-    s_die: "spid_die",
-    s_hit: "spid_hit",
-    s_miss: "spid_wlk",
+    s_att: "swing",
+    s_die: "death_mb",
+    s_hit: "gethit4l",
+    s_miss: "",
     welcome_message: "",
-    challenge_message: "",
-    talk_message: "",
-    player_defeat: "",
-    master_defeat: ""
+    challenge_message: "Gee, your muscles are getting bigger than mine...",
+    talk_message: "Hi there.  Although I may not look muscular, I ain't all that weak.  You cannot advance to another Master until you can best me in battle.  I don't really have any advice except wear a groin cup at all times.  I learned the hard way.",
+    player_defeat: "Ha! Next time, aim for the groin! Halder taps his groin area, which makes a slightly metallic bong.",
+    master_defeat: "You are truly a great warrior!"
+})
+
+Repo.insert!(%Server.Master{
+    id: 2,
+    name: "Barak",
+    weapon: "Battle Axe",
+    rank: 2,
+    health: 100,
+    m_health: 100,
+    armor: 7,
+    damage: 8,
+    defense: 16,
+    strength: 20,
+    s_att: "swing",
+    s_die: "death_mb",
+    s_hit: "gethit3mb",
+    s_miss: "",
+    welcome_message: "",
+    challenge_message: "You know, you are actually getting pretty good with that thing...",
+    talk_message: "You are now level two, and a respected warrior. Try talking to the Bartender, he will see you now.  He is a worthy asset... Remember, your ultimate goal is to reach Ultimate Warrior status, which is level twelve.",
+    player_defeat: "Another time, perhaps.",
+    master_defeat: "You have bested me??!"
+})
+
+Repo.insert!(%Server.Master{
+    id: 3,
+    name: "Aragorn",
+    weapon: "Twin Swords",
+    rank: 3,
+    health: 120,
+    m_health: 120,
+    armor: 10,
+    damage: 15,
+    defense: 18,
+    strength: 25,
+    s_att: "swing",
+    s_die: "death_mb",
+    s_hit: "gethit3mb",
+    s_miss: "",
+    welcome_message: "",
+    challenge_message: "You have learned everything I can teach you",
+    talk_message: "You are now level three, and you are actually becoming well known in the realm.  I heard your name being mentioned by Violet....",
+    player_defeat: "Another time, perhaps.",
+    master_defeat: "You have bested me??!"
+})
+
+Repo.insert!(%Server.Master{
+    id: 4,
+    name: "Olodrin",
+    weapon: "Power Axe",
+    rank: 4,
+    health: 180,
+    m_health: 180,
+    armor: 15,
+    damage: 22,
+    defense: 25,
+    strength: 35,
+    s_att: "swing",
+    s_die: "death_mb",
+    s_hit: "gethit3mb",
+    s_miss: "",
+    welcome_message: "",
+    challenge_message: "You're becoming a very skilled warrior.",
+    talk_message: "You are now level four. But don't get cocky - There are many in the realm that could kick your...  Nevermind, I'm just not good at being insperational.",
+    player_defeat: "Another time, perhaps.",
+    master_defeat: "You have bested me??!"
 })
 
 Repo.delete_all Server.Level
@@ -331,11 +397,20 @@ Repo.insert!(%Server.Level{
     health: 30,
     endurance: 20,
 })
+Repo.insert!(%Server.Level{
+    rank: 3,
+    minimum: 20000,
+    class_id: 1,
+    str: 10,
+    def: 10,
+    health: 45,
+    endurance: 20,
+})
 
 Repo.delete_all Server.Skill
 Repo.insert!(%Server.Skill{
     name: "Warcry",
-    attack_message: "You let loose a shriking warcry!",
+    attack_message: "You let loose a warcry! You'll do extra damage throughout this encounter.",
     class_id: 1,
     damage_modifier: 10,
     mana_cost: 10,

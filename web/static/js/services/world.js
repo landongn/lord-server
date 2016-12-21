@@ -34,7 +34,7 @@ import VillageStatsState from '../zones/village/stats';
 import TrainerChallengeState from '../zones/village/trainerChallenge';
 import TrainerFailState from '../zones/village/trainerFail';
 import TrainerLoiterState from '../zones/village/trainerLoiter';
-import TrainerTalkState from '../zones/village/trainerTalk';
+import TrainerQuestionState from '../zones/village/trainerQuestion';
 
 import WeaponsBuyState from '../zones/village/weaponsBuy';
 import WeaponsLoiterState from '../zones/village/weaponsLoiter';
@@ -89,7 +89,7 @@ export default class World {
       [TrainerChallengeState.id]: new TrainerChallengeState.cls(game, TrainerChallengeState.id),
       [TrainerFailState.id]: new TrainerFailState.cls(game, TrainerFailState.id),
       [TrainerLoiterState.id]: new TrainerLoiterState.cls(game, TrainerLoiterState.id),
-      [TrainerTalkState.id]: new TrainerTalkState.cls(game, TrainerTalkState.id),
+      [TrainerQuestionState.id]: new TrainerQuestionState.cls(game, TrainerQuestionState.id),
 
       [WeaponsBuyState.id]: new WeaponsBuyState.cls(game, WeaponsBuyState.id),
       [WeaponsLoiterState.id]: new WeaponsLoiterState.cls(game, WeaponsLoiterState.id),

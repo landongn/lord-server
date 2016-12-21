@@ -10,13 +10,13 @@ export default {
       this.id = id;
     }
 
-    load() {
-      Mousetrap.bind(['space', 'enter'], (e) => {
-        this.spaceKeyPressed(e);
-      });
+    qKeyPressed() {
+      this.game.handle_out('game.zone.village.trainer.question', 'village');
     }
-
-    spaceKeyPressed(e) {
+    cKeyPressed() {
+      this.game.handle_out('game.zone.village.trainer.challenge', 'village');
+    }
+    rKeyPressed() {
       this.game.handle_out('game.zone.village.loiter', 'village');
     }
 

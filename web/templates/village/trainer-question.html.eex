@@ -1,0 +1,10 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">Turgons Warrior Training</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li><p><%= @master.talk_message %></p></li>
+<%= if @char.experience >= @next_level.minimum do %>
+<li><p><%= @master.challenge_message %></p></li>
+<% else %>
+<li><p>You need about <span class="light"> <%= Number.Delimit.number_to_delimited((@next_level.minimum - @char.experience), precision: 0) %></span> experience before you're as skilled as me.</p></li>
+<% end %>
+<li><span data-command="space" class="action">-= MORE =-</span></li>

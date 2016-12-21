@@ -1,0 +1,8 @@
+<li></li>
+<li>you hit <%= @mob.name %> for <%= @damage_dealt %> damage!</li>
+<li></li>
+<li></li>
+<%= @mob.defeat_message %>
+<li></li>
+<li><span class="action" data-command="space">-= MORE =-</span></li>
+<li></li>

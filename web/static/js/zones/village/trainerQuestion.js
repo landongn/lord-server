@@ -3,22 +3,18 @@ import State from '../base';
 
 
 export default {
-  cls: class TrainerChallengeState extends State {
+  cls: class TrainerTalkState extends State {
     constructor(game, id) {
       super();
       this.game = game;
       this.id = id;
     }
 
-    rKeyPressed() {
+    spaceKeyPressed() {
       this.game.handle_out('game.zone.village.trainer.loiter', 'village');
-    }
-
-    lKeyPressed() {
-      this.game.handle_out('game.zone.village.trainer.fight', 'village');
     }
 
     handle_in() {}
   },
-  id: 'game.zone.village.trainer.challenge'
+  id: 'game.zone.village.trainer.question'
 }
