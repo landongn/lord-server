@@ -231,6 +231,7 @@ span.death-knight {
 section.chat {
     position: fixed;
     bottom: 0px;
+    right: 0px;
     height: 25%;
     max-height: 500px;
     padding: 0;
@@ -268,6 +269,7 @@ input.chat-enter {
     padding: 10px;
     margin: 0;
     margin-bottom: 50px;
+    text-align: right;
 }
 
 span.username {
