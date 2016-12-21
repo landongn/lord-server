@@ -10,7 +10,8 @@ defmodule Server.IndexController do
 
   def index(conn, _params) do
     updates = Repo.all from u in Update,
-      limit: 10
+      limit: 10,
+      order_by: [desc: :inserted_at]
 
     render conn, "index.html", %{updates: updates}
   end
