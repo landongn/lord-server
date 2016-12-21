@@ -1,5 +1,6 @@
 @import "reset.scss";
 @import "components/statistics";
+@import "components/chat";
 
 @font-face {
     font-family: 'Classic Console';
@@ -228,64 +229,6 @@ span.death-knight {
     color: rgb(204, 119, 34);
 }
 
-section.chat {
-    position: fixed;
-    bottom: 0px;
-    height: 25%;
-    max-height: 500px;
-    padding: 0;
-    pointer-events: none;
-    width: 100%;
-    display: flex;
-
-
-    color: #eee;
-    justify-content: flex-end;
-    flex-direction: row;
-    transform: translate3d(0, 0, 0);
-    transition: translate 150ms ease-out;
-}
-
-section.chat.inactive {
-    transform: translate3d(0, -500px, 0);
-    transition: translate 150ms ease-out;
-}
-
-input.chat-enter {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    border-top: 2px solid rgba(25, 25, 25, 1);
-    border-bottom: none;
-    height: 2rem;
-    left: 0;
-    padding-left: 10px;
-
-}
-
-.chat-wrap {
-    overflow: auto;
-    padding: 10px;
-    margin: 0;
-    margin-bottom: 50px;
-}
-
-span.username {
-    color: purple;
-}
-
-.chatlog {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 20px 20px 28px 11px;
-    justify-content: flex-end;
-}
-
-.chatlog span.message {
-    color: whitesmoke;
-}
 
 section.presence {
     width: 20%;
