@@ -2,7 +2,7 @@ defmodule Game.Forest do
   use GenServer
 
   require Logger
-
+  alias Server.Master
   alias Server.Repo
   alias Server.Character
   alias Server.Entity
@@ -31,6 +31,11 @@ defmodule Game.Forest do
   def spawn(id, level) do
     Logger.info "all the args #{inspect id} #{inspect level}"
     GenServer.call(__MODULE__, {:spawn, id, level})
+  end
+
+  def duel(id) do
+    Logger.info "starting player with master"
+    GenServer.call(__MODULE__, {:duel, id})
   end
 
   @doc """
@@ -74,6 +79,21 @@ defmodule Game.Forest do
   def handle_call({:enter, char}, _from, state) do
     #
     {:reply, state, state}
+  end
+
+
+  def handle_call({:duel, id}, _from, state) do
+    character = Repo.get Character, id
+    duelist = Repo.get_by Master, rank: character.level
+
+    encounter = %{
+      char: character,
+      mob: duelist
+    }
+
+    new_state = Map.put(state, id, encounter)
+    {:reply, encounter, new_state}
+
   end
 
   @doc """

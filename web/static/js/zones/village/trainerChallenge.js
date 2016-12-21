@@ -10,11 +10,15 @@ export default {
       this.id = id;
     }
 
+    dKeyPressed() {
+      this.game.handle_out('game.zone.village.trainer.loiter', 'village');
+    }
+
     rKeyPressed() {
       this.game.handle_out('game.zone.village.trainer.loiter', 'village');
     }
 
-    lKeyPressed() {
+    aKeyPressed() {
       this.game.handle_out('game.zone.village.trainer.fight', 'village');
     }
 

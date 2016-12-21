@@ -9,6 +9,8 @@ defmodule Server.Level do
     field :health, :integer
     field :endurance, :integer
     field :rank, :integer
+    field :mana, :integer
+    field :reputation, :integer
 
     timestamps()
   end

@@ -34,6 +34,7 @@ import TrainerChallengeState from '../zones/village/trainerChallenge';
 import TrainerFailState from '../zones/village/trainerFail';
 import TrainerLoiterState from '../zones/village/trainerLoiter';
 import TrainerQuestionState from '../zones/village/trainerQuestion';
+import TrainerFightState from '../zones/village/trainerFight';
 
 import WeaponsBuyState from '../zones/village/weaponsBuy';
 import WeaponsLoiterState from '../zones/village/weaponsLoiter';
@@ -47,6 +48,7 @@ import HealerHealFullState from '../zones/village/healer-heal-full';
 
 import ForestLoiterState from '../zones/forest/loiter';
 import ForestFightState from '../zones/forest/fight';
+import ForestRunAwayState from '../zones/forest/runaway';
 
 export default class World {
   constructor(game) {
@@ -84,6 +86,8 @@ export default class World {
       [VillagePlayersOnlineState.id]: new VillagePlayersOnlineState.cls(game, VillagePlayersOnlineState.id),
       [VillageLoiterState.id]: new VillageLoiterState.cls(game, VillageLoiterState.id),
       [VillageStatsState.id]: new VillageStatsState.cls(game, VillageStatsState.id),
+
+      [TrainerFightState.id]: new TrainerFightState.cls(game, TrainerFightState.id),
       [TrainerChallengeState.id]: new TrainerChallengeState.cls(game, TrainerChallengeState.id),
       [TrainerFailState.id]: new TrainerFailState.cls(game, TrainerFailState.id),
       [TrainerLoiterState.id]: new TrainerLoiterState.cls(game, TrainerLoiterState.id),
@@ -101,6 +105,7 @@ export default class World {
 
       [ForestLoiterState.id]: new ForestLoiterState.cls(game, ForestLoiterState.id),
       [ForestFightState.id]: new ForestFightState.cls(game, ForestFightState.id),
+      [ForestRunAwayState.id]: new ForestRunAwayState.cls(game, ForestFightState.id),
     };
 
     this.zone = null;

@@ -1,9 +1,10 @@
 <li></li>
-<li><span class="attack-stars">**</span><%= @mob.name %> hits with its <%= @mob.weapon %> for <span class="mob-damage"><%= @retaliation_suffered %></span> damage! <span class="attack-stars">**</span></li><li></li>
+<li><span class="attack-stars">**</span> <%= @mob.name %> hits with its <%= @mob.weapon %> for <span class="mob-damage"><%= @retaliation_suffered %></span> damage! <span class="attack-stars">**</span></li><li></li>
 <li></li>
-<%= @mob.kill_msg %>
+<%= @mob.player_defeat %>
 <li></li>
-<li class="death">** YOU ARE DEAD **</li>
+<li class="death">** YOU ARE DEFEATED **</li>
 <li><span class="white">** A STORY HAS BEEN POSTED ON THE TREE **</span></li>
-<li><span class="action" data-command="space">-= RESTART =-</span></li>
+<li>You gather your things as the crowd disperses around the ring. You head back to town, dejected and embarassed.</li>
+<li><span class="action" data-command="space">-= CONTINUE =-</span></li>
 <li></li>

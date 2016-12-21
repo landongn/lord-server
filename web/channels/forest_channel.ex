@@ -286,7 +286,7 @@ defmodule Server.ForestChannel do
   end
 
   def handle_in("game.zone.forest.run-away", payload, socket) do
-    charId = payload["id"]
+    charId = payload["char_id"]
 
     case Forest.lookup(charId) do
       {:ok, fight} ->
@@ -307,10 +307,11 @@ defmodule Server.ForestChannel do
         })
         Repo.update!(changeset)
     end
+
     push socket, "msg", %{
-      message: View.render_to_string(ForestView, "loiter.html", %{}),
-      opcode: "game.zone.forest.loiter",
-      actions: ["l", "h", "r"]
+      message: View.render_to_string(ForestView, "run-away.html", %{}),
+      opcode: "game.zone.forest.run-away",
+      actions: ["space", "enter"]
     }
     {:noreply, socket}
   end

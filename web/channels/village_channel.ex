@@ -263,7 +263,7 @@ defmodule Server.VillageChannel do
     push socket, "msg", %{
       opcode: "game.zone.village.trainer.loiter",
       message: View.render_to_string(VillageView, "trainer-loiter.html", %{}),
-      actions: ["q", "a", "v", "r"]
+      actions: ["q", "c", "v", "r"]
     }
 
     {:noreply, socket}
@@ -287,12 +287,16 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game.zone.village.trainer.challenge", _, socket) do
+  def handle_in("game.zone.village.trainer.challenge", payload, socket) do
+
+    char = Repo.get(Character, payload["char_id"])
+    master = Repo.get_by(Master, rank: char.level)
+    next_level = Repo.get_by(Level, rank: (char.level + 1))
 
     push socket, "msg", %{
       opcode: "game.zone.village.trainer.challenge",
-      message: View.render_to_string(VillageView, "trainer-challenge.html", %{}),
-      actions: ["space"]
+      message: View.render_to_string(VillageView, "trainer-challenge.html", %{char: char, next_level: next_level, master: master, char: char}),
+      actions: ["d", "a", "r"]
     }
 
     {:noreply, socket}
@@ -497,8 +501,21 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-  def handle_in('game.zone.village.trainer.fight', payload, socket) do
-    charId = payload["id"]
+  def handle_in("game.zone.village.trainer.fight", payload, socket) do
+
+    encounter = Forest.duel(payload["char_id"])
+    push socket, "msg", %{
+      opcode: "game.zone.village.trainer.fight",
+      encounter: encounter,
+      message: View.render_to_string(VillageView, "trainer-fight.html", encounter),
+      actions: ["a", "r", "s"]
+    }
+
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.village.trainer.attack", payload, socket) do
+    charId = payload["char_id"]
 
     case Forest.lookup(charId) do
       {:ok, fight} ->
@@ -534,7 +551,7 @@ defmodule Server.VillageChannel do
           health: m_health,
           armor: m_armor,
           weapon: m_damage,
-          level: mob.level
+          level: mob.rank
         }
 
         {charStats, mobStats, damage_dealt} = Combat.attack(charStats, mobStats)
@@ -564,45 +581,35 @@ defmodule Server.VillageChannel do
           # reset health so death stuff doesn't damage chars
           char = %{char | health: fight.char.health}
           Forest.battle_report(char.name, %{char: char, mob: mob})
-          gemroll = roll 20
-          gemdrop = false
-          gemsfound = roll 5
-          case roll 20 do
-            r when r >= 17 ->
-              gemdrop = true
-              char = %{char | gems: (char.gems + gemsfound),
-              is_alive: true,
-              experience: round(char.experience + mob.experience),
-              gold: round(char.gold + mob.gold)}
 
-            r when r < 17 ->
-              char = %{char | is_alive: true, experience: round(char.experience + mob.experience), gold: round(char.gold + mob.gold)}
-          end
-
-          changeset = News.changeset(%News{}, %{posted_by: mob.name, body: "#{char.name} has slain #{mob.name}."})
+          changeset = News.changeset(%News{}, %{posted_by: mob.name, body: "#{char.name} has defeated #{mob.name} in a duel! #{char.name} has become level #{char.level + 1}!"})
           Repo.insert!(changeset)
 
-          changeset = Character.battle_report(%Character{id: char.id}, %{
-            gold: char.gold,
-            experience: char.experience,
-            gems: char.gems,
-            health: char.health,
-            level: char.level,
-            is_alive: char.is_alive
+          new_level = Repo.get(Level, char.level + 1)
+          character = Repo.get(Character, char.id)
+
+          changeset = Character.defeat_master(%Character{id: char.id}, %{
+            level: new_level.rank,
+            health: (character.m_health + new_level.health),
+            strength: (character.strength + new_level.strength),
+            defense: (character.defense + new_level.defense),
+            endurance: (character.endurance + new_level.endurance),
+            mana: (character.mana + new_level.mana),
+            reputation: (character.reputation + new_level.reputation)
           })
 
           Repo.update!(changeset)
           Logger.info "oh no, the mob has died!"
           push socket, "msg", %{
-            opcode: "game.zone.forest.kill",
+            opcode: "game.zone.village.trainer.win",
             fight: %{char: char, mob: mob, char_missed: missed_them, mob_missed: missed_me},
-            message: View.render_to_string(ForestView, "kill.html", %{char: char, mob: mob, damage_dealt: damage_dealt, gemsfound: gemsfound, gemdrop: gemdrop}),
+            message: View.render_to_string(VillageView, "trainer-win.html", %{char: char, mob: mob, damage_dealt: damage_dealt}),
             actions: ["space"]
           }
 
           Server.Endpoint.broadcast("zone", "chat", %{
             from: '',
-            message: "#{char.name} has slain #{mob.name}.",
+            message: "#{char.name} has defeated #{mob.name}!",
             stamp: :os.system_time(:seconds),
             opcode: "game.zone.broadcast"
           })
@@ -610,37 +617,29 @@ defmodule Server.VillageChannel do
 
           if char.health <= 0 do
             # push death
-            char = %{char | is_alive: false,
-              experience: round(char.experience + mob.experience),
-              gold: round(char.gold + mob.gold),
-              health: charStats.health}
+            char = %{char | health: 1}
 
             Logger.info "oh no, the character died!"
             Forest.battle_report(char.id, %{char: char, mob: mob})
 
-            changeset = Server.News.changeset(%Server.News{}, %{posted_by: mob.name, body: "#{mob.name} has murdered #{char.name} in cold blood."})
+            changeset = Server.News.changeset(%Server.News{}, %{posted_by: mob.name, body: "#{mob.name} has defeated #{char.name} in a duel."})
             Repo.insert!(changeset)
 
-            changeset = Character.battle_report(%Character{id: char.id}, %{
-              gold: char.gold,
-              experience: char.experience,
-              gems: char.gems,
+            changeset = Character.master_fail(%Character{id: char.id}, %{
               health: char.health,
-              level: char.level,
-              is_alive: char.is_alive
             })
             Repo.update!(changeset)
 
             push socket, "msg", %{
-              opcode: "game.zone.forest.killed",
-              message: View.render_to_string(ForestView, "killed.html", %{char: char, mob: mob, retaliation_suffered: retaliation_suffered}),
+              opcode: "game.zone.village.trainer.fail",
+              message: View.render_to_string(VillageView, "trainer-lose.html", %{char: char, mob: mob, retaliation_suffered: retaliation_suffered}),
               actions: ["space"],
               fight: %{char: char, mob: mob}
             }
 
             Server.Endpoint.broadcast("zone", "chat", %{
               from: '',
-              message: "#{mob.name} has slain #{char.name}.",
+              message: "#{mob.name} has defeated #{char.name} in a duel!",
               stamp: :os.system_time(:seconds),
               opcode: "game.zone.broadcast"
             })
@@ -655,9 +654,9 @@ defmodule Server.VillageChannel do
             Forest.attack(char.id, updatedFight)
 
             push socket, "msg", %{
-              opcode: "game.zone.forest.round",
+              opcode: "game.zone.village.trainer.round",
               fight: updatedFight,
-              message: View.render_to_string(ForestView, "attack.html", updatedFight),
+              message: View.render_to_string(VillageView, "trainer-attack.html", updatedFight),
               actions: ["a", "s", "r"]
             }
           end

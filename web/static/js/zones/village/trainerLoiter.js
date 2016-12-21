@@ -14,13 +14,12 @@ export default {
       this.game.handle_out('game.zone.village.trainer.question', 'village');
     }
     cKeyPressed() {
+      console.log('fuckeofiasdofijadf');
       this.game.handle_out('game.zone.village.trainer.challenge', 'village');
     }
     rKeyPressed() {
       this.game.handle_out('game.zone.village.loiter', 'village');
     }
-
-    handle_in() {}
   },
   id: 'game.zone.village.trainer.loiter'
 }

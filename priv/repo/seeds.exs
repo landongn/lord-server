@@ -330,7 +330,7 @@ Repo.insert!(%Server.Master{
     welcome_message: "",
     challenge_message: "You know, you are actually getting pretty good with that thing...",
     talk_message: "You are now level two, and a respected warrior. Try talking to the Bartender, he will see you now.  He is a worthy asset... Remember, your ultimate goal is to reach Ultimate Warrior status, which is level twelve.",
-    player_defeat: "Another time, perhaps.",
+    player_defeat: "Nice try, pipsqueak! You need more training.",
     master_defeat: "You have bested me??!"
 })
 
@@ -379,21 +379,15 @@ Repo.insert!(%Server.Master{
 })
 
 Repo.delete_all Server.Level
-Repo.insert!(%Server.Level{
-    rank: 1,
-    minimum: 3000,
-    class_id: 1,
-    str: 3,
-    def: 3,
-    health: 20,
-    endurance: 10,
-})
+
 Repo.insert!(%Server.Level{
     rank: 2,
     minimum: 10000,
     class_id: 1,
     str: 3,
     def: 3,
+    reputation: 1,
+    mana: 10,
     health: 30,
     endurance: 20,
 })
@@ -403,6 +397,8 @@ Repo.insert!(%Server.Level{
     class_id: 1,
     str: 10,
     def: 10,
+    reputation: 1,
+    mana: 10,
     health: 45,
     endurance: 20,
 })

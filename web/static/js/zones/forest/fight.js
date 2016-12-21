@@ -29,7 +29,7 @@ export default {
     }
 
     rKeyPressed() {
-      this.out('loiter');
+      this.game.handle_out('game.zone.forest.run-away', 'forest');
     }
 
     handle_in(payload) {

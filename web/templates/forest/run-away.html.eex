@@ -1,0 +1,7 @@
+
+<li>You sprint for town.</li>
+<li>A small child saw you running for your dear life and tried to get your attention, but you just kept running until you were safely at the outskirts.</li>
+<li>The small child will probably tell others of this.</li>
+<li class="death">** YOU RAN AWAY **</li>
+<li><span class="white">** A STORY HAS BEEN POSTED ON THE TREE **</span></li>
+<li><span class="action" data-command="space">-= RESTART =-</span></li>

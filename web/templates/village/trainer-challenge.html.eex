@@ -2,8 +2,16 @@
 <li><span class="white">Legend Of The Red Dragon</span> - <span class="light"></span></li>
 <li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
 <li></li>
-<li>I don't work yet! Sorry.</li>
-<li></li>
+<li><%= @master.name %> looks you over one final time. </li>
+<%= if @char.experience >= @next_level.minimum do %>
+<li><p><%= @master.challenge_message %></p></li>
+<li><span class="action">(D)</span>ecide to wait</li>
+<li><span class="action">(A)</span>ttack!</li>
+<% else %>
+<li><p>You need about <span class="light"> <%= Number.Delimit.number_to_delimited((@next_level.minimum - @char.experience), precision: 0) %></span> experience before you're as skilled as me.</p></li>
+<li><span class="action">(D)</span>ecide to wait</li>
+<% end %>
+
 <pre>
-  <span data-command="space" class="action">(R)eturn to town</span>
-</section>
+
+<li><span data-command="space" class="action">(R)eturn to town</span></li>

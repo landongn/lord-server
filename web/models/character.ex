@@ -84,4 +84,14 @@ defmodule Server.Character do
     |> cast(params, [:armor_id, :gold])
     |> validate_required([:gold, :armor_id])
   end
+
+  def defeat_master(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:level, :health, :strength, :defense, :endurance, :mana, :reputation])
+    |> validate_required([:level, :health, :strength, :defense, :endurance, :mana, :reputation])
+  end
+
+  def master_fail(struct, params \\ %{}) do
+    struct |> cast(params, [:health]) |> validate_required([:health])
+  end
 end
