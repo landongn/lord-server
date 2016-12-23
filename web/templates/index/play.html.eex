@@ -1,16 +1,22 @@
-<div class="container">
+<div class="container-fluid">
+  <section class="area-stage">
 
-<ul id="log"></ul>
-<section class="chat">
+  </section>
+  <section class="output">
+    <ul id="log"></ul>
+  </section>
+
+  <section class="chat">
     <section class="chatlog">
         <ul class="chat-wrap"></ul>
     </section>
-</section>
-<div class="mute-button">
+    <input type="text" class="chat-enter" placeholder="press enter to chat" />
+  </section>
+</div>
 
-</div>
-<input type="text" class="chat-enter" placeholder="press enter to chat" />
-</div>
+<div class="character-sheet"></div>
+<div class="inventory"></div>
+
 
     <script>window.zlordtoken = "<%= assigns[:token] %>";</script>
     <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>

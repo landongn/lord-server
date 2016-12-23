@@ -1,3 +1,10 @@
+
+<div class="forest-scene">
+  <img src="/images/01-forest-back-trees.png" class="i-1" />
+  <img src="/images/02-forest-lights.png" class="i-2" />
+  <img src="/images/02-forest-middle-trees.png" class="i-3" />
+  <img src="/images/03-forest-front-trees.png" class="i-4" />
+</div>
 <li class="fight-start">**<span class="white">FIGHT</span>**</li>
 <li></li>
 <li>You have encountered a <span class="white"><%= @mob.name %></span>!!</li>

@@ -9,7 +9,7 @@
 </pre>
 
 
-<li>Welcome to the <span class="white">Legend of the Red Dragon</span>! touch purple text to get started, or go retro and use your keyboard.</li>
+<li class="fancy">Welcome to the <span class="white">Legend of the Red Dragon</span>! touch purple text to get started, or go retro and use your keyboard.</li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <li class="middle action" data-command="e">(<span data-command="e" class="action">E</span>)nter the realm of the Dragon</li>
 <li class="middle action" data-command="i">(<span data-command="i" class="action">I</span>)nstructions</li>

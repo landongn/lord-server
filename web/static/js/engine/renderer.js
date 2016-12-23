@@ -11,6 +11,11 @@ export default class Renderer {
         return temp.content;
     }
 
+    changeViewport(str) {
+        this.element.classList = [];
+        this.element.classList.add(str);
+    }
+
     stripCommandQueue() {
         // const el = document.querySelector('[data-volitile]');
         // el ? el.remove() : console.log('nothing to clean');

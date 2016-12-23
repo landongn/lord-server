@@ -9,10 +9,18 @@ export default {
       this.game = game;
       this.id = id;
       this.alreadyAttacking = false;
+      this.layerEl = document.querySelector('.forest-scene');
+      this.layers = ['/images/01-forest-back-trees.png',
+                     '/images/02-forest-lights.png',
+                     '/images/02-forest-middle-trees.png',
+                     '/images/03-forest-front-trees.png'
+      ];
+
+
     }
 
     load() {
-
+      this.game.renderer.changeViewport("forest");
     }
 
     out(place) {
