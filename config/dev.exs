@@ -11,7 +11,7 @@ config :server, Server.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/gulp/bin/gulp.js", "--stdin",
+  watchers: [node: ["node_modules/ember-cli/bin/ember", "serve",
                     cd: Path.expand("../", __DIR__)]]
 
 # Watch static and templates for browser reloading.

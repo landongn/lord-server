@@ -1,23 +1,6 @@
-<div class="container-fluid">
-  <section class="area-stage">
 
-  </section>
-  <section class="output">
-    <ul id="log"></ul>
-  </section>
-
-  <section class="chat">
-    <section class="chatlog">
-        <ul class="chat-wrap"></ul>
-    </section>
-    <input type="text" class="chat-enter" placeholder="press enter to chat" />
-  </section>
-</div>
-
-<div class="character-sheet"></div>
-<div class="inventory"></div>
 
 
     <script>window.zlordtoken = "<%= assigns[:token] %>";</script>
-    <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= static_path(@conn, "/static/assets/vendor.js") %>"></script>
+    <script src="<%= static_path(@conn, "/static/assets/lord-server.js") %>"></script>
