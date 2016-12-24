@@ -1,2 +1,17 @@
-{{outlet}}
-{{nav/bottom-actions}}
+<div class="viewport left">
+  {{character/info-sheet char=char}}
+  {{character/party-list party=party}}
+
+</div>
+<div class="viewport right">
+  <section class="scene">
+    {{outlet}}
+  </section>
+   <div class="viewport logs">
+      {{chat/logging-display}}
+      {{chat/presence-display}}
+    </div>
+</div>
+<div class="viewport details">
+  {{details/map-view}}
+</div>

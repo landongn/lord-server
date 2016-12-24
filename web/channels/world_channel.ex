@@ -15,10 +15,8 @@ defmodule Server.WorldChannel do
 
   def join("world:system", payload, socket) do
     if authorized?(socket, payload) do
-      msg = View.render_to_string(WorldView, "motd.html", %{})
       {:ok, %{
-        message: msg,
-        opcode: "game.client.connect",
+        opcode: "world.connect",
         actions: ["enter", "space", "e", "i", "l"]
         }, socket}
     else
@@ -34,15 +32,14 @@ defmodule Server.WorldChannel do
   end
 
 
-  def handle_in("game.client.world.connect", _, socket) do
+  def handle_in("world.connect", _, socket) do
     push socket, "msg", %{
-      message: View.render_to_string(WorldView, "motd.html", %{}),
-      opcode: "game.client.connect",
+      opcode: "world.connect",
       actions: ["enter", "space", "e", "i", "l"]
     }
     {:noreply, socket}
   end
-  def handle_in("game.client.world.leaderboards", _, socket) do
+  def handle_in("world.leaderboards", _, socket) do
 
     chars = Repo.all from(c in Character,
       join: w in Weapon, on: w.id == c.weapon_id,
@@ -61,31 +58,31 @@ defmodule Server.WorldChannel do
       order_by: [desc: c.experience])
 
     push socket, "msg", %{
-      message: View.render_to_string(WorldView, "leaderboards.html", %{chars: chars}),
-      opcode: "game.client.world.leaderboards",
+      data: chars,
+      opcode: "world.leaderboards",
       actions: ["enter", "r", "space"]
     }
 
     {:noreply, socket}
   end
 
-  def handle_in("game.client.world.instructions", _, socket) do
+  def handle_in("world.instructions", _, socket) do
     push socket, "msg", %{
       message: View.render_to_string(WorldView, "instructions.html", %{}),
-      opcode: "game.client.world.instructions",
+      opcode: "world.instructions",
       actions: ["enter", "r", "space"]
     }
     {:noreply, socket}
   end
 
-  def handle_in("game.client.world.news", _, socket) do
+  def handle_in("world.news", _, socket) do
     posts = Repo.all from n in News,
       limit: 10,
       order_by: [desc: :id]
 
     push socket, "msg", %{
       message: View.render_to_string(WorldView, "news.html", %{posts: posts}),
-      opcode: "game.client.world.news",
+      opcode: "world.news",
       actions: ["enter", "space"]
     }
     {:noreply, socket}

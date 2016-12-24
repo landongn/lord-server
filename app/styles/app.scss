@@ -1,0 +1,26 @@
+@import "reset.scss";
+
+@font-face {
+    font-family: 'Classic Console';
+    src: url('../fonts/ClassicConsole.eot');
+    src: url('../fonts/ClassicConsole.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ClassicConsole.woff2') format('woff2'),
+        url('../fonts/ClassicConsole.woff') format('woff'),
+        url('../fonts/ClassicConsole.ttf') format('truetype'),
+        url('../fonts/ClassicConsole.svg#ClassicConsole') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    background-color:#000;
+    color: #03C705;
+    font-family: 'Classic Console';
+    font-size: 1.1rem;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+@import "components/globals";
+@import "components/layout";
+
+@import "components/statistics";

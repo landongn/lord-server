@@ -1,0 +1,70 @@
+main {
+  width: 99%;
+}
+main > .ember-view {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+
+.viewport {
+  display: flex;
+  flex-direction: column;
+  &.left {
+    flex: 1 0 0;
+  }
+  &.right {
+    flex: 4 0 0;
+  }
+  &.details {
+    flex: 1 0 0;
+  }
+  &.logs {
+    flex: 1;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    flex-direction: row;
+  }
+}
+
+.character {
+  display: flex;
+  flex-direction: row;
+}
+
+.chat {
+  flex:1;
+  margin: 4px;
+}
+
+
+
+.scene {
+  display: flex;
+  flex-direction: column;
+}
+.scene > .ember-view {
+  margin: 4px;
+  font-size: 12px;
+}
+
+
+.logging-display {
+  flex: 2 0 0;
+  margin: 4px;
+  border: 1px solid violet;
+}
+.presence-display {
+  flex: 1 0 0;
+  margin: 4px;
+  min-width: 100px;
+  border: 1px solid blue;
+}
+.action-bar {
+  flex: 1;
+  margin: 4px;
+}
+
