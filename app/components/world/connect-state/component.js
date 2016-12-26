@@ -4,7 +4,7 @@ import Scene from '../sceneComponent';
 export default Scene.extend({
   willRender() {
     this.get('navigation').addListener('world.connect', this);
-  }
+  },
   didRender() {
     console.log(this);
   },
