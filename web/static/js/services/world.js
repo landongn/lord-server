@@ -22,7 +22,11 @@ import InnBartenderState from '../zones/village/inn/innBartender';
 import InnLoiterState from '../zones/village/inn/innLoiter';
 import InnRoomAskState from '../zones/village/inn/innRoomAsk';
 import InnVioletState from '../zones/village/inn/innViolet';
-import InnRoomConfirmState from '../zones/village/inn/inRoomConfirm';
+import InnRoomConfirmState from '../zones/village/inn/innRoomConfirm';
+import InnBartenderGemState from '../zones/village/inn/innBartenderGems';
+import InnBartenderGemConfirmState from '../zones/village/inn/innBartenderGemConfirm';
+import InnBartenderGemDoneState from '../zones/village/inn/innBartenderGemDone';
+
 
 import VillageLeaderboardState from '../zones/village/leaderboards';
 import VillageNewsState from '../zones/village/news';
@@ -77,6 +81,9 @@ export default class World {
       [InnNewsState.id]: new InnNewsState.cls(game, InnNewsState.id),
       [InnMessageboardState.id]: new InnMessageboardState.cls(game, InnMessageboardState.id),
       [InnBartenderState.id]: new InnBartenderState.cls(game, InnBartenderState.id),
+      [InnBartenderGemState.id]: new InnBartenderGemState.cls(game, InnBartenderGemState.id),
+      [InnBartenderGemDoneState.id]: new InnBartenderGemDoneState.cls(game, InnBartenderGemDoneState.id),
+
       [InnLoiterState.id]: new InnLoiterState.cls(game, InnLoiterState.id),
       [InnRoomAskState.id]: new InnRoomAskState.cls(game, InnRoomAskState.id),
       [InnVioletState.id]: new InnVioletState.cls(game, InnVioletState.id),

@@ -407,16 +407,61 @@ defmodule Server.VillageChannel do
     {:noreply, socket}
   end
 
-   def handle_in("game.zone.village.inn.bartender.gems", payload, socket) do
+  def handle_in("game.zone.village.inn.bartender.gems", payload, socket) do
 
     push socket, "msg", %{
-      opcode: "game.zone.village.inn.bartender",
+      opcode: "game.zone.village.inn.bartender.gems",
       message: View.render_to_string(VillageView, "inn-bartender-gems.html", %{}),
-      actions: []
+      actions: ["r", "b", "g", "n"]
     }
     {:noreply, socket}
   end
 
+  def handle_in("game.zone.village.inn.bartender.gem-purchase", payload, socket) do
+
+    kind = payload["gemtype"]
+    char = Repo.get(Character, payload["char_id"])
+
+    if char.gems <= 1 do
+      push socket, "msg", %{
+        opcode: "game.zone.village.inn.bartender.gem.fail",
+        message: View.render_to_string(VillageView, "inn-bartender-gem-fail.html", %{}),
+        actions: ["r"]
+      }
+    end
+
+    case kind do
+      "green" ->
+        changeset = Character.buy_green_gem(%Character{id: char.id}, %{health: (char.health + 2),
+          gems: (char.gems - 2)})
+        Repo.update(changeset);
+        push socket, "msg", %{
+          opcode: "game.zone.village.inn.bartender.gem.done",
+          message: View.render_to_string(VillageView, "inn-bartender-gem-green-imbibe.html", %{}),
+          actions: ["space", "enter"]
+        }
+      "red" ->
+        changeset = Character.buy_red_gem(%Character{id: char.id}, %{strength: (char.strength + 1),
+          gems: (char.gems - 2)})
+        Repo.update(changeset);
+        push socket, "msg", %{
+          opcode: "game.zone.village.inn.bartender.gem.done",
+          message: View.render_to_string(VillageView, "inn-bartender-gem-red-imbibe.html", %{}),
+          actions: ["space", "enter"]
+        }
+      "blue" ->
+        changeset = Character.buy_blue_gem(%Character{id: char.id}, %{defense: (char.defense + 1),
+          gems: (char.gems - 2)})
+        Repo.update(changeset);
+        push socket, "msg", %{
+          opcode: "game.zone.village.inn.bartender.gem.done",
+          message: View.render_to_string(VillageView, "inn-bartender-gem-blue-imbibe.html", %{}),
+          actions: ["space", "enter"]
+        }
+    end
+
+    {:noreply, socket}
+  end
   def handle_in("game.zone.village.inn.stats", payload, socket) do
 
     push socket, "msg", %{

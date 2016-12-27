@@ -94,4 +94,22 @@ defmodule Server.Character do
   def master_fail(struct, params \\ %{}) do
     struct |> cast(params, [:health]) |> validate_required([:health])
   end
+
+  def buy_red_gem(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:strength, :gems])
+    |> validate_required([:strength, :gems])
+  end
+
+  def buy_green_gem(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:health, :m_health, :gems])
+    |> validate_required([:health, :m_health, :gems])
+  end
+
+  def buy_blue_gem(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:defense, :gems])
+    |> validate_required([:defense, :gems])
+  end
 end
