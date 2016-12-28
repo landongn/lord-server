@@ -1,17 +1,15 @@
-<div class="container">
+<section class="game">
+  <ul id="log"></ul>
+  <section class="chat">
+      <section class="chatlog">
+          <ul class="chat-wrap"></ul>
+      </section>
+      <input type="text" class="chat-enter" placeholder="press enter to chat" />
 
-<ul id="log"></ul>
-<section class="chat">
-    <section class="chatlog">
-        <ul class="chat-wrap"></ul>
-    </section>
+  </section>
 </section>
-<div class="mute-button">
 
-</div>
-<input type="text" class="chat-enter" placeholder="press enter to chat" />
-</div>
 
-    <script>window.zlordtoken = "<%= assigns[:token] %>";</script>
-    <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+<script>window.zlordtoken = "<%= assigns[:token] %>";</script>
+<script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
+<script src="<%= static_path(@conn, "/js/app.js") %>"></script>

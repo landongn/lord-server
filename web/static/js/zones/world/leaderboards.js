@@ -21,5 +21,5 @@ export default {
 
     },
 
-    id: 'game.zone.world.leaderboards'
+    id: 'game.client.world.leaderboards'
 }

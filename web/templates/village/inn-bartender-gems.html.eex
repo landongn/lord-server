@@ -1,11 +1,26 @@
 
 <li><span class="white">Legend Of The Red Dragon</span> - <span class="light">The Inn</span></li>
-<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
 <li>The bartender lifts a small chest with various tinctures and potions within.  He motions for you to make a decision.</li>
-<li><span data-command="r" class="action">(R)</span>ed potion<li>
-<li><span data-command="b" class="action">(B)</span>lue potion<li>
-<li><span data-command="g" class="action">(G)</span>reen potion<li>
-<li><span data-command="n" class="action">(N)</span>evermind<li>
+
+
+<section class="potion-vendor">
+  <section class="potion">
+    <img src="/images/potion-red.png" alt="" class="potion">
+    <span data-command="r" class="action">(R)</span>ed potion
+  </section>
+
+  <section class="potion">
+    <img src="/images/potion-blue.png" alt="" class="potion">
+    <span data-command="b" class="action">(B)</span>lue potion
+  </section>
+
+  <section class="potion">
+    <img src="/images/potion-green.png" alt="" class="potion">
+    <span data-command="g" class="action">(G)</span>reen potion
+  </section>
+</section>
+
 
 <li class="command">
   <span class="action">The Red Dragon Inn</span>

@@ -10,11 +10,15 @@
 
 
 <li>Welcome to the <span class="white">Legend of the Red Dragon</span>! touch purple text to get started, or go retro and use your keyboard.</li>
-<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
-<li class="middle action" data-command="e">(<span data-command="e" class="action">E</span>)nter the realm of the Dragon</li>
-<li class="middle action" data-command="i">(<span data-command="i" class="action">I</span>)nstructions</li>
-<li class="middle action" data-command="l">(<span data-command="l" class="action">L</span>)eaderboards</li>
-<li class="command middle">
-  Your Choice? <span class="blink cursor">&#x2581;</span>
-  <span data-volitile data-command="enter" class="command-options">(Enter)</span>
+<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
+<li class=" action" data-command="e">(<span data-command="e" class="action">E</span>)nter the realm of the Dragon</li>
+<li class=" action" data-command="i">(<span data-command="i" class="action">I</span>)nstructions</li>
+<li class=" action" data-command="l">(<span data-command="l" class="action">L</span>)eaderboards</li>
+
+
+<li class="command">
+  <span class="action">Message of the Day</span>
+  <span class="command-options">(E, I, L)</span>
 </li>
+
+

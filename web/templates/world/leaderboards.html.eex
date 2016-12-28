@@ -37,8 +37,11 @@
         </tr>
     <% end %>
 </table>
-<li class="middle action" data-command="l">(<span data-command="r" class="action">R</span>)eturn to menu</li>
-<li class="command middle">
-  Your Choice? <span class="blink cursor">&#x2581;</span>
-  <span data-volitile data-command="r" class="command-options">(R)</span>
+
+
+
+<li class="command">
+  <span class="action">Realm Leaderboards</span>
+  <span class="command-options">(R, G, B, N)</span>
 </li>
+

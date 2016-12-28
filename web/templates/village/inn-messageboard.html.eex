@@ -1,0 +1,28 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">The Inn</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li>Patrons of the bar surround you.</li>
+<li>As you sit at your table, you focus your attention on the conversations around you...</li>
+
+<div class="posts">
+  <%= for {p, id} <- Enum.with_index(@posts) do %>
+  <div class="post">
+    <section class="post-details">
+      <aside>posted by <%= p.posted_by %></aside>
+    </section>
+    <section class="post-body"><%= p.body %></section>
+  </div>
+  <% end %>
+</div>
+
+<li><span data-command="n" class="action">(N)</span>ext page<li>
+<li><span data-command="g" class="action">(W)</span>rite a post<li>
+<li><span data-command="r" class="action">(R)</span>eturn to bar<li>
+
+<li class="command">
+  <span class="action">The Red Dragon Inn</span>
+  <span class="command-options">(V, G, B, R)</span>
+</li>
+
+<li><span class="blink cursor">&#x2581;</span></li>
+

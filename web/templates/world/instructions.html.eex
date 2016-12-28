@@ -16,10 +16,16 @@
 <li>When you've tired of the forest, you can head for the Inn, to flirt with The Bard or Violet, depending on your tastes. You can speak with the Bartender, who may trade gems for potions granting great power to the imbiber.  </li>
 <li>Finally, when the time is ready and you have become powerful, you could participate in a raid on the Red Dragon's lair, where you an up to 5 people take on the fearsome Red Dragon, and its minions.  Only the most stalwart and coordinated player teams can pull off such bravery.</li>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
-<li class="middle action" data-command="e">(<span data-command="e" class="action">E</span>)nter the realm of the Dragon</li>
-<li class="middle action" data-command="i">(<span data-command="i" class="action">I</span>)nstructions</li>
-<li class="middle action" data-command="l">(<span data-command="l" class="action">L</span>)eaderboards</li>
-<li class="command middle">
-  Your Choice? <span class="blink cursor">&#x2581;</span>
-  <span data-volitile data-command="enter" class="command-options">(Enter)</span>
+<li class="middle" data-command="e">(<span data-command="e" class="action">E</span>)nter the realm of the Dragon</li>
+<li class="middle" data-command="i">(<span data-command="i" class="action">I</span>)nstructions</li>
+<li class="middle" data-command="l">(<span data-command="l" class="action">L</span>)eaderboards</li>
+
+
+
+
+<li class="command">
+  <span class="action">Instructions</span>
+  <span class="command-options">(R, G, B, N)</span>
 </li>
+
+

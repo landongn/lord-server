@@ -1,0 +1,18 @@
+.posts {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+
+  .post {
+    display: flex;
+    padding: 10px;
+    flex-direction: row;
+    .post-details {
+      margin: 10px;
+      color:white;
+    }
+    .post-body {
+      margin: 10px;
+    }
+  }
+}

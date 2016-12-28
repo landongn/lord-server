@@ -17,6 +17,8 @@ import ArmorSellOfferState from '../zones/village/armor/armorSellOffer';
 import InnBardState from '../zones/village/inn/innBard';
 import InnStatsState from '../zones/village/inn/innStats';
 import InnMessageboardState from '../zones/village/inn/innMessageboard';
+import InnMessageBoardWriteState from '../zones/village/inn/innMessageboardConfirm';
+import InnMessageBoardCreateState from '../zones/village/inn/innMessageboardWrite';
 import InnNewsState from '../zones/village/inn/innNews';
 import InnBartenderState from '../zones/village/inn/innBartender';
 import InnLoiterState from '../zones/village/inn/innLoiter';
@@ -79,6 +81,8 @@ export default class World {
       [InnBardState.id]: new InnBardState.cls(game, InnBardState.id),
       [InnStatsState.id]: new InnStatsState.cls(game, InnStatsState.id),
       [InnNewsState.id]: new InnNewsState.cls(game, InnNewsState.id),
+      [InnMessageBoardWriteState.id]: new InnMessageBoardWriteState.cls(game, InnMessageBoardWriteState.id),
+      [InnMessageBoardCreateState.id]: new InnMessageBoardCreateState.cls(game, InnMessageBoardCreateState.id),
       [InnMessageboardState.id]: new InnMessageboardState.cls(game, InnMessageboardState.id),
       [InnBartenderState.id]: new InnBartenderState.cls(game, InnBartenderState.id),
       [InnBartenderGemState.id]: new InnBartenderGemState.cls(game, InnBartenderGemState.id),

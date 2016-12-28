@@ -12,6 +12,7 @@ defmodule Server.VillageChannel do
   alias Server.Master
   alias Server.Skill
   alias Server.Level
+  alias Server.Post
   alias Game.Forest
   alias Server.Combat
 
@@ -486,10 +487,64 @@ defmodule Server.VillageChannel do
 
   def handle_in("game.zone.village.inn.messageboard", payload, socket) do
 
+    posts = Repo.all from(p in Post,
+      where: p.location == 1,
+      order_by: [desc: p.inserted_at],
+      limit: 20)
+
     push socket, "msg", %{
       opcode: "game.zone.village.inn.messageboard",
-      message: View.render_to_string(VillageView, "inn-messageboard.html", %{}),
-      actions: []
+      message: View.render_to_string(VillageView, "inn-messageboard.html", %{posts: posts}),
+      actions: ["n", "w", "m", "r"]
+    }
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.village.inn.messageboard.write", payload, socket) do
+    push socket, "msg", %{
+      opcode: "game.zone.village.inn.messageboard.write",
+      message: View.render_to_string(VillageView, "inn-messageboard-write.html", %{}),
+      actions: ["n", "w", "m", "r"]
+    }
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.village.inn.messageboard.save", payload, socket) do
+    char_id = payload["char_id"]
+    body = payload["body"]
+
+    location = 1
+    char = Repo.get(Character, char_id)
+    changeset = Post.changeset(%Post{}, %{posted_by: char.name, location: 1, body: body})
+    case Repo.insert(changeset) do
+      {:ok, _} ->
+        push socket, "msg", %{
+          opcode: "game.zone.village.inn.messageboard.save",
+          message: View.render_to_string(VillageView, "inn-messageboard-save.html", %{}),
+          actions: ["r", "space", "enter"]
+        }
+      {:error, changeset} ->
+        push socket, "msg", %{
+          opcode: "game.zone.village.inn.messageboard.error",
+          message: View.render_to_string(VillageView, "inn-messageboard-write.html", %{}),
+          actions: ["r", "space", "enter"]
+        }
+    end
+
+    {:noreply, socket}
+  end
+
+  def handle_in("game.zone.village.inn.messageboard.page", payload, socket) do
+    posts = Repo.all from(p in Post,
+      where: p.location == 1,
+
+      order_by: [desc: p.inserted_at],
+      limit: 20)
+
+    push socket, "msg", %{
+      opcode: "game.zone.village.inn.messageboard",
+      message: View.render_to_string(VillageView, "inn-messageboard.html", %{posts: posts}),
+      actions: ["n", "w", "m", "r"]
     }
     {:noreply, socket}
   end
@@ -498,10 +553,10 @@ defmodule Server.VillageChannel do
 
     char = Repo.get(Character, payload["char_id"])
     missing_health = char.m_health - char.health
-
+    cost = round(char.level * char.level);
     push socket, "msg", %{
       opcode: "game.zone.village.healer.loiter",
-      message: View.render_to_string(VillageView, "healer-loiter.html", %{char: char, missing_health: missing_health}),
+      message: View.render_to_string(VillageView, "healer-loiter.html", %{char: char, missing_health: missing_health, cost: cost}),
       actions: ["h", "a", "r"]
     }
 

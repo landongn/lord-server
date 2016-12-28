@@ -1,0 +1,18 @@
+
+<li><span class="white">Legend Of The Red Dragon</span> - <span class="light">The Inn</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+
+
+<li>What would you like to say?
+    <input class="action action-input-new-post" name="post-new" />
+</li>
+
+<li>press shift+enter when finished, or tap <span class="action" data-command="save">-= Here =-</span></li>
+
+<li class="command">
+  <span class="action">The Red Dragon Inn</span>
+  <span class="command-options">(V, G, B, R)</span>
+</li>
+
+<li><span class="blink cursor">&#x2581;</span></li>
+

@@ -1,8 +1,16 @@
-<img class="centered" src="/images/forest.png" style="max-width: 75%;">
+<li><span class="white">Legend of the Red Dragon</span> - The Nektulos Forest</li>
+<li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 
-<li>The strong stench of death permiates the air surrounding the forest.</li>
-<li>As you come to the fork in the path, you rest for a moment near the trunk of an imposing tree, which is littered with engravings and markings. </li>
-<li>Surveying the area, you think about what to do next.</li>
+<section class="exposition">
+  <p>As you exit the cavernous city of Neriak, you survey the surroundings as your eyes strain from the murky light.</p>
+
+  <p>Two guards dutifully stand watch at the entrance, helping hapless young adventurers who are thirstier than their own appitite for bloodshed. </p>
+
+  <p>Iron Golems patrol the routes to the east and south, while the path to the east is manned only by a few resolute guards. Heading north from here is back to Neriak.</p>
+
+  <p>You strap your weapon to your back, and head out to the first fork in the road. </p>
+</section>
+
 
 <section class="forest-stats">
   <section class="vitals">
@@ -27,10 +35,8 @@
 </section>
 <li class="sep">=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=</li>
 <li class="command">
-  Your Choice? <span class="blink cursor">&#x2581;</span>
-  <span data-command="enter" class="command-options">(Enter)</span>
-  <span data-command="l" class="command-options">(L)</span>
-  <span data-command="h" class="command-options">(H)</span>
-  <span data-command="v" class="command-options">(V)</span>
-  <span class="menu">? for menu</span>
+  <span class="action">The Nektulos Forest</span>
+  <span class="command-options">(L, G, B, R)</span>
 </li>
+
+<li><span class="action">"Where to?"</span> You ask yourself.  <span class="blink cursor">&#x2581;</span></li>

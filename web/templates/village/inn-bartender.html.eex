@@ -1,7 +1,7 @@
 
 <li><span class="white">Legend Of The Red Dragon</span> - <span class="light">The Inn</span></li>
-<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
-<li>THe bartender escorts you into a back room. <span class="action">"I have heard yer name before kid... What do you want to talk about?"</span></li>
+<li class="sep">-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</li>
+<li>The bartender escorts you into a back room. <span class="dialog">"I have heard yer name before kid... What do you want to talk about?"</span></li>
 <li><span data-command="v" class="action">(V)</span>iolet<li>
 <li><span data-command="g" class="action">(G)</span>ems<li>
 <li><span data-command="b" class="action">(B)</span>ribe<li>
