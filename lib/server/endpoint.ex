@@ -9,7 +9,7 @@ defmodule Server.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/", from: :server, gzip: false,
-    only: ~w(css fonts images js effects favicon.ico robots.txt)
+    only: ~w(css fonts images js effects favicon.ico robots.txt geom)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

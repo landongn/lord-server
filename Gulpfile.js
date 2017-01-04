@@ -12,7 +12,12 @@ gulp.task('js', function () {
   browserify('./web/static/js/app.js')
     .transform("babelify", {presets: ["es2015"]})
     .bundle()
-    .pipe(fs.createWriteStream("./priv/static/js/app.js"))
+    .pipe(fs.createWriteStream("./priv/static/js/app.js"));
+
+  browserify('./web/static/js/prototype.js')
+    .transform("babelify", {presets: ["es2015"]})
+    .bundle()
+    .pipe(fs.createWriteStream("./priv/static/js/prototype.js"));
 });
 
 gulp.task('vendor', function () {

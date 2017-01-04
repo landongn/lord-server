@@ -34,6 +34,19 @@ defmodule Server.IndexController do
     render conn, "play.html"
   end
 
+  def theoasis(conn, _params) do
+    player_id = get_session(conn, :player_id)
+    if player_id == nil do
+
+      conn
+      |> Server.Auth.logout
+      |> put_flash(:info, "you need to log in to play")
+      |> redirect(to: index_path(conn, :login_form))
+      |> halt
+    end
+    render conn, "prototype.html"
+  end
+
   def about(conn, _) do
     render conn, "about.html"
   end

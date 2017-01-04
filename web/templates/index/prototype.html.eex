@@ -1,0 +1,6 @@
+<section class="game"></section>
+
+
+<script>window.zlordtoken = "<%= assigns[:token] %>";</script>
+<script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
+<script src="<%= static_path(@conn, "/js/prototype.js") %>"></script>

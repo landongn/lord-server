@@ -37,6 +37,9 @@ defmodule Server.Router do
     post "/login", IndexController, :login
     post "/signup", IndexController, :register
 
+    # new prototype area for threejs
+
+    get "/the-oasis-of-marr", IndexController, :theoasis
 
     get "/patchnotes", UpdateController, :index
   end

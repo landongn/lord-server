@@ -7,6 +7,7 @@ defmodule Game.Forest do
   alias Server.Character
   alias Server.Entity
   import Ecto.Query
+
   def start_link(initial_state) do
    GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)
   end
