@@ -91,5 +91,10 @@ defmodule Server.WorldChannel do
     {:noreply, socket}
   end
 
+  def handle_in("game.client.position.update", payload, socket) do
+    broadcast socket, "position", %{player: payload["id"], vec3: payload["vec3"]}
+
+    {:noreply, socket}
+  end
 
 end

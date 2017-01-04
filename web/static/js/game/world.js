@@ -118,6 +118,7 @@ export default class World {
     }
   }
   onMouseUp(e) {
+    this.zone.mouseup(e);
   }
   onMouseMove (e) {
 

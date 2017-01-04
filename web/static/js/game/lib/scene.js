@@ -10,11 +10,25 @@ const XPOSB = 2850;
 const Player_Start3 = [2806, -1285, -62];
 const Camera_Start3 = [2806, -1266, 282]
 const Camera_Start_RotationX = 0;
+import {Socket} from 'phoenix';
 
 export default class Scene {
   constructor(world) {
+    this.socket = new Socket('/socket', {params: {token: window.zlordtoken}});
+    this.socket.connect();
+    this.eventbus = this.socket.channel('world:system', {});
+
+    this.eventbus.join();
+    this.eventbus.on('position', (data) => {
+      const p = this.entities[data.id];
+      if (p) {
+        p.position.set(data.vec3.x, data.vec3.y, data.vec3.z);
+      } else {
+        this.createPlayer(data.id, data.vec3);
+      }
+    });
     this.world = world;
-    this.entities = [];
+    this.entities = {};
     this.mobs = [];
     this.lights = {};
     this.scene = new THREE.Scene();
@@ -32,6 +46,45 @@ export default class Scene {
     }
 
     this.loader = new THREE.OBJLoader( this.manager );
+  }
+
+  createPlayer(id, pos) {
+    const player = new THREE.Group();
+
+    const playerMeshGeom = new THREE.BoxGeometry(5, 5, 5);
+    playerMeshGeom.computeFaceNormals();
+    const playerMat = new THREE.MeshToonMaterial({
+      color: 0x00ffff,
+
+    });
+    const playerMesh = new THREE.Mesh(playerMeshGeom, playerMat);
+    playerMesh.receiveShadows = true;
+    playerMesh.castShadows = true;
+    player.add(playerMesh);
+    this.scene.add(player);
+    player.position.set(pos.x, pos.y, pos.z);
+
+
+    const player_pointLight = new THREE.PointLight(0xffffff, 1, 10, 100);
+    player_pointLight.position.set(Player_Start3[0], Player_Start3[1], Player_Start3[2]);
+    var spotLight = new THREE.SpotLight( 0xffffff, 1 );
+    this.spotLight = spotLight;
+    spotLight.position.set( Player_Start3[0], Player_Start3[1], 120 );
+    spotLight.rotation.set( 0, 1, 0);
+
+    spotLight.castShadow = true;
+
+    spotLight.shadow.mapSize.width = 1024;
+    spotLight.shadow.mapSize.height = 1024;
+
+    spotLight.shadow.camera.near = 500;
+    spotLight.shadow.camera.far = 4000;
+    spotLight.shadow.camera.fov = 10;
+
+    player.add(player_pointLight);
+    player.add(spotLight);
+
+    this.entities[id] = player;
   }
 
   load(renderer, camera) {
@@ -172,6 +225,7 @@ export default class Scene {
       const camvec3 = this.player.position.clone();
       camvec3.set(this.mousePosition.x, this.mousePosition.y, this.camera.position.z);
       this.camera.position.lerp(camvec3, 1.0 * delta);
+      this.eventbus.push("game.client.position.update", {id: window.zlordtoken, vec3: this.player.position});
     }
   }
 
@@ -187,7 +241,14 @@ export default class Scene {
     this.LMBDown = true;
     this.mousePosition= intersections[0].point;
   }
-  button2Down(e) {}
+  mouseup(e) {
+    var self = this;
+    this.LMBLock ? void(0) : (function() {
+      self.LMBLock = true;
+      setTimeout(() => { self.LMBDown = false; }, 4000);
+    }());
+
+  }
   button1Up(e) {}
   button2Up(e) {}
 
