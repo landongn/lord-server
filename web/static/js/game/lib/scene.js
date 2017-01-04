@@ -20,6 +20,7 @@ export default class Scene {
     this.scene = new THREE.Scene();
     this.moveIntent = false;
     this.terrain = null;
+    this.mousePosition = null;
 
     this.cameraNewPos = new THREE.Vector3(0, 0, 0);
 
@@ -106,7 +107,7 @@ export default class Scene {
 
     const player_pointLight = new THREE.PointLight(0xffffff, 1, 10, 100);
     player_pointLight.position.set(Player_Start3[0], Player_Start3[1], Player_Start3[2]);
-    var spotLight = new THREE.SpotLight( 0xeeeeee, 1 );
+    var spotLight = new THREE.SpotLight( 0xffffff, 1 );
     this.spotLight = spotLight;
     spotLight.position.set( Player_Start3[0], Player_Start3[1], 120 );
     spotLight.rotation.set( 0, 1, 0);
@@ -133,7 +134,7 @@ export default class Scene {
     this.world.gui.add(this, 'lookAtPlayer');
 
     this.dayCycleMax = 1;
-    this.dayCycle = 0;
+    this.dayCycle = 0.5;
     this.dayCycleIncrement = 0.0001;
     this.daytime = false;
   }
@@ -164,12 +165,27 @@ export default class Scene {
       this.daytime = true;
     }
     this.spotLight.intensity = this.dayCycle;
+
+    if (this.LMBDown) {
+      this.player.lookAt(this.mousePosition);
+      this.player.position.lerp(this.mousePosition, (2.0 * delta));
+      const camvec3 = this.player.position.clone();
+      camvec3.set(this.mousePosition.x, this.mousePosition.y, this.camera.position.z);
+      this.camera.position.lerp(camvec3, 1.0 * delta);
+    }
   }
+
+
 
   keyDown(e) {}
   keyUp(e) {}
+
+  mousemove(e) {
+
+  }
   leftClick(e, intersections) {
-    console.log(intersections[0]);
+    this.LMBDown = true;
+    this.mousePosition= intersections[0].point;
   }
   button2Down(e) {}
   button1Up(e) {}
