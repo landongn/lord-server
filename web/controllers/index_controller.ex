@@ -21,6 +21,10 @@ defmodule Server.IndexController do
     render conn, "login.html", changeset: changeset
   end
 
+  def game(conn, _params) do
+    render conn, "game.html"
+  end
+
   def play(conn, _params) do
     player_id = get_session(conn, :player_id)
     if player_id == nil do
