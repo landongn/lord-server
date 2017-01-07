@@ -40,7 +40,7 @@ defmodule Server.Router do
     # new prototype area for threejs
 
     get "/the-oasis-of-marr", IndexController, :theoasis
-    get "/high-class-flatulence", IndexController, :game
+    get "/game", IndexController, :game
     get "/patchnotes", UpdateController, :index
   end
 

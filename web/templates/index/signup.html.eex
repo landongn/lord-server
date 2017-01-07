@@ -1,4 +1,15 @@
-<nav class="navbar navbar-dark">
+  <title>LORD - Legend of the Red Dragon</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+      <main role="main">  <title>LORD - Legend of the Red Dragon</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+      <main role="main">
+      <nav class="navbar navbar-dark">
   <div class="container">
     <div class="navbar-xs" id="exCollapsingNavbar2">
       <a class="navbar-brand" href="#">LORD</a>

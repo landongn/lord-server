@@ -4,7 +4,7 @@ const BACKWARD = 115;
 const RIGHT_ROTATION = 100;
 const LEFT_ROTATION = 97;
 const UP = 32;
-
+const GRAVITY = 0.0093;
 const XPOSB = 2850;
 
 const Player_Start3 = [2806, -1285, -62];
@@ -20,11 +20,12 @@ export default class Scene {
 
     this.eventbus.join();
     this.eventbus.on('position', (data) => {
-      const p = this.entities[data.id];
+      if (data.player === window.zlordtoken) {return;}
+      const p = this.entities[data.player];
       if (p) {
         p.position.set(data.vec3.x, data.vec3.y, data.vec3.z);
       } else {
-        this.createPlayer(data.id, data.vec3);
+        this.createPlayer(data.player, data.vec3);
       }
     });
     this.world = world;
@@ -66,32 +67,20 @@ export default class Scene {
 
 
     const player_pointLight = new THREE.PointLight(0xffffff, 1, 10, 100);
-    player_pointLight.position.set(Player_Start3[0], Player_Start3[1], Player_Start3[2]);
-    var spotLight = new THREE.SpotLight( 0xffffff, 1 );
-    this.spotLight = spotLight;
-    spotLight.position.set( Player_Start3[0], Player_Start3[1], 120 );
-    spotLight.rotation.set( 0, 1, 0);
-
-    spotLight.castShadow = true;
-
-    spotLight.shadow.mapSize.width = 1024;
-    spotLight.shadow.mapSize.height = 1024;
-
-    spotLight.shadow.camera.near = 500;
-    spotLight.shadow.camera.far = 4000;
-    spotLight.shadow.camera.fov = 10;
+    // player_pointLight.position.set(Player_Start3[0], Player_Start3[1], Player_Start3[2]);
 
     player.add(player_pointLight);
-    player.add(spotLight);
 
     this.entities[id] = player;
+
+    return this.entities[id];
   }
 
   load(renderer, camera) {
     this.camera = camera;
-    this.lights["ambient"] = new THREE.AmbientLight( 0x333333, 1 );
+    this.lights["ambient"] = new THREE.AmbientLight( 0x666666, 1 );
     this.lights['skybox'] = new THREE.HemisphereLight(0x111111, 0x000000, 0.5);
-    this.lights['skyboxb'] = new THREE.HemisphereLight(0xffffff, 0x333333, 0.3);
+    this.lights['skyboxb'] = new THREE.HemisphereLight(0xffffff, 0x333333, 0.7);
     this.lights["skybox"].position.set( Player_Start3[0], -1212, 346 );
 
     this.scene = new THREE.Scene();
@@ -142,41 +131,9 @@ export default class Scene {
   }
 
   addEntities() {
-    this.player = new THREE.Group();
-
-    const playerMeshGeom = new THREE.BoxGeometry(5, 5, 5);
-    playerMeshGeom.computeFaceNormals();
-    const playerMat = new THREE.MeshToonMaterial({
-      color: 0x00ffff,
-
-    });
-    const playerMesh = new THREE.Mesh(playerMeshGeom, playerMat);
-    playerMesh.receiveShadows = true;
-    playerMesh.castShadows = true;
-    this.player.add(playerMesh);
+    this.player = this.createPlayer('player', {x: 0, y: 0, z: 0});
     this.scene.add(this.player);
     this.player.position.set(Player_Start3[0], Player_Start3[1], Player_Start3[2]);
-
-
-    const player_pointLight = new THREE.PointLight(0xffffff, 1, 10, 100);
-    player_pointLight.position.set(Player_Start3[0], Player_Start3[1], Player_Start3[2]);
-    var spotLight = new THREE.SpotLight( 0xffffff, 1 );
-    this.spotLight = spotLight;
-    spotLight.position.set( Player_Start3[0], Player_Start3[1], 120 );
-    spotLight.rotation.set( 0, 1, 0);
-    this.world.gui.add(spotLight, "visible");
-    spotLight.castShadow = true;
-
-    spotLight.shadow.mapSize.width = 1024;
-    spotLight.shadow.mapSize.height = 1024;
-
-    spotLight.shadow.camera.near = 500;
-    spotLight.shadow.camera.far = 4000;
-    spotLight.shadow.camera.fov = 10;
-
-    // player_pointLight.position.set(Player_Start3[0], -1090, 21);
-    this.player.add(player_pointLight);
-    this.player.add(spotLight);
 
     this.camera.lookAt(this.player.position);
 
@@ -217,10 +174,14 @@ export default class Scene {
     if (this.dayCycle <= 0) {
       this.daytime = true;
     }
-    this.spotLight.intensity = this.dayCycle;
+    this.lights['skyboxb'].intensity = this.dayCycle;
 
     if (this.LMBDown) {
-      this.player.lookAt(this.mousePosition);
+      const r = new THREE.Ray( this.player.position, this.player.position.UP );
+      console.log(r);
+      // const coll = r.intersectsObject(this.terrain);
+      // console.log(coll);
+      const newpos = new THREE.Vector3(this.mousePosition.x, this.mousePosition.y, this.mousePosition.z);
       this.player.position.lerp(this.mousePosition, (2.0 * delta));
       const camvec3 = this.player.position.clone();
       camvec3.set(this.mousePosition.x, this.mousePosition.y, this.camera.position.z);

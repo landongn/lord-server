@@ -1,6 +1,12 @@
-<section class="game"></section>
+  <title>Prototype</title>
+  <link rel="stylesheet" href="<%= static_path(@conn, "/css/game.css") %>">
+</head>
+
+<body>
+  <main role="main">
+  <section class="game"></section>
 
 
-<%# <script>window.zlordtoken = "<%= assigns[:token] %>";</script> %>
+<script>window.zlordtoken = "<%= assigns[:token] %>";</script>
 <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
-<script src="<%= static_path(@conn, "/js/prototype.js") %>"></script>
+<script src="<%= static_path(@conn, "/js/spaceballs.js") %>"></script>

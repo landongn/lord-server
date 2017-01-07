@@ -1,4 +1,10 @@
-<section class="game"></section>
+  <title>LORD - Legend of the Red Dragon</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+      <main role="main">
+      <section class="game"></section>
 
 
 <script>window.zlordtoken = "<%= assigns[:token] %>";</script>

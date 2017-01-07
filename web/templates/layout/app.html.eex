@@ -12,12 +12,7 @@
     <meta property="og:image" content="http://www.thelegendofthereddragon.com/images/intro.png" />
     <script>this.top.location !== this.location && (this.top.location = this.location);</script>
 
-    <title>LORD - Legend of the Red Dragon</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-  </head>
 
-  <body>
-      <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
 

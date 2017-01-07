@@ -21,7 +21,16 @@ defmodule Server.IndexController do
     render conn, "login.html", changeset: changeset
   end
 
-  def game(conn, _params) do
+def game(conn, _params) do
+    player_id = get_session(conn, :player_id)
+    if player_id == nil do
+
+      conn
+      |> Server.Auth.logout
+      |> put_flash(:info, "you need to log in to play")
+      |> redirect(to: index_path(conn, :login_form))
+      |> halt
+    end
     render conn, "game.html"
   end
 
